@@ -6,7 +6,7 @@ MAINTAINER adhruv
 ARG maple_parfile
 ARG solver_parfile
 
-COPY $maple_parfile /home/run/$solver_parfile
+COPY parfiles/$maple_parfile /home/run/$solver_parfile
 
 WORKDIR /home/run
 

@@ -1,7 +1,9 @@
 #!/bin/bash
 
-docker build -t $1_container:$2 --build-arg maple_image=akashdhruv/$1:$2 \
-                                --build-arg maple_parfile=./parfiles/parfile.$1:$2 \
-                                --build-arg solver_parfile=flash.par .
+source maple.config
 
-docker run --env solver_exe=flash4 -v $PWD/IOData/IOData_$1_$2:/home/run/IOData $1_container:$2
+docker build -t $maple_container --build-arg maple_image=$maple_image \
+                                 --build-arg maple_parfile=$maple_parfile \
+                                 --build-arg solver_parfile=$solver_parfile .
+
+docker run --env solver_exe=$solver_exe -v $PWD/IOData/IOData_$maple_container:/home/run/IOData $maple_container
