@@ -1,0 +1,5 @@
+#!/bin/bash
+
+docker build -t flash_container:$1 --build-arg flash_image=akashdhruv/flash:$1 .
+
+docker run -v $PWD/IOData:/home/run/IOData flash_container:$1

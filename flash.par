@@ -1,0 +1,105 @@
+# 	Runtime parameters for the Lid Driven Cavity problem.
+
+gr_pmRpDivergenceFree = 1
+gr_pmRpNfieldDivf = 2
+gr_pmRpConsvFluxes = .TRUE.
+gr_pmRpConsvFluxDensities = .FALSE.
+
+# Inverse of Reynolds Number
+invRe           = .001
+
+# Subgrid Scale model flag (0 no sgs model, 1 sgs model)
+isgs            = 0
+
+#       Grid dimensionality and geometry
+geometry	= "cartesian"
+
+
+#       Size of computational volume
+xmin		=  0.000000000000000
+xmax		=  1.000000000000000
+ymin		=  0.000000000000000
+ymax		=  1.000000000000000
+
+#       Boundary conditions
+xl_boundary_type = "noslip_ins"
+xr_boundary_type = "noslip_ins"
+yl_boundary_type = "noslip_ins"
+yr_boundary_type = "movlid_ins"
+
+#      Poisson Solver Boundary Conditions
+xl_mg_boundary_type = "outflow"
+xr_mg_boundary_type = "outflow"
+yl_mg_boundary_type = "outflow"
+yr_mg_boundary_type = "outflow"
+
+#     Temperature Wall Boundary Conditions
+Twall_high = 1.0
+Twall_low  = 0.0
+
+#       Simulation (grid, time, I/O) parameters
+run_comment	= "2D Lid Driven Cavity problem"
+log_file	= "INS_LidDr_Cavity.log"
+basenm		= "INS_LidDr_Cavity_"
+restart         = .false.
+#checkPointFileNumber=1
+#plotFileNumber  = 1
+nend            = 30000
+tmax            = 20.
+cflflg          = 1
+cfl             = 0.3
+sigma		= 0.2
+dtspec          = 1.0
+dtinit          = 1.0
+tstep_change_factor = 1.
+pressure_correct= .true.
+
+#Integration Scheme:
+intschm            = 2
+
+plot_var_1	= "pres"
+plot_var_2      = "delp"
+plot_var_3      = "temp"
+  
+pfft_setupOnce  = .false.
+convertToConsvdInMeshInterp = .false.
+
+checkpointFileIntervalTime = 5.
+checkpointFileIntervalStep =20000 
+
+plotFileIntervalTime = 1.
+plotFileIntervalStep = 2000
+
+##	AMR parameters
+nblockx	= 2
+nblocky	= 2
+lrefine_min	= 1
+lrefine_max     = 1
+nrefs           = 0
+refine_var_1    = "pres"
+##	Flux Conservation for AMR
+flux_correct    = .true.
+
+# Multigrid Convergence tolerance
+# Rickers Multigrid HG:
+mg_maxResidualNorm = 1.e-10
+
+## Multigrid Convergence tolerance
+mgrid_npresmooth = 1
+mgrid_npossmooth = 8
+mgrid_print_norm = .true.
+mgrid_max_residual_norm = 1.e-10
+mgrid_max_vcycles = 20
+
+# BiPCGStab Parameters:
+bipcgs_max_residual_norm = 1.e-10
+bipcgs_max_cycles = 1000
+bipcgs_print_norm = .true.
+
+## Force Direct solve in this level:
+#maxDirectSolveLevel=2
+
+## Pfft Parameters:
+## Use Central Finite Difference discretization operator:
+gr_pfftDiffOpDiscretize = 2
+gr_mgDiffOpDiscretize   = 2
