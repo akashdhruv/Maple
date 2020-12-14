@@ -4,9 +4,11 @@ FROM $maple_image
 MAINTAINER adhruv 
 
 ARG maple_parfile
-COPY $maple_parfile /home/run/flash.par
+ARG solver_parfile
+
+COPY $maple_parfile /home/run/$solver_parfile
 
 WORKDIR /home/run
 
-ENV maple_exe flash4
-CMD ["sh", "-c", "./$maple_exe"]
+ENV solver_exe=__none__
+CMD ["sh", "-c", "./$solver_exe"]
