@@ -1,9 +1,12 @@
-ARG flash_image=akashdhruv/flash:latest
+ARG maple_image
+FROM $maple_image
 
-FROM $flash_image
+MAINTAINER adhruv 
 
-COPY flash.par /home/run/.
+ARG maple_parfile
+COPY $maple_parfile /home/run/flash.par
 
 WORKDIR /home/run
 
-CMD ["./flash4"]
+ENV maple_exe flash4
+CMD ["sh", "-c", "./$maple_exe"]
