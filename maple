@@ -44,8 +44,6 @@ docker rm $maple_container
 fi
 
 if [ $1 = "clean" ]; then
-docker stop $maple_container
-docker rm $maple_container
-docker rmi -f ${maple_container}_image
-docker rmi -f $maple_image
+docker stop $(docker ps -aq)
+docker system prune -a
 fi
