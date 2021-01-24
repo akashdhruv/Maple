@@ -13,8 +13,11 @@ docker run --name $maple_container -v $PWD/IOData/IOData_$maple_container:/home/
 docker rm $maple_container
 fi
 
-if [ $1 = "pour" ]; then
+if [ $1 = "pull" ]; then
 docker pull $maple_image
+fi
+
+if [ $1 = "pour" ]; then
 docker run -dit --name $maple_container $maple_image bash
 fi
 
@@ -24,6 +27,11 @@ fi
 
 if [ $1 = "commit" ]; then
 docker commit $maple_container ${maple_container}_image
+fi
+
+if [ $1 = "push" ]; then
+docker tag ${maple_container}_image $2
+docker push $2
 fi
 
 if [ $1 = "repour" ]; then
