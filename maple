@@ -1,23 +1,49 @@
 #!/bin/bash
 
-source maple.config
+source $maple_config
 
 if [ $1 = "build" ]; then
-docker build -t $maple_container --build-arg maple_image=$maple_image \
-                                 --build-arg maple_parfile=$maple_parfile .
-
-fi
-
-if [ $1 = "rebuild" ]; then
-docker-compose build -t $maple_container --build-arg maple_image=$maple_image \
+docker build -t ${maple_container}_image --build-arg maple_image=$maple_image \
                                          --build-arg maple_parfile=$maple_parfile .
 
 fi
 
 if [ $1 = "run" ]; then
-docker run -v $PWD/IOData/IOData_$maple_container:/home/run/IOData $maple_container
+docker run --name $maple_container -v $PWD/IOData/IOData_$maple_container:/home/run/IOData ${maple_container}_image
+docker rm $maple_container
+fi
+
+if [ $1 = "pull" ]; then
+docker pull $maple_image
+fi
+
+if [ $1 = "pour" ]; then
+docker run -dit --name $maple_container $maple_image bash
+fi
+
+if [ $1 = "bash" ]; then
+docker exec -it $maple_container bash
+fi
+
+if [ $1 = "commit" ]; then
+docker commit $maple_container ${maple_container}_image
+fi
+
+if [ $1 = "push" ]; then
+docker tag ${maple_container}_image $2
+docker push $2
+fi
+
+if [ $1 = "repour" ]; then
+docker run -dit --name $maple_container ${maple_container}_image bash
+fi
+
+if [ $1 = "stop" ]; then
+docker stop $maple_container
+docker rm $maple_container
 fi
 
 if [ $1 = "clean" ]; then
-docker rmi -f $maple_container
+docker stop $(docker ps -aq)
+docker system prune -a
 fi
