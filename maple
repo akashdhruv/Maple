@@ -19,6 +19,7 @@ docker run -v $PWD/IOData/IOData_$maple_container:/home/run/IOData $maple_contai
 fi
 
 if [ $1 = "pour" ]; then
+docker pull $maple_image
 docker run -dit --name $maple_container $maple_image bash
 fi
 
