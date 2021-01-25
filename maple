@@ -9,7 +9,7 @@ docker build -t ${maple_container}_image --build-arg maple_image=$maple_image \
 fi
 
 if [ $1 = "run" ]; then
-docker run --name $maple_container -v $PWD/IOData/IOData_$maple_container:/home/run/IOData ${maple_container}_image
+docker run --name $maple_container -v $PWD/data/data_$maple_container:/home/run/IOData ${maple_container}_image
 docker rm $maple_container
 fi
 

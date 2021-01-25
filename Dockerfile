@@ -9,4 +9,4 @@ COPY parfiles/$maple_parfile /home/run/flash.par
 
 WORKDIR /home/run
 
-CMD ["sh", "-c", "./flash4"]
+CMD ["sh", "-c", "./flash4 && mv *hdf5* IOData/."]
