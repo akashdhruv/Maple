@@ -1,3 +1,0 @@
-maple_container="lidcav_container"
-maple_image="akashdhruv/flash:lidcav"
-maple_parfile="flash.par.lidcav"

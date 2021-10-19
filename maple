@@ -1,15 +1,16 @@
 #!/bin/bash
 
-source $maple_config
+source Maplefile
 
 if [ $1 = "build" ]; then
 docker build -t ${maple_container}_image --build-arg maple_image=$maple_image \
-                                         --build-arg maple_parfile=$maple_parfile .
-
+                                         --build-arg maple_parfile=$maple_parfile \
+                                         --build-arg USER_ID=$(id -u) \
+                                         --build-arg GROUP_ID=$(id -g) .
 fi
 
 if [ $1 = "run" ]; then
-docker run --name $maple_container -v $PWD/data/data_$maple_container:/home/run/IOData ${maple_container}_image
+docker run --name $maple_container -v $maple_src:$maple_target ${maple_container}_image
 docker rm $maple_container
 fi
 
@@ -18,7 +19,7 @@ docker pull $maple_image
 fi
 
 if [ $1 = "pour" ]; then
-docker run -dit --name $maple_container $maple_image bash
+docker run -dit --name $maple_container --mount type=bind,source=$maple_src,target=$maple_target ${maple_container}_image bash
 fi
 
 if [ $1 = "bash" ]; then
@@ -34,13 +35,17 @@ docker tag ${maple_container}_image $2
 docker push $2
 fi
 
-if [ $1 = "repour" ]; then
-docker run -dit --name $maple_container ${maple_container}_image bash
-fi
-
 if [ $1 = "stop" ]; then
 docker stop $maple_container
 docker rm $maple_container
+fi
+
+if [ $1 = "images" ]; then
+docker images -a
+fi
+
+if [ $1 = "containers" ]; then
+docker container ls -a
 fi
 
 if [ $1 = "clean" ]; then

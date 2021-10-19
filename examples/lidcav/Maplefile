@@ -1,0 +1,5 @@
+maple_container="lidcav_container"
+maple_image="akashdhruv/flash:lidcav"
+maple_target="/home/run/IOData"
+maple_src="$PWD/data"
+maple_parfile="./flash.par"
