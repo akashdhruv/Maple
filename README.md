@@ -1,5 +1,5 @@
 ## MAPLE - command line utility for running docker containers with FLASH
-
+ 
 ### Configuration variables
 
 The configuration files are located in the ```tests``` directory
