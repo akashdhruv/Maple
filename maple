@@ -9,30 +9,34 @@ docker build -t ${maple_container}_image --build-arg maple_image=$maple_image \
                                          --build-arg maple_group=$(id -g) .
 fi
 
-if [ $1 = "run" ]; then
-docker run --name $maple_container -v $maple_src:$maple_target ${maple_container}_image
-docker rm $maple_container
+if [ $1 = "commit" ]; then
+docker commit $maple_container ${maple_container}_image
 fi
 
 if [ $1 = "pull" ]; then
 docker pull $maple_image
 fi
 
+if [ $1 = "push" ]; then
+docker tag ${maple_container}_image $2
+docker push $2
+fi
+
+if [ $1 = "run" ]; then
+docker run --name $maple_container -v $maple_src:$maple_target ${maple_container}_image
+docker rm $maple_container
+fi
+
 if [ $1 = "pour" ]; then
-docker run -dit --name $maple_container --mount type=bind,source=$maple_src,target=$maple_target ${maple_container}_image bash
+    if [[ -z $maple_src ]]; then
+    docker run -dit --name $maple_container ${maple_container}_image bash
+    else
+    docker run -dit --name $maple_container --mount type=bind,source=$maple_src,target=$maple_target ${maple_container}_image bash
+    fi
 fi
 
 if [ $1 = "bash" ]; then
 docker exec -it $maple_container bash
-fi
-
-if [ $1 = "commit" ]; then
-docker commit $maple_container ${maple_container}_image
-fi
-
-if [ $1 = "push" ]; then
-docker tag ${maple_container}_image $2
-docker push $2
 fi
 
 if [ $1 = "stop" ]; then
@@ -49,6 +53,12 @@ docker container ls -a
 fi
 
 if [ $1 = "clean" ]; then
-docker stop $(docker ps -aq)
+docker stop $maple_container
+docker rm $maple_container
+docker rmi ${maple_container}_image
+fi
+
+if [ $1 = "prune" ]; then
+docker rmi $maple_image
 docker system prune -a
 fi
