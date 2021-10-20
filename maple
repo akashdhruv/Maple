@@ -5,6 +5,8 @@ source Maplefile
 if [ $1 = "build" ]; then
 docker build -t ${maple_container}_image --build-arg maple_image=$maple_image \
                                          --build-arg maple_parfile=$maple_parfile \
+                                         --build-arg maple_target=$maple_target \
+                                         --build-arg maple_src=$maple_src \
                                          --build-arg maple_user=$(id -u) \
                                          --build-arg maple_group=$(id -g) .
 fi
