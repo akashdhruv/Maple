@@ -23,7 +23,11 @@ docker push $2
 fi
 
 if [ $1 = "run" ]; then
-docker run --name $maple_container -v $maple_src:$maple_target ${maple_container}_image
+    if [[ -z $maple_src ]]; then
+    docker run --name $maple_container ${maple_container}_image
+    else
+    docker run --name $maple_container --mount type=bind,source=$maple_src,target=$maple_target ${maple_container}_image
+    fi
 docker rm $maple_container
 fi
 
