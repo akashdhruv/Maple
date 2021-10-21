@@ -1,0 +1,5 @@
+maple_container="flashxsim_container"
+maple_image="akashdhruv/flash:boiling"
+maple_target="/home/user/run/IOData"
+maple_src="$PWD/data"
+maple_parfile="./flash.par"
