@@ -1,4 +1,0 @@
-maple_container="flashxdev_container"
-maple_image="akashdhruv/flash:dev"
-maple_target="/home/flashxdev"
-maple_src="$PWD"

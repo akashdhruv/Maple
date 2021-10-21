@@ -1,3 +1,5 @@
+# Maplefile
+
 maple_container="maple_container"
 maple_image="akashdhruv/flash:dev"
 maple_user="$(id -u)"

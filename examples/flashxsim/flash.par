@@ -112,7 +112,7 @@ restart         = .false.
 #checkPointFileNumber = 1
 #plotFileNumber  = 1
 
-nend = 500
+nend = 100
 tmax            = 2500.0
 cflflg          = 0
 cfl             = 0.4
