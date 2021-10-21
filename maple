@@ -1,29 +1,66 @@
 #!/bin/bash
 
+# MAPLE is wrapper around containerization tools like docker/singularity to provide support for HPC
+# applications.
+#
+# This is a pilot interface for MAPLE, eventually we intend this to be a python library that
+# can build and deploy docker/singularity containers for HPC applications
+
+
+# Read variables from a Maplefile
+# VARIABLE                                             DESCRIPTION
+# ----------------------------------------------------------------
+# maple_image               Name of the image in remote registry    
+# maple_container           Name of the local container
+# maple_target              Name of the target dir to mount src dir
+# maple_src                 Name of the src dir - usually $PWD
+# maple_user                Name of the user - usually current user
+# maple_group               Name of the users group
 source Maplefile
 
+
+# Build a container using the information supplied from Maplefile
+# Currently this uses a docker build, but we intend this interface to be more general depending
+# on the type of service use for containerization
 if [ $1 = "build" ]; then
 docker build -t ${maple_container}_image --build-arg maple_image=${maple_image} \
                                          --build-arg maple_parfile=${maple_parfile} \
                                          --build-arg maple_target=${maple_target} \
                                          --build-arg maple_src=${maple_src} \
-                                         --build-arg maple_user=$(id -u) \
-                                         --build-arg maple_group=$(id -g) .
+                                         --build-arg maple_user=${maple_user} \
+                                         --build-arg maple_group=${maple_group} .
 fi
 
+# Commit changes to a container
+# Saves changes to local container as an image, currently uses docker
 if [ $1 = "commit" ]; then
 docker commit ${maple_container} ${maple_container}_image
 fi
 
+# Pull image from remote registry
+# Currently pulls maple_image for a remote registry
 if [ $1 = "pull" ]; then
 docker pull ${maple_image}
 fi
 
+# Push image to remote registry
+# Tag and push changes to local container to remote registry
+# Note will require 'maple login' if credentials are required
 if [ $1 = "push" ]; then
 docker tag ${maple_container}_image $2
 docker push $2
 fi
 
+# Login to remote registry
+# 
+if [ $1 = "login" ]; then
+docker login
+fi
+
+# Run an image in a local container
+# This functionality executes the CMD statement in a Dockerfile.
+# If maple_src or maple_target are present then they will be mounted inside the container. This is useful
+# for accessing simulation output/plotfiles
 if [ $1 = "run" ]; then
     if [[ -z ${maple_src} ]]; then
     docker run --name ${maple_container} ${maple_container}_image
@@ -33,6 +70,9 @@ if [ $1 = "run" ]; then
 docker rm ${maple_container}
 fi
 
+# Pour an image in a local container to access interactive shell
+# If maple_src or maple_traget are present then they will be mounted inside the containter. This is useful 
+# for mounting maple_src for development
 if [ $1 = "pour" ]; then
     if [[ -z $maple_src ]]; then
     docker run -dit --name ${maple_container} ${maple_container}_image bash
@@ -41,30 +81,44 @@ if [ $1 = "pour" ]; then
     fi
 fi
 
+# Enter the shell environment of a "poured" container
+#
 if [ $1 = "bash" ]; then
 docker exec -it ${maple_container} bash
 fi
 
-if [ $1 = "stop" ]; then
+# Drain a local container
+# Do this if the local container is not needed
+if [ $1 = "drain" ]; then
 docker stop ${maple_container}
 docker rm ${maple_container}
 fi
 
+# List all images
+#
 if [ $1 = "images" ]; then
 docker images -a
 fi
 
+# List all container
+#
 if [ $1 = "containers" ]; then
 docker container ls -a
 fi
 
+# Clean all local images and containers
+#
 if [ $1 = "clean" ]; then
 docker stop ${maple_container}
 docker rm ${maple_container}
 docker rmi ${maple_container}_image
 fi
 
+# Prune all images
+#
 if [ $1 = "prune" ]; then
-docker rmi ${maple_image}
+docker stop ${maple_container}
+docker rm ${maple_container}
+docker rmi ${maple_container}_image ${maple_image}
 docker system prune -a
 fi
