@@ -54,7 +54,7 @@ To commit changes made to the local container and save work locally type
 To stop the local container run
 
 ```
-./maple stop
+./maple drain
 ```
 
 When you stop your local ```docker``` server, the local container will stop automatically. Any uncommited work will be lost when local container stops.
