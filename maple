@@ -115,11 +115,15 @@ docker rm ${maple_container}
 docker rmi ${maple_container}_image
 fi
 
-# Prune all images
+# Delete remote image
+#
+if [ $1 = "delete" ]; then
+docker rmi ${maple_container}_image
+docker rmi ${maple_image}
+fi
+
+# Prune system
 #
 if [ $1 = "prune" ]; then
-docker stop ${maple_container}
-docker rm ${maple_container}
-docker rmi ${maple_container}_image ${maple_image}
 docker system prune -a
 fi
