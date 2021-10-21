@@ -3,20 +3,20 @@
 source Maplefile
 
 if [ $1 = "build" ]; then
-docker build -t ${maple_container}_image --build-arg maple_image=$maple_image \
-                                         --build-arg maple_parfile=$maple_parfile \
-                                         --build-arg maple_target=$maple_target \
-                                         --build-arg maple_src=$maple_src \
+docker build -t ${maple_container}_image --build-arg maple_image=${maple_image} \
+                                         --build-arg maple_parfile=${maple_parfile} \
+                                         --build-arg maple_target=${maple_target} \
+                                         --build-arg maple_src=${maple_src} \
                                          --build-arg maple_user=$(id -u) \
                                          --build-arg maple_group=$(id -g) .
 fi
 
 if [ $1 = "commit" ]; then
-docker commit $maple_container ${maple_container}_image
+docker commit ${maple_container} ${maple_container}_image
 fi
 
 if [ $1 = "pull" ]; then
-docker pull $maple_image
+docker pull ${maple_image}
 fi
 
 if [ $1 = "push" ]; then
@@ -25,29 +25,29 @@ docker push $2
 fi
 
 if [ $1 = "run" ]; then
-    if [[ -z $maple_src ]]; then
-    docker run --name $maple_container ${maple_container}_image
+    if [[ -z ${maple_src} ]]; then
+    docker run --name ${maple_container} ${maple_container}_image
     else
-    docker run --name $maple_container --mount type=bind,source=$maple_src,target=$maple_target ${maple_container}_image
+    docker run --name ${maple_container} --mount type=bind,source=${maple_src},target=${maple_target} ${maple_container}_image
     fi
-docker rm $maple_container
+docker rm ${maple_container}
 fi
 
 if [ $1 = "pour" ]; then
     if [[ -z $maple_src ]]; then
-    docker run -dit --name $maple_container ${maple_container}_image bash
+    docker run -dit --name ${maple_container} ${maple_container}_image bash
     else
-    docker run -dit --name $maple_container --mount type=bind,source=$maple_src,target=$maple_target ${maple_container}_image bash
+    docker run -dit --name ${maple_container} --mount type=bind,source=${maple_src},target=${maple_target} ${maple_container}_image bash
     fi
 fi
 
 if [ $1 = "bash" ]; then
-docker exec -it $maple_container bash
+docker exec -it ${maple_container} bash
 fi
 
 if [ $1 = "stop" ]; then
-docker stop $maple_container
-docker rm $maple_container
+docker stop ${maple_container}
+docker rm ${maple_container}
 fi
 
 if [ $1 = "images" ]; then
@@ -59,12 +59,12 @@ docker container ls -a
 fi
 
 if [ $1 = "clean" ]; then
-docker stop $maple_container
-docker rm $maple_container
+docker stop ${maple_container}
+docker rm ${maple_container}
 docker rmi ${maple_container}_image
 fi
 
 if [ $1 = "prune" ]; then
-docker rmi $maple_image
+docker rmi ${maple_image}
 docker system prune -a
 fi
