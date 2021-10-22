@@ -122,8 +122,9 @@ docker rmi ${maple_container}_image
 docker rmi ${maple_image}
 fi
 
-# Prune system
+# Purge system
 #
-if [ $1 = "prune" ]; then
+if [ $1 = "purge" ]; then
+docker rmi ${maple_image}
 docker system prune -a
 fi
