@@ -9,11 +9,11 @@ FROM ${maple_image}
 # Uncomment this to build a container without root access
 # TODO figure out a better way to do this
 #
-#ARG maple_user
-#ARG maple_group
-#RUN addgroup --gid ${maple_group} user
-#RUN adduser --disabled-password --gecos '' --uid ${maple_user} --gid ${maple_group} user
-#USER user
+ARG maple_user
+ARG maple_group
+RUN addgroup --gid ${maple_group} user
+RUN adduser --disabled-password --gecos '' --uid ${maple_user} --gid ${maple_group} user
+USER user
 
 
 # Uncomment this to install essential packages without accessing bash environment

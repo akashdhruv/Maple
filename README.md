@@ -1,28 +1,37 @@
 ## MAPLE - command line utility for running docker containers with FLASH
 
+### Example code
+
+See ```maple``` script and ```examples/create```
  
 ### Configuration variables
 
-The configuration files are located in the ```tests``` directory
+```maple_container```: Local container name
 
-```maple_container``` : Local container name
+```maple_image```: Base image name
 
-```maple_image``` : Base image name
+```maple_parfile```: Simulation specific ```flash.par```. See ```examples/flashxsim```
 
-```maple_parfile``` : Simulation specific ```flash.par``` located in ```parfiles``` directory
+```maple_src```: Source directory
+
+```maple_target```: Mount path
 
 ### Running a docker container with FLASH executable
 
 Build and run the local container
 
 ```
+cd examples/flashxsim
+
 ./maple build
 ```
 
 ```
+mkdir data
+
 ./maple run
 ```
-Results for the simulation are written in the  ```IOData``` directory
+Results for the simulation are written in the  ```data``` directory
 
 ### Running a docker container with FLASH developer environment
 
