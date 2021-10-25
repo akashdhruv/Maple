@@ -5,16 +5,18 @@
 ARG maple_image
 FROM ${maple_image}
 
-
 # Uncomment this to build a container without root access
 # TODO figure out a better way to do this
 #
-ARG maple_user
-ARG maple_group
-RUN addgroup --gid ${maple_group} user
-RUN adduser --disabled-password --gecos '' --uid ${maple_user} --gid ${maple_group} user
-USER user
+#ARG maple_user
+#ARG maple_group
+#RUN addgroup --gid ${maple_group} user
+#RUN adduser --disabled-password --gecos '' --uid ${maple_user} --gid ${maple_group} user
+#USER user
 
+# Environment variable for number of procs
+#ENV maple_procs 1
+#CMD ["sh", "-c", "echo $maple_procs"]
 
 # Uncomment this to install essential packages without accessing bash environment
 # TODO: remove this or find a better way to deal with this
