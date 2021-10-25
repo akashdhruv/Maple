@@ -87,16 +87,16 @@ fi
 # for mounting maple_src for development
 if [ $1 = "pour" ]; then
     if [[ -z $maple_src ]]; then
-    time docker run -dit --name ${maple_container} ${maple_container}_image bash
+    docker run -dit --name ${maple_container} ${maple_container}_image bash
     else
-    time docker run -dit --name ${maple_container} --mount type=bind,source=${maple_src},target=${maple_target} ${maple_container}_image bash
+    docker run -dit --name ${maple_container} --mount type=bind,source=${maple_src},target=${maple_target} ${maple_container}_image bash
     fi
 fi
 
 # Enter the shell environment of a "poured" container
 #
 if [ $1 = "bash" ]; then
-docker exec -it ${maple_container} bash
+time docker exec -it ${maple_container} bash
 fi
 
 # Drain a local container
