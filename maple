@@ -65,7 +65,7 @@ fi
 if [ $1 = "run" ]; then
 
     # Set environment variable for number of processes
-    procs=${procs:-1}
+    nprocs=${nprocs:-1}
 
     # loop over variables to find match
     if [[ $2 == *"--"* ]]; then
@@ -75,9 +75,9 @@ if [ $1 = "run" ]; then
     fi
 
     if [[ -z ${maple_src} ]]; then
-    time docker run --name ${maple_container} --env maple_procs=$procs ${maple_container}_image
+    time docker run --name ${maple_container} --env nprocs=$nprocs ${maple_container}_image
     else
-    time docker run --name ${maple_container} --env maple_procs=$procs --mount type=bind,source=${maple_src},target=${maple_target} ${maple_container}_image
+    time docker run --name ${maple_container} --env nprocs=$nprocs --mount type=bind,source=${maple_src},target=${maple_target} ${maple_container}_image
     fi
 docker rm ${maple_container}
 fi
