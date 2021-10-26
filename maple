@@ -24,38 +24,53 @@ source Maplefile
 # Currently this uses a docker build, but we intend this interface to be more general depending
 # on the type of service use for containerization
 if [ $1 = "build" ]; then
-docker build -t ${maple_container}_image --build-arg maple_image=${maple_image} \
-                                         --build-arg maple_target=${maple_target} \
-                                         --build-arg maple_src=${maple_src} \
-                                         --build-arg maple_user=${maple_user} \
-                                         --build-arg maple_group=${maple_group} \
-                                         --build-arg maple_parfile=${maple_parfile} .
+    
+    # Get environment variable for image
+    #
+    image=${image:-$maple_image}
+
+    # loop over variables to find match
+    #
+    if [[ $2 == *"--"* ]]; then
+        v="${2/--/}"
+        declare $v="$3"
+    fi 
+    maple_image=$image
+
+    # Build container
+    #
+    docker build -t ${maple_container}_image --build-arg maple_image=${maple_image} \
+                                             --build-arg maple_target=${maple_target} \
+                                             --build-arg maple_src=${maple_src} \
+                                             --build-arg maple_user=${maple_user} \
+                                             --build-arg maple_group=${maple_group} \
+                                             --build-arg maple_parfile=${maple_parfile} .
 fi
 
 # Commit changes to a container
 # Saves changes to local container as an image, currently uses docker
 if [ $1 = "commit" ]; then
-docker commit ${maple_container} ${maple_container}_image
+    docker commit ${maple_container} ${maple_container}_image
 fi
 
 # Pull image from remote registry
 # Currently pulls maple_image for a remote registry
 if [ $1 = "pull" ]; then
-docker pull ${maple_image}
+    docker pull ${maple_image}
 fi
 
 # Push image to remote registry
 # Tag and push changes to local container to remote registry
 # Note will require 'maple login' if credentials are required
 if [ $1 = "push" ]; then
-docker tag ${maple_container}_image $2
-docker push $2
+    docker tag ${maple_container}_image $2
+    docker push $2
 fi
 
 # Login to remote registry
 # 
 if [ $1 = "login" ]; then
-docker login
+    docker login
 fi
 
 # Run an image in a local container
@@ -64,22 +79,29 @@ fi
 # for accessing simulation output/plotfiles
 if [ $1 = "run" ]; then
 
-    # Set environment variable for number of processes
+    # Get environment variable for number of processes
+    #
     nprocs=${nprocs:-1}
 
     # loop over variables to find match
+    #
     if [[ $2 == *"--"* ]]; then
         v="${2/--/}"
         declare $v="$3"
-        # echo $1 $2 // Optional to see the parameter:value result
     fi
 
     if [[ -z ${maple_src} ]]; then
-    time docker run --name ${maple_container} --env nprocs=$nprocs ${maple_container}_image
+        time docker run --name ${maple_container} \
+                        --env nprocs=$nprocs \
+                        ${maple_container}_image
     else
-    time docker run --name ${maple_container} --env nprocs=$nprocs --mount type=bind,source=${maple_src},target=${maple_target} ${maple_container}_image
+        time docker run --name ${maple_container} \
+                        --env nprocs=$nprocs \
+                        --mount type=bind,source=${maple_src},target=${maple_target} \
+                        ${maple_container}_image
     fi
-docker rm ${maple_container}
+
+    docker rm ${maple_container}
 fi
 
 # Pour an image in a local container to access interactive shell
@@ -87,61 +109,70 @@ fi
 # for mounting maple_src for development
 if [ $1 = "pour" ]; then
     if [[ -z $maple_src ]]; then
-    docker run -dit --name ${maple_container} ${maple_container}_image bash
+        docker run -dit --name ${maple_container} ${maple_container}_image bash
     else
-    docker run -dit --name ${maple_container} --mount type=bind,source=${maple_src},target=${maple_target} ${maple_container}_image bash
+        docker run -dit --name ${maple_container} \
+                        --mount type=bind,source=${maple_src},target=${maple_target} \
+                        ${maple_container}_image bash
     fi
 fi
 
 # Enter the shell environment of a "poured" container
 #
 if [ $1 = "bash" ]; then
-time docker exec -it ${maple_container} bash
+    time docker exec -it ${maple_container} bash
 fi
 
 # Drain a local container
 # Do this if the local container is not needed
 if [ $1 = "rinse" ]; then
-docker stop ${maple_container}
-docker rm ${maple_container}
+    docker stop ${maple_container}
+    docker rm ${maple_container}
 fi
 
 # List all images
 #
 if [ $1 = "images" ]; then
-docker images -a
+    docker images -a
 fi
 
 # List all container
 #
 if [ $1 = "containers" ]; then
-docker container ls -a
+    docker container ls -a
 fi
 
 # Clean all local images and containers
 #
 if [ $1 = "clean" ]; then
-docker stop ${maple_container}
-docker rm ${maple_container}
-docker rmi ${maple_container}_image
+    docker stop ${maple_container}
+    docker rm ${maple_container}
+    docker rmi ${maple_container}_image
 fi
 
 # Delete remote image
 #
 if [ $1 = "remove" ]; then
-docker rmi ${maple_container}_image
-docker rmi ${maple_image}
+
+    # Get environment variable for image
+    #
+    image=${image:-$maple_image}
+
+    # loop over variables to find match
+    #
+    if [[ $2 == *"--"* ]]; then
+        v="${2/--/}"
+        declare $v="$3"
+    fi 
+    maple_image=$image
+
+    docker rmi ${maple_container}_image
+    docker rmi ${maple_image}
 fi
 
 # Purge system
 #
 if [ $1 = "purge" ]; then
-docker rmi ${maple_image}
-docker system prune -a
-fi
-
-# Prune system
-#
-if [ $1 = "prune" ]; then
-docker system prune -a
+    docker rmi ${maple_image}
+    docker system prune -a
 fi
