@@ -56,6 +56,18 @@ fi
 # Pull image from remote registry
 # Currently pulls maple_image for a remote registry
 if [ $1 = "pull" ]; then
+    # Get environment variable for image
+    #
+    image=${image:-$maple_image}
+
+    # loop over variables to find match
+    #
+    if [[ $2 == *"--"* ]]; then
+        v="${2/--/}"
+        declare $v="$3"
+    fi 
+    maple_image=$image
+
     docker pull ${maple_image}
 fi
 
@@ -172,7 +184,6 @@ fi
 
 # Purge system
 #
-if [ $1 = "purge" ]; then
-    docker rmi ${maple_image}
+if [ $1 = "prune" ]; then
     docker system prune -a
 fi
