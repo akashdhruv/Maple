@@ -101,7 +101,7 @@ fi
 
 # Drain a local container
 # Do this if the local container is not needed
-if [ $1 = "drain" ]; then
+if [ $1 = "rinse" ]; then
 docker stop ${maple_container}
 docker rm ${maple_container}
 fi
@@ -128,7 +128,7 @@ fi
 
 # Delete remote image
 #
-if [ $1 = "delete" ]; then
+if [ $1 = "remove" ]; then
 docker rmi ${maple_container}_image
 docker rmi ${maple_image}
 fi
