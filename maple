@@ -139,3 +139,9 @@ if [ $1 = "purge" ]; then
 docker rmi ${maple_image}
 docker system prune -a
 fi
+
+# Prune system
+#
+if [ $1 = "prune" ]; then
+docker system prune -a
+fi
