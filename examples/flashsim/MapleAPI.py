@@ -5,7 +5,7 @@ maple = pymaple.Maple(container='flashsim_container',image='akashdhruv/flash:boi
                       source=os.getenv('PWD')+'/data',target='/home/user/run/IOData',
                       parfile='flash.par')
 
-nprocs = 4
+nprocs = 1
 
 maple.build()
 maple.run(nprocs)

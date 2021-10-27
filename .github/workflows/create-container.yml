@@ -1,4 +1,4 @@
-name: maple-container
+name: create-container
 #
 on:
   pull_request:
@@ -42,19 +42,3 @@ jobs:
           ../../maple clean
           ../../maple remove
           python3 MapleAPI.py
-    - name: Run examples/flashsim
-      run: |
-          cd examples/flashsim
-          mkdir data
-          ../../maple build
-          ../../maple run --nprocs=4 && ../../maple rinse
-          ../../maple clean
-          ../../maple remove
-          python3 MapleAPI.py
-    - name: Run examples/bubblebox
-      run: |
-          cd examples/bubblebox
-          ../../maple build
-          ../../maple run && ../../maple rinse
-          ../../maple clean
-          ../../maple remove
