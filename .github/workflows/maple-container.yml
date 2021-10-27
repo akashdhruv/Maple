@@ -38,7 +38,7 @@ jobs:
       run: |
           cd examples/create
           ../../maple build
-          ../../maple run && maple rinse
+          ../../maple run && ../../maple rinse
           ../../maple clean
           ../../maple remove
           python3 MapleAPI.py
@@ -47,7 +47,7 @@ jobs:
           cd examples/flashsim
           mkdir data
           ../../maple build
-          ../../maple run --nprocs=4 && maple rinse
+          ../../maple run --nprocs=4 && ../../maple rinse
           ../../maple clean
           ../../maple remove
           python3 MapleAPI.py
@@ -55,6 +55,6 @@ jobs:
       run: |
           cd examples/bubblebox
           ../../maple build
-          ../../maple run && maple rinse
+          ../../maple run && ../../maple rinse
           ../../maple clean
           ../../maple remove
