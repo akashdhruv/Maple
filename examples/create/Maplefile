@@ -5,9 +5,12 @@ maple_container="maple_container"
 maple_image="ubuntu:latest"
 
 # Target and source directories
-#maple_src="$SRCDIR"
+#maple_source="$SRCDIR"
 #maple_target="$MOUNTDIR"
 
 # User and group IDs
 maple_user="$(id -u)"
 maple_group="$(id -g)"
+
+# Service
+maple_service="docker"

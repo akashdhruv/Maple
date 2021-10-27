@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ $1 = "develop" ]; then
+    python3 setup.py develop --user
+fi
+
+if [ $1 = "clean" ]; then
+    rm -rf *.egg-info
+fi
