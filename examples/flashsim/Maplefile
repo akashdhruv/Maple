@@ -3,7 +3,7 @@
 maple_container="flashsim_container"
 maple_image="akashdhruv/flash:boiling"
 maple_target="/home/user/run/IOData"
-maple_src="$PWD/data"
+maple_source="$PWD/data"
 maple_user="$(id -u)"
 maple_group="$(id -g)"
 maple_parfile="flash.par"

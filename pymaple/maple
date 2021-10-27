@@ -1,0 +1,169 @@
+#!/usr/bin/env python3
+
+"""Python CLI for maple"""
+
+import click
+import os
+
+import pymaple
+
+# CLI group
+#
+@click.group(name='maple')
+def maple():
+    """
+    Simple CLI for using docker/singularity containers for HPC applications
+    """
+    if not os.getenv('maple_service'): os.environ['maple_service'] = 'docker'
+
+# Build a container using the information supplied from Maplefile
+# Currently this uses a docker build, but we intend this interface to be more general depending
+# on the type of service use for containerization
+#
+@maple.command(name='build')
+@click.option('--image',default=os.getenv('maple_image'),help='overwrite current remote image')
+def build(image):
+    """
+    Builds a local image from remote image
+    """
+    os.environ['maple_image'] = str(image)
+    pymaple.Maple.backends[os.getenv('maple_service')].build()
+
+# Commit changes to a container
+# Saves changes to local container as an image, currently uses docker
+#
+@maple.command(name='commit')
+def commit():
+    """
+    Commit changes from local container to local image
+    """
+    pymaple.Maple.backends[os.getenv('maple_service')].commit()
+
+# Pull image from remote registry
+# Currently pulls maple_image for a remote registry
+#
+@maple.command(name='pull')
+@click.option('--image',default=os.getenv('maple_image'),help='overwrite current remote image')
+def pull(image):
+    """
+    Pull remote image
+    """
+    os.environ['maple_image'] = str(image)
+    pymaple.Maple.backends[os.getenv('maple_service')].pull()
+
+# Push image to remote registry
+# Tag and push changes to local container to remote registry
+# Note will require 'maple login' if credentials are required
+#
+@maple.command(name='push')
+@click.argument('tag')
+def push(tag):
+    """
+    Push local image to remote tag/image
+    """
+    os.environ['maple_tag'] = str(tag)
+    pymaple.Maple.backends[os.getenv('maple_service')].push()
+
+# Login to remote registry
+#
+@maple.command(name='login')
+def login():
+    """
+    Login to container service (currently docker)
+    """
+    pymaple.Maple.backends[os.getenv('maple_service')].login()
+
+# Run an image in a local container
+# This functionality executes the CMD statement in a Dockerfile.
+# If maple_source or maple_target are present then they will be mounted inside the container. 
+# This is useful for accessing simulation output/plotfiles
+#
+@maple.command('run')
+@click.option('--nprocs',default=1,help='number of processes for maple container')
+def run(nprocs):
+    """
+    Run local image in a container, opposite of maple rinse
+    """
+    pymaple.Maple.backends[os.getenv('maple_service')].run(nprocs)
+
+# Pour an image in a local container to access interactive shell
+# If maple_source or maple_traget are present then they will be mounted inside the containter.
+# This is useful for mounting maple_source for development
+#
+@maple.command('pour')
+def pour():
+    """
+    Pour local image in a container, opposite of maple rinse
+    """
+    pymaple.Maple.backends[os.getenv('maple_service')].pour()
+
+# Enter the shell environment of a "poured" container
+#
+@maple.command('bash')
+def bash():
+    """
+    Get shell access to the local container
+    """
+    pymaple.Maple.backends[os.getenv('maple_service')].bash()
+
+# Rinse a local container
+# Do this if the local container is not needed
+#
+@maple.command('rinse')
+def rinse():
+    """
+    Remove the local container, opposite of maple run/pour
+    """
+    pymaple.Maple.backends[os.getenv('maple_service')].rinse()
+
+# List all images
+#
+@maple.command('images')
+def images():
+    """
+    List all images on system
+    """
+    pymaple.Maple.backends[os.getenv('maple_service')].images()
+
+# List all container
+#
+@maple.command('containers')
+def containers():
+    """
+    List all containers on system
+    """
+    pymaple.Maple.backends[os.getenv('maple_service')].containers()
+
+# Clean all local images and containers
+#
+@maple.command('clean')
+def clean():
+    """
+    clean local container environment
+    """
+    pymaple.Maple.backends[os.getenv('maple_service')].clean()
+
+# Delete a remote image
+#
+@maple.command('remove')
+@click.option('--image',default=os.getenv('maple_image'),help='overwrite current remote image')
+def remove(image):
+    """
+    Remove a remote image
+    """
+    _maple_image = os.getenv('maple_image')
+    os.environ['maple_image']=str(image)
+    pymaple.Maple.backends[os.getenv('maple_service')].remove()
+    os.environ['maple_image'] = str(_maple_image)
+
+# Prune system
+#
+@maple.command('prune')
+def prune():
+    """
+    Prune system
+    """
+    pymaple.Maple.backends[os.getenv('maple_service')].prune()
+
+if __name__ == "__main__":
+    maple()

@@ -1,8 +1,8 @@
-## MAPLE - command line utility for running docker containers with FLASH
+## MAPLE - Python API and CLI for running docker containers with FLASH
 
 ### Example code
 
-See ```maple``` script and ```examples/create```
+See ```examples/create```  ```examples/bubblebox```  ```examples/flashsim```
  
 ### Configuration variables
 
@@ -10,9 +10,9 @@ See ```maple``` script and ```examples/create```
 
 ```maple_image```: Base image name
 
-```maple_parfile```: Simulation specific ```flash.par```. See ```examples/flashxsim```
+```maple_parfile```: Simulation specific ```flash.par```. See ```examples/flashsim```
 
-```maple_src```: Source directory
+```maple_source```: Source directory
 
 ```maple_target```: Mount path
 
@@ -23,13 +23,13 @@ Build and run the local container
 ```
 cd examples/flashxsim
 
-./maple build
+$MAPLE_HOME/maple build
 ```
 
 ```
 mkdir data
 
-./maple run
+$MAPLE_HOME/maple run && $MAPLE_HOME/maple rinse
 ```
 Results for the simulation are written in the  ```data``` directory
 
@@ -39,11 +39,11 @@ Results for the simulation are written in the  ```data``` directory
 Build and pour ```maple_image``` to ```maple_container```
 
 ```
-./maple build
+$MAPLE_HOME/maple build
 ```
 
 ```
-./maple pour
+$MAPLE_HOME/maple pour 
 ```
 
 If ```maple_image``` is not locally available it will be pulled from ```docker``` registry. Use ```./maple pull``` to pull the image without creating a local container.
@@ -51,19 +51,19 @@ If ```maple_image``` is not locally available it will be pulled from ```docker``
 Enter the ```bash``` environment of local container using
 
 ```
-./maple bash
+$MAPLE_HOME/maple bash
 ```
 
 To commit changes made to the local container and save work locally type
 
 ```
-./maple commit
+$MAPLE_HOME/maple commit
 ```
 
 To stop the local container run
 
 ```
-./maple drain
+$MAPLE_HOME/maple rinse
 ```
 
 When you stop your local ```docker``` server, the local container will stop automatically. Any uncommited work will be lost when local container stops.
@@ -71,7 +71,7 @@ When you stop your local ```docker``` server, the local container will stop auto
 To push the save image created by ```./maple commit``` to docker registry type
 
 ```
-./maple push <remote_image_name>
+$MAPLE_HOME/maple push <remote_image_name>
 ```
 
 ### Purge all local images and containers
@@ -79,7 +79,7 @@ To push the save image created by ```./maple commit``` to docker registry type
 Do this to clean up your docker data
 
 ```
-./maple clean
+$MAPLE_HOME/maple clean
 ```
 
 Don't run this if you still need local images to finish work
