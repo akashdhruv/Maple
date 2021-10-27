@@ -82,7 +82,7 @@ def login():
 @click.option('--nprocs',default=1,help='number of processes for maple container')
 def run(nprocs):
     """
-    Run local image in a container
+    Run local image in a container, opposite of maple rinse
     """
     pymaple.Maple.backends[os.getenv('maple_service')].run(nprocs)
 
@@ -112,7 +112,7 @@ def bash():
 @maple.command('rinse')
 def rinse():
     """
-    Stop and remove the local container, opposite of maple pour
+    Remove the local container, opposite of maple run/pour
     """
     pymaple.Maple.backends[os.getenv('maple_service')].rinse()
 
