@@ -29,6 +29,8 @@ jobs:
           sudo apt update
           sudo apt install docker-ce
           docker run hello-world
+          mkdir -p $HOME/.local/bin
+          export PATH="PATH:$HOME/.local/bin"
     - name: Setup PyMaple
       run: | 
           ./setup develop
