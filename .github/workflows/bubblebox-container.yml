@@ -13,7 +13,6 @@ jobs:
   ubuntu-latest:
     name: "ubuntu-latest"
     runs-on: ubuntu-latest
-    using: 'docker'
     steps:
     - uses: actions/checkout@v2
     - name: Dependencies1
