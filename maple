@@ -23,4 +23,4 @@ set +a
 
 # Call core python file for command line interface
 #
-${maple_dir}/pymaple/maple "$@"
+python3 ${maple_dir}/pymaple "$@"

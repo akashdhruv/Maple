@@ -34,7 +34,7 @@ def push():
 
 def login():
     """
-    Login to container service (currently docker)
+    Login to docker account
     """
     os.system('docker login')
 
