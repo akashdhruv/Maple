@@ -13,8 +13,9 @@ jobs:
   ubuntu-latest:
     name: "ubuntu-latest"
     runs-on: ubuntu-latest
+    using: 'docker'
     steps:
-    - uses: docker/build-push-action@v2
+    - uses: actions/checkout@v2
     - name: Dependencies1
       run: |
           docker run hello-world
