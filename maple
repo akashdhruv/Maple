@@ -23,5 +23,4 @@ set +a
 
 # Call core python file for command line interface
 #
-maple_dir=$(dirname $0)
 ${maple_dir}/pymaple/maple "$@"

@@ -61,7 +61,7 @@ def push(tag):
     """
     Push local image to remote tag/image
     """
-    os.environ['maple_tag'] = str(tag)
+    os.environ['maple_pushtag'] = str(tag)
     pymaple.Maple.backends[os.getenv('maple_service')].push()
 
 # Login to remote registry

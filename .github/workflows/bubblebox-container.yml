@@ -31,13 +31,12 @@ jobs:
           docker run hello-world
     - name: Setup PyMaple
       run: |
-          cd pymaple
           ./setup develop
           ./setup clean
     - name: Run examples/bubblebox
       run: |
           cd examples/bubblebox
-          ../../maple build
-          ../../maple run && ../../maple rinse
-          ../../maple clean
-          ../../maple remove
+          maple build
+          maple run && maple rinse
+          maple clean
+          maple remove

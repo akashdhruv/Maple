@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# At present `maple` should only be installed in development mode
+# No other is supported
+if [ $1 = "develop" ]; then
+    #
+    # Build the Python library in development mode
+    #
+    cd pymaple && python3 setup.py develop --user && cd ..
+
+    # Create local executable to point to current $PWD/maple
+    # executable
+    echo '#!/bin/bash' > $HOME/.local/bin/maple
+    echo 'export maple_dir="'$PWD'"' >> $HOME/.local/bin/maple
+    echo $PWD'/maple "$@"' >> $HOME/.local/bin/maple
+    chmod +x $HOME/.local/bin/maple
+fi
+
+# Clean after installation
+if [ $1 = "clean" ]; then
+    cd pymaple && rm -rf *.egg-info && cd ..
+fi
