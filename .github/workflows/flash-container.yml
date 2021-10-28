@@ -30,8 +30,7 @@ jobs:
           sudo apt install docker-ce
           docker run hello-world
     - name: Setup PyMaple
-      run: |
-          cd pymaple
+      run: | 
           ./setup develop
           ./setup clean
     - name: Run examples/flashsim
