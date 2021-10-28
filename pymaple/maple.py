@@ -8,7 +8,7 @@ class Maple(object):
     """
     User interface to maple
     """
-    backends = {'docker' : docker}
+    dict_backend = {'docker' : docker}
 
     def __init__(self,**attributes):
         """
@@ -21,7 +21,7 @@ class Maple(object):
                        'target'    : target directory,
                        'user'      : local user,
                        'group'     : user's group,
-                       'service'   : container service - docker/singularity
+                       'backend'   : container backend - docker/singularity
                        'parfile'   : parfile }
         """
 
@@ -29,7 +29,7 @@ class Maple(object):
                              'source'    : None, 'target' : None, 
                              'user'      : os.popen('id -u').read().split()[0],
                              'group'     : os.popen('id -g').read().split()[0],
-                             'service'   : 'docker',
+                             'backend'   : 'docker',
                              'parfile'   : None}
  
         for key in attributes:
@@ -38,7 +38,7 @@ class Maple(object):
             else:
                 raise ValueError('[maple]: attribute "{}" not present'.format(key))
 
-        self._attributes['service'] = Maple.backends[self._attributes['service']]
+        self._attributes['backend'] = Maple.dict_backend[self._attributes['backend']]
 
     def __getitem__(self,key):
         """
@@ -55,8 +55,8 @@ class Maple(object):
         """
         if not key in self._attributes:
             raise ValueError('[maple]: attribute "{}" not present'.format(key))
-        elif key == 'service':
-            raise NotImplementedError('[maple]: cannot edit "service" after intitialization')
+        elif key == 'backend':
+            raise NotImplementedError('[maple]: cannot edit "backend" after intitialization')
         else:
             self._attributes[key] = value
 
@@ -72,21 +72,21 @@ class Maple(object):
         Builds a local image from remote image
         """
         self._set_environ()
-        self._attributes['service'].build()
+        self._attributes['backend'].build()
 
     def commit(self):
         """
         Commit changes from local container to local image
         """
         self._set_environ()
-        self._attributes['service'].commit()
+        self._attributes['backend'].commit()
 
     def pull(self):
         """
         Pull remote image
         """
         self._set_environ()
-        self._attributes['service'].pull()
+        self._attributes['backend'].pull()
 
     def push(self,tag):
         """
@@ -94,74 +94,74 @@ class Maple(object):
         """
         self._set_environ()
         os.environ['maple_pushtag']=str(tag)
-        self._attributes['service'].push()
+        self._attributes['backend'].push()
 
     def login(self):
         """
-        Login to container service (currently docker)
+        Login to container backend (currently docker)
         """
         self._set_environ()
-        self._attributes['service'].login()
+        self._attributes['backend'].login()
 
     def run(self,nprocs=1):
         """
         Run local image in a container
         """
         self._set_environ()
-        self._attributes['service'].run(nprocs)
+        self._attributes['backend'].run(nprocs)
 
     def pour(self):
         """
         Pour local image in a container, opposite of maple rinse
         """
         self._set_environ()
-        self._attributes['service'].pour()
+        self._attributes['backend'].pour()
 
     def bash(self):
         """
         Get shell access to the local container
         """
         self._set_environ()
-        self._attributes['service'].bash()
+        self._attributes['backend'].bash()
 
     def rinse(self):
         """
         Stop and remove the local container, opposite of maple pour
         """
         self._set_environ()
-        self._attributes['service'].rinse()
+        self._attributes['backend'].rinse()
 
     def images(self):
         """
         List all images on system
         """
         self._set_environ()
-        self._attributes['service'].images()
+        self._attributes['backend'].images()
 
     def containers(self):
         """
         List all containers on system
         """
         self._set_environ()
-        self._attributes['service'].containers()
+        self._attributes['backend'].containers()
 
     def clean(self):
         """
         Clean local container environment
         """
         self._set_environ()
-        self._attributes['service'].clean()
+        self._attributes['backend'].clean()
 
     def remove(self):
         """
         Remove a remote image
         """
         self._set_environ()
-        self._attributes['service'].remove()
+        self._attributes['backend'].remove()
 
     def prune(self):
         """
         Prune system
         """
         self._set_environ()
-        self._attributes['service'].prune()
+        self._attributes['backend'].prune()

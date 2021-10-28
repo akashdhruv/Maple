@@ -12,5 +12,5 @@ maple_image="ubuntu:latest"
 maple_user="$(id -u)"
 maple_group="$(id -g)"
 
-# Service
-maple_service="docker"
+# Backend
+maple_backend="docker"

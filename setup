@@ -6,7 +6,7 @@ if [ $1 = "develop" ]; then
     #
     # Build the Python library in development mode
     #
-    cd pymaple && python3 setup.py develop --user && cd ..
+    python3 setup.py develop --user
 
     # Create local executable to point to current $PWD/maple
     # executable
@@ -19,5 +19,5 @@ fi
 
 # Clean after installation
 if [ $1 = "clean" ]; then
-    cd pymaple && rm -rf *.egg-info && cd ..
+   rm -rf *.egg-info
 fi
