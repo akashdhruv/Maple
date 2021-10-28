@@ -14,8 +14,8 @@ jobs:
     name: "ubuntu-latest"
     runs-on: ubuntu-latest
     steps:
+    - uses: docker/build-push-action@v2
     - name: Dependencies1
-      uses: docker/build-push-action@v2
       run: |
           docker run hello-world
           mkdir -p $HOME/.local/bin
