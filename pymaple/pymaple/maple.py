@@ -88,11 +88,12 @@ class Maple(object):
         self._set_environ()
         self._attributes['service'].pull()
 
-    def push(self):
+    def push(self,tag):
         """
         Push local image to remote tag/image
         """
         self._set_environ()
+        os.environ['maple_pushtag']=str(tag)
         self._attributes['service'].push()
 
     def login(self):

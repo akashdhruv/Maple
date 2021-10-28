@@ -29,8 +29,8 @@ def push():
     """
     Push local image to remote tag/image
     """
-    os.system('docker tag ${maple_container}_image ${maple_tag}')
-    os.system('docker push ${maple_tag}')
+    os.system('docker tag ${maple_container}_image ${maple_pushtag}')
+    os.system('docker push ${maple_pushtag}')
 
 def login():
     """

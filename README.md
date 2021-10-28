@@ -1,6 +1,10 @@
 ## MAPLE - Python API and CLI for running docker containers with FLASH
 
-### Example code
+### Installation
+
+```./setup develop```
+
+### Examples
 
 See ```examples/create```  ```examples/bubblebox```  ```examples/flashsim```
  
@@ -23,13 +27,13 @@ Build and run the local container
 ```
 cd examples/flashxsim
 
-$MAPLE_HOME/maple build
+$HOME/.local/bin/maple build
 ```
 
 ```
 mkdir data
 
-$MAPLE_HOME/maple run && $MAPLE_HOME/maple rinse
+$HOME/.local/bin/maple run && $HOME/.local/bin/maple rinse
 ```
 Results for the simulation are written in the  ```data``` directory
 
@@ -39,11 +43,11 @@ Results for the simulation are written in the  ```data``` directory
 Build and pour ```maple_image``` to ```maple_container```
 
 ```
-$MAPLE_HOME/maple build
+$HOME/.local/bin/maple build
 ```
 
 ```
-$MAPLE_HOME/maple pour 
+$HOME/.local/bin/maple pour 
 ```
 
 If ```maple_image``` is not locally available it will be pulled from ```docker``` registry. Use ```./maple pull``` to pull the image without creating a local container.
@@ -51,19 +55,19 @@ If ```maple_image``` is not locally available it will be pulled from ```docker``
 Enter the ```bash``` environment of local container using
 
 ```
-$MAPLE_HOME/maple bash
+$HOME/.local/bin/maple bash
 ```
 
 To commit changes made to the local container and save work locally type
 
 ```
-$MAPLE_HOME/maple commit
+$HOME/.local/bin/maple commit
 ```
 
 To stop the local container run
 
 ```
-$MAPLE_HOME/maple rinse
+$HOME/.local/bin/maple rinse
 ```
 
 When you stop your local ```docker``` server, the local container will stop automatically. Any uncommited work will be lost when local container stops.
@@ -71,7 +75,7 @@ When you stop your local ```docker``` server, the local container will stop auto
 To push the save image created by ```./maple commit``` to docker registry type
 
 ```
-$MAPLE_HOME/maple push <remote_image_name>
+$HOME/.local/bin/maple push <remote_image_name>
 ```
 
 ### Purge all local images and containers
@@ -79,7 +83,7 @@ $MAPLE_HOME/maple push <remote_image_name>
 Do this to clean up your docker data
 
 ```
-$MAPLE_HOME/maple clean
+$HOME/.local/bin/maple clean
 ```
 
 Don't run this if you still need local images to finish work

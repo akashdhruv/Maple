@@ -4,6 +4,10 @@ on:
   pull_request:
     branches: 
       - main
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
+      - 'CITATION'
 #
 #  push:
 #    branches: 
@@ -29,16 +33,17 @@ jobs:
           sudo apt update
           sudo apt install docker-ce
           docker run hello-world
+          mkdir -p $HOME/.local/bin
+          export PATH="PATH:$HOME/.local/bin"
     - name: Setup PyMaple
       run: |
-          cd pymaple
           ./setup develop
           ./setup clean
     - name: Run examples/create
       run: |
           cd examples/create
-          ../../maple build
-          ../../maple run && ../../maple rinse
-          ../../maple clean
-          ../../maple remove
+          maple build
+          maple run && maple rinse
+          maple clean
+          maple remove
           python3 MapleAPI.py
