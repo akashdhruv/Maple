@@ -8,9 +8,5 @@ maple_image="ubuntu:latest"
 #maple_source="$SRCDIR"
 #maple_target="$MOUNTDIR"
 
-# User and group IDs
-maple_user="$(id -u)"
-maple_group="$(id -g)"
-
 # Backend
 maple_backend="docker"

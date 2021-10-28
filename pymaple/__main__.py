@@ -13,6 +13,8 @@ def maple():
     Simple CLI for using docker/singularity containers for HPC applications
     """
     if not os.getenv('maple_backend'): os.environ['maple_backend'] = 'docker'
+    if not os.getenv('maple_user'): os.environ['maple_user'] = os.popen('id -u').read().split()[0]
+    if not os.getenv('maple_group'): os.environ['maple_group'] = os.popen('id -g').read().split()[0]
 
 # Build a container using the information supplied from pymaple.Maplefile
 # Currently this uses a docker build, but we intend this interface to be more general depending
