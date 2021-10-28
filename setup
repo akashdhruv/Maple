@@ -10,6 +10,7 @@ if [ $1 = "develop" ]; then
 
     # Create local executable to point to current $PWD/maple
     # executable
+    touch $HOME/.local/bin/maple
     echo '#!/bin/bash' > $HOME/.local/bin/maple
     echo 'export maple_dir="'$PWD'"' >> $HOME/.local/bin/maple
     echo $PWD'/maple "$@"' >> $HOME/.local/bin/maple
