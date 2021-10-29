@@ -28,7 +28,7 @@ jobs:
           cd examples/flashsim
           mkdir data
           maple build
-          maple run --nprocs=1 && maple rinse
+          maple run --nprocs=1
           maple clean
           maple remove
           python3 MapleAPI.py

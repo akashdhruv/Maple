@@ -26,8 +26,7 @@ def build(image):
     """
     Builds a local image from remote image
     """
-    os.environ['maple_image'] = str(image)
-    pymaple.Maple.dict_backend[os.getenv('maple_backend')].build()
+    pymaple.Maple.dict_backend[os.getenv('maple_backend')].build(image)
 
 # Commit changes to a container
 # Saves changes to local container as an image, currently uses docker
@@ -48,8 +47,7 @@ def pull(image):
     """
     Pull remote image
     """
-    os.environ['maple_image'] = str(image)
-    pymaple.Maple.dict_backend[os.getenv('maple_backend')].pull()
+    pymaple.Maple.dict_backend[os.getenv('maple_backend')].pull(image)
 
 # Push image to remote registry
 # Tag and push changes to local container to remote registry
@@ -61,8 +59,7 @@ def push(tag):
     """
     Push local image to remote tag/image
     """
-    os.environ['maple_pushtag'] = str(tag)
-    pymaple.Maple.dict_backend[os.getenv('maple_backend')].push()
+    pymaple.Maple.dict_backend[os.getenv('maple_backend')].push(tag)
 
 # Login to remote registry
 #
@@ -106,6 +103,15 @@ def bash():
     """
     pymaple.Maple.dict_backend[os.getenv('maple_backend')].bash()
 
+# Execute a command in a poured container
+@maple.command('execute')
+@click.option('--command',default='echo Hello World!',help='Command to execute in a poured container')
+def execute(command):
+    """
+    Execute command in a poured container
+    """
+    pymaple.Maple.dict_backend[os.getenv('maple_backend')].execute(command)
+
 # Rinse a local container
 # Do this if the local container is not needed
 #
@@ -115,8 +121,7 @@ def rinse(container):
     """
     Remove the local container, opposite of maple run/pour
     """
-    os.environ['maple_container'] = str(container)
-    pymaple.Maple.dict_backend[os.getenv('maple_backend')].rinse()
+    pymaple.Maple.dict_backend[os.getenv('maple_backend')].rinse(container)
 
 # List all images
 #
@@ -144,8 +149,7 @@ def clean(container):
     """
     clean local container environment
     """
-    os.environ['maple_container'] = str(container)
-    pymaple.Maple.dict_backend[os.getenv('maple_backend')].clean()
+    pymaple.Maple.dict_backend[os.getenv('maple_backend')].clean(container)
 
 # Delete a remote image
 #
@@ -155,8 +159,7 @@ def remove(image):
     """
     Remove a remote image
     """
-    os.environ['maple_image']=str(image)
-    pymaple.Maple.dict_backend[os.getenv('maple_backend')].remove()
+    pymaple.Maple.dict_backend[os.getenv('maple_backend')].remove(image)
 
 # Prune system
 #
