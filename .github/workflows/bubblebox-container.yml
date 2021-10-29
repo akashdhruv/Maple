@@ -27,6 +27,6 @@ jobs:
       run: |
           cd examples/bubblebox
           maple build
-          maple run && maple rinse
+          maple run
           maple clean
           maple remove

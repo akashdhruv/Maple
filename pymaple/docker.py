@@ -2,35 +2,46 @@
 
 import os
 
-def build():
+
+def _set_env(maple):
+    """
+    set environment variable
+    """
+    pass
+
+def build(image=None):
     """
     Builds a local image from remote image
     """
-    os.system('docker build -t ${maple_container}_image --build-arg maple_image=${maple_image} \
-                                                        --build-arg maple_target=${maple_target} \
-                                                        --build-arg maple_source=${maple_source} \
-                                                        --build-arg maple_user=${maple_user} \
-                                                        --build-arg maple_group=${maple_group} \
-                                                        --build-arg maple_parfile=${maple_parfile} .')
+    if(image): os.environ['maple_image'] = str(image)
+
+    os.system('docker build -t ${maple_container}_image --build-arg maple_image=$maple_image \
+                                                        --build-arg maple_target=$maple_target \
+                                                        --build-arg maple_source=$maple_source \
+                                                        --build-arg maple_user=$maple_user \
+                                                        --build-arg maple_group=$maple_group \
+                                                        --build-arg maple_parfile=$maple_parfile .')
 
 def commit():
     """
     Commit changes from local container to local image
     """
-    os.system('docker commit ${maple_container} ${maple_container}_image')
+    os.system('docker commit $maple_container ${maple_container}_image')
 
-def pull():
+def pull(image=None):
     """
     Pull remote image
     """
+    if image: os.environ['maple_image'] = str(image)
     os.system('docker pull ${maple_image}')
 
-def push():
+def push(tag):
     """
     Push local image to remote tag/image
     """
-    os.system('docker tag ${maple_container}_image ${maple_pushtag}')
-    os.system('docker push ${maple_pushtag}')
+    os.environ['maple_pushtag'] = str(tag)
+    os.system('docker tag ${maple_container}_image $maple_pushtag')
+    os.system('docker push $maple_pushtag')
 
 def login():
     """
@@ -45,38 +56,49 @@ def run(nprocs):
     os.environ['maple_procs'] = str(nprocs)
 
     if(os.getenv('maple_source') and os.getenv('maple_target')):
-        os.system('docker run --name ${maple_container} \
-                              --env maple_procs --env maple_command \
-                              --mount type=bind,source=${maple_source},target=${maple_target} \
+        os.system('docker run --name $maple_container \
+                              --env maple_procs\
+                              --mount type=bind,source=$maple_source,target=$maple_target \
                               ${maple_container}_image')
     else:
-        os.system('docker run --name ${maple_container} \
-                              --env maple_procs --env maple_command \
+        os.system('docker run --name $maple_container \
+                              --env maple_procs \
                               ${maple_container}_image')
+
+    os.system('docker rm ${maple_container}')
 
 def pour():
     """
     Pour local image in a container, opposite of maple rinse
     """
     if(os.getenv('maple_source') and os.getenv('maple_target')):
-        os.system('docker run -dit --name ${maple_container} \
-                                   --mount type=bind,source=${maple_source},target=${maple_target} \
+        os.system('docker run -dit --name $maple_container \
+                                   --env maple_procs \
+                                   --mount type=bind,source=$maple_source,target=$maple_target \
                                    ${maple_container}_image bash')
     else:
-        os.system('docker run -dit --name ${maple_container} ${maple_container}_image bash')
+        os.system('docker run -dit --name $maple_container --env maple_procs ${maple_container}_image bash')
 
 def bash():
     """
     Get shell access to the local container
     """
-    os.system('docker exec -it ${maple_container} bash')
+    os.system('docker exec -it $maple_container bash')
 
-def rinse():
+def execute(command):
+    """
+    Run local image in a container
+    """
+    print(command)
+    os.system('docker exec $maple_container bash -c {0}'.format(command))
+
+def rinse(container=None):
     """
     Stop and remove the local container, opposite of maple pour
     """
-    os.system('docker stop ${maple_container}')
-    os.system('docker rm ${maple_container}')
+    if container: os.environ['maple_container'] = str(container)
+    os.system('docker stop $maple_container')
+    os.system('docker rm $maple_container')
 
 def images():
     """
@@ -90,19 +112,21 @@ def containers():
     """
     os.system('docker container ls -a')
 
-def clean():
+def clean(container=None):
     """
     clean local container environment
     """
-    os.system('docker stop ${maple_container}')
-    os.system('docker rm ${maple_container}')
+    if container: os.environ['maple_container'] = str(container)
+    os.system('docker stop $maple_container')
+    os.system('docker rm $maple_container')
     os.system('docker rmi ${maple_container}_image')
 
-def remove():
+def remove(image=None):
     """
     Remove a remote image
     """
-    os.system('docker rmi ${maple_image}')
+    if image: os.environ['maple_image']=str(image)
+    os.system('docker rmi $maple_image')
 
 def prune():
     """

@@ -1,16 +1,16 @@
 # Dockerfile
 
 ARG maple_image
-FROM ${maple_image}
+FROM $maple_image
 
 MAINTAINER adhruv 
 
 ARG maple_parfile
 ARG maple_target
 
-COPY ${maple_parfile} ${maple_target}/../flash.par
+COPY $maple_parfile $maple_target/../flash.par
 
-WORKDIR ${maple_target}/..
+WORKDIR $maple_target/..
 
 CMD ["sh", "-c", "export OMPI_MCA_btl_vader_single_copy_mechanism=none && \
                   echo $maple_procs && \

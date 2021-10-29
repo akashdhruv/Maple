@@ -22,8 +22,7 @@ class Maple(object):
                        'user'      : local user,
                        'group'     : user's group,
                        'backend'   : container backend - docker/singularity
-                       'parfile'   : parfile 
-                       'command'   : container command }
+                       'parfile'   : parfile}
         """
 
         self._attributes = { 'container' : 'ubuntu_container', 'image':'ubuntu:latest', 
@@ -31,8 +30,7 @@ class Maple(object):
                              'user'      : os.popen('id -u').read().split()[0],
                              'group'     : os.popen('id -g').read().split()[0],
                              'backend'   : 'docker',
-                             'parfile'   : None,
-                             'command'   : "echo Hello World!"}
+                             'parfile'   : None}
  
         for key in attributes:
             if key in self._attributes:
@@ -62,7 +60,7 @@ class Maple(object):
         else:
             self._attributes[key] = value
 
-    def _set_environ(self):
+    def _set_env(self):
         """
         private method for initialization
         """
@@ -73,97 +71,103 @@ class Maple(object):
         """
         Builds a local image from remote image
         """
-        self._set_environ()
+        self._set_env()
         self._attributes['backend'].build()
 
     def commit(self):
         """
         Commit changes from local container to local image
         """
-        self._set_environ()
+        self._set_env()
         self._attributes['backend'].commit()
 
     def pull(self):
         """
         Pull remote image
         """
-        self._set_environ()
+        self._set_env()
         self._attributes['backend'].pull()
 
     def push(self,tag):
         """
         Push local image to remote tag/image
         """
-        self._set_environ()
-        os.environ['maple_pushtag']=str(tag)
-        self._attributes['backend'].push()
+        self._set_env()
+        self._attributes['backend'].push(tag)
 
     def login(self):
         """
         Login to container backend (currently docker)
         """
-        self._set_environ()
+        self._set_env()
         self._attributes['backend'].login()
 
     def run(self,nprocs=1):
         """
         Run local image in a container
         """
-        self._set_environ()
+        self._set_env()
         self._attributes['backend'].run(nprocs)
 
     def pour(self):
         """
         Pour local image in a container, opposite of maple rinse
         """
-        self._set_environ()
+        self._set_env()
         self._attributes['backend'].pour()
 
     def bash(self):
         """
         Get shell access to the local container
         """
-        self._set_environ()
+        self._set_env()
         self._attributes['backend'].bash()
+
+    def execute(self,command):
+        """
+        Execute command
+        """
+        self._set_env()
+        self._attributes['backend'].exec(command)
 
     def rinse(self):
         """
         Stop and remove the local container, opposite of maple pour
         """
-        self._set_environ()
+        self._set_env()
         self._attributes['backend'].rinse()
 
     def images(self):
         """
         List all images on system
         """
-        self._set_environ()
+        self._set_env()
         self._attributes['backend'].images()
 
     def containers(self):
         """
         List all containers on system
         """
-        self._set_environ()
+        self._set_env()
         self._attributes['backend'].containers()
 
     def clean(self):
         """
-        Clean local container environment
+        Clean local container envment
         """
-        self._set_environ()
+        self._set_env()
         self._attributes['backend'].clean()
 
     def remove(self):
         """
         Remove a remote image
         """
-        self._set_environ()
+        self._set_env()
         self._attributes['backend'].remove()
 
     def prune(self):
         """
         Prune system
         """
-        self._set_environ()
+        self._set_env()
         self._attributes['backend'].prune()
