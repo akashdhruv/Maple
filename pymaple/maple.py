@@ -22,7 +22,8 @@ class Maple(object):
                        'user'      : local user,
                        'group'     : user's group,
                        'backend'   : container backend - docker/singularity
-                       'parfile'   : parfile }
+                       'parfile'   : parfile 
+                       'command'   : container command }
         """
 
         self._attributes = { 'container' : 'ubuntu_container', 'image':'ubuntu:latest', 
@@ -30,7 +31,8 @@ class Maple(object):
                              'user'      : os.popen('id -u').read().split()[0],
                              'group'     : os.popen('id -g').read().split()[0],
                              'backend'   : 'docker',
-                             'parfile'   : None}
+                             'parfile'   : None,
+                             'command'   : "echo Hello World!"}
  
         for key in attributes:
             if key in self._attributes:

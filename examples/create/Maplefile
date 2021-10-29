@@ -3,10 +3,7 @@
 # Container and image information
 maple_container="maple_container"
 maple_image="ubuntu:latest"
-
-# Target and source directories
-#maple_source="$SRCDIR"
-#maple_target="$MOUNTDIR"
-
-# Backend
+maple_source="$PWD"
+maple_target="/home/mount"
 maple_backend="docker"
+maple_command="ls -l"
