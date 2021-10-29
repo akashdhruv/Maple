@@ -14,8 +14,8 @@ FROM ${maple_image}
 #RUN adduser --disabled-password --gecos '' --uid ${maple_user} --gid ${maple_group} user
 #USER user
 
-# Environment variable for number of nprocs
-CMD ["sh", "-c", "echo $nprocs"]
+# Environment variable for number of maple_procs
+CMD ["sh", "-c", "echo $maple_procs && $maple_command"]
 
 # Uncomment this to install essential packages without accessing bash environment
 # TODO: remove this or find a better way to deal with this

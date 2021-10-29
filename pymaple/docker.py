@@ -42,15 +42,16 @@ def run(nprocs):
     """
     Run local image in a container
     """
-    os.environ['nprocs'] = str(nprocs)
+    os.environ['maple_procs'] = str(nprocs)
+
     if(os.getenv('maple_source') and os.getenv('maple_target')):
         os.system('docker run --name ${maple_container} \
-                              --env nprocs=$nprocs \
+                              --env maple_procs --env maple_command \
                               --mount type=bind,source=${maple_source},target=${maple_target} \
                               ${maple_container}_image')
     else:
         os.system('docker run --name ${maple_container} \
-                              --env nprocs=$nprocs \
+                              --env maple_procs --env maple_command \
                               ${maple_container}_image')
 
 def pour():
