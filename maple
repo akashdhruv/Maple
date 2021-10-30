@@ -21,6 +21,13 @@ set -a
 . Maplefile
 set +a
 
+
+# Set maple_dir if it does not exist
+#
+if [[ -z "${maple_dir}" ]]; then
+    maple_dir=$(dirname $0)
+fi
+
 # Call core python file for command line interface
 #
 python3 ${maple_dir}/pymaple "$@"
