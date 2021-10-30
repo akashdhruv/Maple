@@ -8,4 +8,4 @@ MAINTAINER adhruv
 ARG maple_target
 WORKDIR $maple_target
 
-CMD ["sh", "-c", "python3 test.py"]
+CMD ["sh", "-c", "python3 example.py"]
