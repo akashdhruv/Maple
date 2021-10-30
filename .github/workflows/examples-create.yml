@@ -1,4 +1,4 @@
-name: bubblebox-container
+name: examples-create
 
 on:
   pull_request:
@@ -14,7 +14,7 @@ jobs:
     name: "ubuntu-latest"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2      
     - name: Dependencies1
       run: |
           mkdir -p $HOME/.local/bin
@@ -23,10 +23,14 @@ jobs:
       run: |
           ./setup develop
           ./setup clean
-    - name: Run examples/bubblebox
+    - name: Run examples/create
       run: |
-          cd examples/bubblebox
+          cd examples/create
           maple build
           maple run
+          maple pour
+          maple execute
+          maple rinse
           maple clean
           maple remove
+          python3 MapleAPI.py
