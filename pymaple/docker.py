@@ -90,7 +90,7 @@ def execute(command):
     Run local image in a container
     """
     print(command)
-    os.system('docker exec $maple_container bash -c {0}'.format(command))
+    os.system('docker exec $maple_container bash -c {0}'.format(str(command)))
 
 def rinse(container=None):
     """
