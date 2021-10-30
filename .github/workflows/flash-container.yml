@@ -1,4 +1,4 @@
-name: examples-flash
+name: flash-container
 
 on:
   pull_request:
