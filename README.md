@@ -1,4 +1,4 @@
-## MAPLE - Python API and CLI for running docker containers with FLASH
+## Maple - A Python API and CLI for managing HPC projects with containers
 
 ### Installation
 
@@ -12,9 +12,9 @@ See ```examples/create```  ```examples/bubblebox```  ```examples/flashsim```
 
 ```maple_container```: Local container name
 
-```maple_image```: Base image name
+```maple_image```: Remote image name
 
-```maple_parfile```: Simulation specific ```flash.par```. See ```examples/flashsim```
+```maple_parfile```: Simulation specific parameter file. See ```examples/flashsim```
 
 ```maple_source```: Source directory
 
@@ -33,7 +33,7 @@ $HOME/.local/bin/maple build
 ```
 mkdir data
 
-$HOME/.local/bin/maple run && $HOME/.local/bin/maple rinse
+$HOME/.local/bin/maple run
 ```
 Results for the simulation are written in the  ```data``` directory
 
