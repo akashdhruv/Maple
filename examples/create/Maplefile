@@ -1,7 +1,7 @@
 # Maplefile
 
 # Container and image information
-maple_container="maple_container"
+maple_container="create"
 maple_image="ubuntu:latest"
 maple_source="$PWD"
 maple_target="/home/mount"

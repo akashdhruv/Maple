@@ -1,6 +1,6 @@
 # Maplefile
 
-maple_container="flashsim_container"
+maple_container="flashsim"
 maple_image="akashdhruv/flash:boiling"
 maple_target="/home/user/run/IOData"
 maple_source="$PWD/data"
