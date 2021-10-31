@@ -25,7 +25,7 @@ class Maple(object):
                        'parfile'   : parfile}
         """
 
-        self._attributes = { 'container' : 'ubuntu_container', 'image':'ubuntu:latest', 
+        self._attributes = { 'container' : 'ubuntu', 'image':'ubuntu:latest', 
                              'source'    : None, 'target' : None, 
                              'user'      : os.popen('id -u').read().split()[0],
                              'group'     : os.popen('id -g').read().split()[0],
