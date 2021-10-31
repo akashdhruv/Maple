@@ -128,7 +128,7 @@ class Maple(object):
         Execute command
         """
         self._set_env()
-        self._attributes['backend'].exec(command)
+        self._attributes['backend'].execute(command)
 
     def rinse(self):
         """
