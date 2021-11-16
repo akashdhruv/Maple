@@ -56,14 +56,18 @@ def run(nprocs):
     os.environ['maple_procs'] = str(nprocs)
 
     if(os.getenv('maple_source') and os.getenv('maple_target')):
-        os.system('docker run --name $maple_container \
+        result = os.system('docker run --name $maple_container \
                               --env maple_procs\
                               --mount type=bind,source=$maple_source,target=$maple_target \
                               ${maple_container}_image')
+
+
     else:
-        os.system('docker run --name $maple_container \
+        result = os.system('docker run --name $maple_container \
                               --env maple_procs \
                               ${maple_container}_image')
+
+    if result != 0: raise Exception("[maple] Error inside container")
 
     os.system('docker rm ${maple_container}')
 
@@ -89,8 +93,9 @@ def execute(command):
     """
     Run local image in a container
     """
-    print(command)
-    os.system('docker exec $maple_container bash -c {0}'.format(str(command)))
+    result = os.system('docker exec $maple_container bash -c {0}'.format(str(command)))
+
+    if result != 0: raise Exception("[maple] Error inside container")
 
 def rinse(container=None):
     """
