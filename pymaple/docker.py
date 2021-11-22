@@ -56,16 +56,16 @@ def run(nprocs):
     os.environ['maple_procs'] = str(nprocs)
 
     if(os.getenv('maple_source') and os.getenv('maple_target')):
-        result = os.system('docker run --name $maple_container \
-                              --env maple_procs\
-                              --mount type=bind,source=$maple_source,target=$maple_target \
-                              ${maple_container}_image')
+        result = os.system('docker run -p 8888:8888 --name $maple_container \
+                                                    --env maple_procs\
+                                                    --mount type=bind,source=$maple_source,target=$maple_target \
+                                                    ${maple_container}_image')
 
 
     else:
-        result = os.system('docker run --name $maple_container \
-                              --env maple_procs \
-                              ${maple_container}_image')
+        result = os.system('docker run -p 8888:8888 --name $maple_container \
+                                                    --env maple_procs \
+                                                    ${maple_container}_image')
 
     if result != 0: raise Exception("[maple] Error inside container")
 
@@ -76,12 +76,13 @@ def pour():
     Pour local image in a container, opposite of maple rinse
     """
     if(os.getenv('maple_source') and os.getenv('maple_target')):
-        os.system('docker run -dit --name $maple_container \
-                                   --env maple_procs \
-                                   --mount type=bind,source=$maple_source,target=$maple_target \
-                                   ${maple_container}_image bash')
+        os.system('docker run -p 8888:8888 -dit --name $maple_container \
+                                                --env maple_procs \
+                                                --mount type=bind,source=$maple_source,target=$maple_target \
+                                                ${maple_container}_image bash')
     else:
-        os.system('docker run -dit --name $maple_container --env maple_procs ${maple_container}_image bash')
+        os.system('docker run -p 8888:8888 -dit --name $maple_container \
+                                                --env maple_procs ${maple_container}_image bash')
 
 def bash():
     """
