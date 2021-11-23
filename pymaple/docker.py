@@ -94,6 +94,7 @@ def execute(command):
     """
     Run local image in a container
     """
+    command='"{0}"'.format(command)
     result = os.system('docker exec $maple_container bash -c {0}'.format(str(command)))
 
     if result != 0: raise Exception("[maple] Error inside container")
