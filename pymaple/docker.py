@@ -99,6 +99,12 @@ def execute(command):
 
     if result != 0: raise Exception("[maple] Error inside container")
 
+def notebook():
+    """
+    Launch ipython notebook inside the container
+    """
+    execute('/home/user/.local/bin/jupyter notebook --port=8888 --no-browser --ip=0.0.0.0')
+
 def rinse(container=None):
     """
     Stop and remove the local container, opposite of maple pour
