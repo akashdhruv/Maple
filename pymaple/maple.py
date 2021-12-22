@@ -130,6 +130,13 @@ class Maple(object):
         self._set_env()
         self._attributes['backend'].execute(command)
 
+    def notebook():
+        """
+        Launch ipython notebook inside the container
+        """
+        self._set_env()
+        self._attributes['backend'].notebook()
+
     def rinse(self):
         """
         Stop and remove the local container, opposite of maple pour

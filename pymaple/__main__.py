@@ -103,6 +103,15 @@ def bash():
     """
     pymaple.Maple.dict_backend[os.getenv('maple_backend')].bash()
 
+# Launch a notebook inside the container
+#
+@maple.command('notebook')
+def notebook():
+    """
+    Launch ipython notebook inside the container
+    """
+    pymaple.Maple.dict_backend[os.getenv('maple_backend')].notebook()
+
 # Execute a command in a poured container
 @maple.command('execute')
 @click.option('--command',default='echo Hello World!',help='Command to execute in a poured container')
