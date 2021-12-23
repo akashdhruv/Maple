@@ -1,0 +1,17 @@
+Command line use:
+
+- `maple build`: to build a local image from remote image
+
+- `maple pour`: to pour image into a container to enable shell access and port forwarding, similar to `maple run` which does not provide shell access but execute commands supplied in Dockerfile's `RUN` statement
+
+- `maple notebook`: launches the notebook server
+
+-  `maple bash`: provides shell access to the container
+
+- `maple execute --command="echo Hello World!"`: example to launch specific command inside the container
+
+- `maple rinse`: this commands stops and deletes the local container, if you want to save the work run `maple commit` to save changes to local image before maple rinse.
+
+- `maple clean`: deletes the local image, if you want to update remote image with changes to local image run `maple push <remote_image_name:tag>` before `maple clean`
+
+- `maple remove`: deletes the instance of remote image on local machine, doing this means that `maple build` will have to perform the expensive task of pulling the remote image again if you decide to rebuild the local image.  
