@@ -130,7 +130,7 @@ class Maple(object):
         self._set_env()
         self._attributes['backend'].execute(command)
 
-    def notebook():
+    def notebook(self):
         """
         Launch ipython notebook inside the container
         """
