@@ -158,6 +158,13 @@ class Maple(object):
         self._set_env()
         self._attributes['backend'].containers()
 
+    def squash(self):
+        """
+        Squash and prune layers
+        """
+        self._set_env()
+        self._attributes['backend'].squash()
+
     def clean(self):
         """
         Clean local container envment

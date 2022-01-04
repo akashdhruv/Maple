@@ -103,7 +103,7 @@ def notebook():
     """
     Launch ipython notebook inside the container
     """
-    execute('/home/user/.local/bin/jupyter notebook --port=8888 --no-browser --ip=0.0.0.0')
+    execute('jupyter notebook --port=8888 --no-browser --ip=0.0.0.0')
 
 def rinse(container=None):
     """
@@ -124,6 +124,14 @@ def containers():
     List all containers on system
     """
     os.system('docker container ls -a')
+
+def squash():
+    """
+    Squash an image and remove layers
+    """
+    os.system('docker export $maple_container > $maple_container.tar')
+    os.system('cat $maple_container.tar | docker import - ${maple_container}_image')
+    os.system('rm $maple_container.tar')
 
 def clean(container=None):
     """
