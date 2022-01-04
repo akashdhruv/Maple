@@ -150,6 +150,15 @@ def containers():
     """
     pymaple.Maple.dict_backend[os.getenv('maple_backend')].containers()
 
+# Squash and prune layers
+#
+@maple.command('squash')
+def squash():
+    """
+    List all containers on system
+    """
+    pymaple.Maple.dict_backend[os.getenv('maple_backend')].squash()
+
 # Clean all local images and containers
 #
 @maple.command('clean')
