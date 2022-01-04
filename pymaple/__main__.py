@@ -155,7 +155,7 @@ def containers():
 @maple.command('squash')
 def squash():
     """
-    List all containers on system
+    Squash and prune layers from local container and save it to local image
     """
     pymaple.Maple.dict_backend[os.getenv('maple_backend')].squash()
 
