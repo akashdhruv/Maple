@@ -1,6 +1,7 @@
 """Python API for maple"""
 
 import os
+import random
 
 from . import docker
 
@@ -22,7 +23,7 @@ class Maple(object):
                        'user'      : local user,
                        'group'     : user's group,
                        'backend'   : container backend - docker/singularity
-                       'parfile'   : parfile}
+                       'port'      : port ID to deploy jupyter notebooks}
         """
 
         self._attributes = { 'container' : 'ubuntu', 'image':'ubuntu:latest', 
@@ -30,7 +31,7 @@ class Maple(object):
                              'user'      : os.popen('id -u').read().split()[0],
                              'group'     : os.popen('id -g').read().split()[0],
                              'backend'   : 'docker',
-                             'parfile'   : None}
+                             'port'      : str(random.randint(1111,9999)) }
  
         for key in attributes:
             if key in self._attributes:
@@ -38,8 +39,17 @@ class Maple(object):
             else:
                 raise ValueError('[maple]: attribute "{}" not present'.format(key))
 
+        # Set backend docker/singularity
         self._attributes['backend'] = Maple.dict_backend[self._attributes['backend']]
 
+        # Condition to check if target and source directories are defined in the Maplefile
+        # assign default if they are not, and deal with execptions
+        if not self._attributes['target']:
+            self._attributes['target'] = '/home'
+            self._attributes['source'] = None
+        else:
+            if not self._attributes['source']: self._attributes['source'] = os.getenv('PWD')
+            
     def __getitem__(self,key):
         """
         Get variable data
@@ -55,8 +65,8 @@ class Maple(object):
         """
         if not key in self._attributes:
             raise ValueError('[maple]: attribute "{}" not present'.format(key))
-        elif key == 'backend':
-            raise NotImplementedError('[maple]: cannot edit "backend" after intitialization')
+        elif key=='backend' or key=='port':
+            raise NotImplementedError('[maple]: cannot edit "{0}" after intitialization'.format(key))
         else:
             self._attributes[key] = value
 
@@ -102,12 +112,12 @@ class Maple(object):
         self._set_env()
         self._attributes['backend'].login()
 
-    def run(self,nprocs=1):
+    def run(self,command):
         """
         Run local image in a container
         """
         self._set_env()
-        self._attributes['backend'].run(nprocs)
+        self._attributes['backend'].run(command)
 
     def pour(self):
         """

@@ -14,9 +14,8 @@
 # maple_container           Name of the local container
 # maple_target              Name of the target dir to mount source dir
 # maple_source              Name of the source dir - usually $PWD
-# maple_user                Name of the user - usually current user
-# maple_group               Name of the users group
-# maple_parfile             Parameter file for a simualtion
+# maple_port                Port ID for the container (used when running jupyter notebooks)
+# maple_docker              Container backend (docker/singularity)
 set -a
 . Maplefile
 set +a

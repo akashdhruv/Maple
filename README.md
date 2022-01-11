@@ -18,8 +18,6 @@ See ```examples/create```  ```examples/bubblebox```  ```examples/flashsim```
 
 ```maple_image```: Remote image name
 
-```maple_parfile```: Simulation specific parameter file. See ```examples/flashsim```
-
 ```maple_source```: Source directory
 
 ```maple_target```: Mount path
@@ -35,11 +33,8 @@ $HOME/.local/bin/maple build
 ```
 
 ```
-mkdir data
-
-$HOME/.local/bin/maple run
+$HOME/.local/bin/maple run "mpirun -n 1 /home/run/flash4"
 ```
-Results for the simulation are written in the  ```data``` directory
 
 ### Running a docker container with FLASH developer environment
 

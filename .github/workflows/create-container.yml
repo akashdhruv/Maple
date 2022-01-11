@@ -28,7 +28,7 @@ jobs:
       run: |
           cd examples/create
           maple build
-          maple run
+          maple run "pwd"
           maple pour
           maple execute
           maple rinse

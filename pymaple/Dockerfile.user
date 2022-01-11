@@ -1,0 +1,17 @@
+# Dockerfile for maple
+
+# Build local image from remote image
+ARG maple_image
+FROM ${maple_image}
+
+# Add current user to container (comment when trying to login as root)
+ARG maple_user
+ARG maple_group
+ENV maple_group=$maple_group
+RUN bash -c 'if [[ ${OSTYPE} == linux-gnu ]] ; then addgroup --gid $maple_group user ; fi'
+RUN adduser --disabled-password --gecos '' --uid $maple_user --gid $maple_group user
+USER user
+
+# Set working directory using maple_target from Maplefile
+ARG maple_target
+WORKDIR $maple_target

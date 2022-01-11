@@ -2,6 +2,4 @@
 
 maple_container="flashsim"
 maple_image="akashdhruv/flash:boiling"
-maple_target="/home/user/run/IOData"
-maple_source="$PWD/data"
-maple_parfile="flash.par"
+maple_target="/home/mount/simulation"
