@@ -10,5 +10,3 @@ USER root
 # Set working directory using maple_target from Maplefile
 ARG maple_target
 WORKDIR $maple_target
-
-CMD ["sh", "-c", "echo $maple_procs"]

@@ -112,12 +112,12 @@ class Maple(object):
         self._set_env()
         self._attributes['backend'].login()
 
-    def run(self,nprocs=1):
+    def run(self,command):
         """
         Run local image in a container
         """
         self._set_env()
-        self._attributes['backend'].run(nprocs)
+        self._attributes['backend'].run(command)
 
     def pour(self):
         """

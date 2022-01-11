@@ -45,12 +45,12 @@ def maple():
 #
 @maple.command(name='build')
 @click.option('--image',default=os.getenv('maple_image'),help='overwrite current remote image')
-@click.option('--root/--no-root', default=False)
-def build(image,root):
+@click.option('--as-root/--no-as-root', default=False)
+def build(image,as_root):
     """
     Builds a local image from remote image
     """
-    pymaple.Maple.dict_backend[os.getenv('maple_backend')].build(image,root)
+    pymaple.Maple.dict_backend[os.getenv('maple_backend')].build(image,as_root)
 
 # Commit changes to a container
 # Saves changes to local container as an image, currently uses docker
@@ -100,12 +100,12 @@ def login():
 # This is useful for accessing simulation output/plotfiles
 #
 @maple.command('run')
-@click.option('--nprocs',default=1,help='number of processes for maple container')
-def run(nprocs):
+@click.argument('command',default='echo Hello World!')
+def run(command):
     """
     Run local image in a container, opposite of maple rinse
     """
-    pymaple.Maple.dict_backend[os.getenv('maple_backend')].run(nprocs)
+    pymaple.Maple.dict_backend[os.getenv('maple_backend')].run(command)
 
 # Pour an image in a local container to access interactive shell
 # If maple_source or maple_traget are present then they will be mounted inside the containter.
@@ -149,7 +149,7 @@ def execute(command):
 # Do this if the local container is not needed
 #
 @maple.command('rinse')
-@click.option('--container',default=os.getenv('maple_container'),help='overwrite current container')
+@click.argument('container',default=os.getenv('maple_container'))
 def rinse(container):
     """
     Remove the local container, opposite of maple run/pour
@@ -177,16 +177,17 @@ def containers():
 # Squash and prune layers
 #
 @maple.command('squash')
-def squash():
+@click.argument('container',default=os.getenv('maple_container'))
+def squash(container):
     """
     Squash and prune layers from local container and save it to local image
     """
-    pymaple.Maple.dict_backend[os.getenv('maple_backend')].squash()
+    pymaple.Maple.dict_backend[os.getenv('maple_backend')].squash(container)
 
 # Clean all local images and containers
 #
 @maple.command('clean')
-@click.option('--container',default=os.getenv('maple_container'),help='overwrite current container')
+@click.argument('container',default=os.getenv('maple_container'))
 def clean(container):
     """
     clean local container environment
@@ -196,7 +197,7 @@ def clean(container):
 # Delete a remote image
 #
 @maple.command('remove')
-@click.option('--image',default=os.getenv('maple_image'),help='overwrite current remote image')
+@click.argument('image',default=os.getenv('maple_image'))
 def remove(image):
     """
     Remove a remote image

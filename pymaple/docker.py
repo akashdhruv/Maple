@@ -53,29 +53,16 @@ def login():
     """
     os.system('docker login')
 
-def run(nprocs):
+def run(command):
     """
     Run local image in a container
     """
-    os.environ['maple_procs'] = str(nprocs)
-
-    if(os.getenv('maple_source') and os.getenv('maple_target')):
-        result = os.system('docker run -p $maple_port:$maple_port \
-                                                    --name $maple_container \
-                                                    --env maple_procs\
-                                                    --mount type=bind,source=$maple_source,target=$maple_target \
-                                                    $maple_container')
-
-
-    else:
-        result = os.system('docker run -p $maple_port:$maple_port \
-                                                    --name $maple_container \
-                                                    --env maple_procs \
-                                                    $maple_container')
+    # pour, execute, and rinse make a run
+    pour()
+    result = execute(command)
+    rinse()
 
     if result != 0: raise Exception("[maple] Error inside container")
-
-    os.system('docker rm ${maple_container}')
 
 def pour():
     """
@@ -84,13 +71,12 @@ def pour():
     if(os.getenv('maple_source') and os.getenv('maple_target')):
         os.system('docker run -p $maple_port:$maple_port -dit \
                                                 --name $maple_container \
-                                                --env maple_procs \
                                                 --mount type=bind,source=$maple_source,target=$maple_target \
                                                 $maple_container bash')
     else:
         os.system('docker run -p $maple_port:$maple_port -dit \
                                                 --name $maple_container \
-                                                --env maple_procs $maple_container bash')
+                                                $maple_container bash')
 
 def bash():
     """
@@ -106,6 +92,8 @@ def execute(command):
     result = os.system('docker exec $maple_container bash -c {0}'.format(str(command)))
 
     if result != 0: raise Exception("[maple] Error inside container")
+
+    return result
 
 def notebook():
     """
@@ -133,10 +121,11 @@ def containers():
     """
     os.system('docker container ls -a')
 
-def squash():
+def squash(container=None):
     """
     Squash an image and remove layers
     """
+    if container: os.environ['maple_container'] = str(container)
     os.system('docker export $maple_container > $maple_container.tar')
     os.system('cat $maple_container.tar | docker import - $maple_container')
     os.system('rm $maple_container.tar')
@@ -148,7 +137,7 @@ def clean(container=None):
     if container: os.environ['maple_container'] = str(container)
     os.system('docker stop $maple_container')
     os.system('docker rm $maple_container')
-    os.system('docker rmi $maple_container')
+    os.system('docker rmi $maple_container $(docker images --filter dangling=true -q --no-trunc)')
 
 def remove(image=None):
     """

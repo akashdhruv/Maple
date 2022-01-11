@@ -4,9 +4,7 @@ import pymaple
 
 maple = pymaple.Maple()
 
-nprocs = 20
-
 maple.build()
-maple.run(nprocs)
+maple.run("pwd")
 maple.clean()
 maple.remove()
