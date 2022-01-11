@@ -1,3 +1,5 @@
+# Maple API script
+
 import pymaple
 
 maple = pymaple.Maple()

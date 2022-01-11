@@ -27,9 +27,10 @@ jobs:
     - name: Run examples/flashsim
       run: |
           cd examples/flashsim
-          mkdir data
+          mkdir IOData
           maple build
-          maple run --nprocs=1
+          maple pour
+          maple execute "export OMPI_MCA_btl_vader_single_copy_mechanism=none && mpirun -n 1 /home/run/flash4"
           maple clean
           maple remove
           python3 MapleAPI.py

@@ -3,4 +3,3 @@
 maple_container="bubblebox"
 maple_image="akashdhruv/bubblebox:0.0.1"
 maple_target="/home/mount/bubblebox"
-maple_source="$PWD"

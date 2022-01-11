@@ -1,12 +1,12 @@
+# Maple API file to run a Flash-X simulation
+
 import pymaple
-import os
 
-maple = pymaple.Maple(container='flashsim',image='akashdhruv/flash:boiling',
-                      source=os.getenv('PWD')+'/data',target='/home/user/run/IOData',
-                      parfile='flash.par')
-
+maple = pymaple.Maple(container='flashx',image='akashdhruv/flash:boiling',
+                      target='/home/mount/simulation')
 
 maple.build()
-maple.run(nprocs=1)
+maple.pour()
+maple.execute("export OMPI_MCA_btl_vader_single_copy_mechanism=none && mpirun -n 1 /home/run/flash4")
 maple.clean()
 maple.remove()

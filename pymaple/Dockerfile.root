@@ -1,0 +1,14 @@
+# Dockerfile for maple
+
+# Build local image from remote image
+ARG maple_image
+FROM ${maple_image}
+
+# Add current user to container (comment when trying to login as root)
+USER root
+
+# Set working directory using maple_target from Maplefile
+ARG maple_target
+WORKDIR $maple_target
+
+CMD ["sh", "-c", "echo $maple_procs"]

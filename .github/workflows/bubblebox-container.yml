@@ -28,6 +28,7 @@ jobs:
       run: |
           cd examples/bubblebox
           maple build
-          maple run
+          maple pour
+          maple execute "python3 example.py"
           maple clean
           maple remove
