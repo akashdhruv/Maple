@@ -103,7 +103,7 @@ def login():
 @click.argument('command',default='echo Hello World!')
 def run(command):
     """
-    Run local image in a container, opposite of maple rinse
+    Run a command inside the local container
     """
     pymaple.Maple.dict_backend[os.getenv('maple_backend')].run(command)
 
@@ -114,7 +114,7 @@ def run(command):
 @maple.command('pour')
 def pour():
     """
-    Pour local image in a container, opposite of maple rinse
+    Pour local image in a container
     """
     pymaple.Maple.dict_backend[os.getenv('maple_backend')].pour()
 
@@ -152,7 +152,7 @@ def execute(command):
 @click.argument('container',default=os.getenv('maple_container'))
 def rinse(container):
     """
-    Remove the local container, opposite of maple run/pour
+    Remove the local container
     """
     pymaple.Maple.dict_backend[os.getenv('maple_backend')].rinse(container)
 
