@@ -16,9 +16,9 @@ def build(image=None,root=False):
     if(image): os.environ['maple_image'] = str(image)
 
     if root:
-        dockerfile = 'Dockerfile.root'
+        dockerfile = 'dockerfile.root'
     else:
-        dockerfile = 'Dockerfile.user'
+        dockerfile = 'dockerfile.user'
 
     os.system('docker build -t $maple_container --build-arg maple_image=$maple_image \
                                                 --build-arg maple_target=$maple_target \
