@@ -2,7 +2,7 @@ Command line use:
 
 - `maple build`: to build a local image from remote image
 
-- `maple pour`: to pour image into a container to enable shell access and port forwarding, similar to `maple run` which does not provide shell access but execute commands supplied in Dockerfile's `RUN` statement
+- `maple pour`: to pour image into a container to enable shell access and port forwarding.
 
 - `maple notebook`: launches the notebook server
 
