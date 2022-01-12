@@ -2,13 +2,6 @@
 
 import os
 
-
-def _set_env(maple):
-    """
-    set environment variable
-    """
-    pass
-
 def build(image=None,root=False):
     """
     Builds a local image from remote image
@@ -16,16 +9,15 @@ def build(image=None,root=False):
     if(image): os.environ['maple_image'] = str(image)
 
     if root:
-        dockerfile = 'dockerfile.root'
+        dockerfile = 'resources/dockerfile.root'
     else:
-        dockerfile = 'dockerfile.user'
+        dockerfile = 'resources/dockerfile.user'
 
     os.system('docker build -t $maple_container --build-arg maple_image=$maple_image \
                                                 --build-arg maple_target=$maple_target \
                                                 --build-arg maple_user=$maple_user \
                                                 --build-arg maple_group=$maple_group \
                                                 --file=$maple_dir/pymaple/{0} .'.format(dockerfile))
-
 def commit():
     """
     Commit changes from local container to local image

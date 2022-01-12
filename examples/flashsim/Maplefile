@@ -3,3 +3,4 @@
 maple_container="flashsim"
 maple_image="akashdhruv/flash:boiling"
 maple_target="/home/mount/simulation"
+maple_port="3000"
