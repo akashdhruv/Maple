@@ -3,13 +3,13 @@
 import os
 import random
 
-from . import docker
+from . import docker,singularity
 
 class Maple(object):
     """
     User interface to maple
     """
-    dict_backend = {'docker' : docker}
+    dict_backend = {'docker' : docker, 'singularity': singularity}
 
     def __init__(self,**attributes):
         """

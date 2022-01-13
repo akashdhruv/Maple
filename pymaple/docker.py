@@ -13,7 +13,8 @@ def build(image=None,root=False):
     else:
         dockerfile = 'resources/dockerfile.user'
 
-    os.system('docker build -t $maple_container --build-arg maple_image=$maple_image \
+    os.system('docker build -t $maple_container --no-cache \
+                                                --build-arg maple_image=$maple_image \
                                                 --build-arg maple_target=$maple_target \
                                                 --build-arg maple_user=$maple_user \
                                                 --build-arg maple_group=$maple_group \
@@ -51,10 +52,8 @@ def run(command):
     """
     # pour, execute, and rinse make a run
     pour()
-    result = execute(command)
+    execute(command)
     rinse()
-
-    if result != 0: raise Exception("[maple] Error inside container")
 
 def pour():
     """
@@ -85,8 +84,6 @@ def execute(command):
 
     if result != 0: raise Exception("[maple] Error inside container")
 
-    return result
-
 def notebook():
     """
     Launch ipython notebook inside the container
@@ -106,6 +103,7 @@ def images():
     List all images on system
     """
     os.system('docker images -a')
+    os.system('ls *.sif 2> /dev/null')
 
 def containers():
     """
