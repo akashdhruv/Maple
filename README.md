@@ -36,8 +36,6 @@ uitilty  - Build maple image from local image using ```maple build```
 
   - Getting shell access:
 
-    ```maple pour```: to pour image into a container to enable shell access (only available with docker backend)
-
     ```maple shell```: provides shell access to the container
 
     ```maple commit```: Save changes from local container to local image (only available with docker backend)

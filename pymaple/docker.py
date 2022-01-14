@@ -51,14 +51,17 @@ def pour():
     Pour local image in a container, opposite of maple rinse
     """
     if(os.getenv('maple_source') and os.getenv('maple_target')):
-        os.system('docker run -p $maple_port:$maple_port -dit \
+        result = os.system('docker run -p $maple_port:$maple_port -dit \
                                                 --name $maple_container \
                                                 --mount type=bind,source=$maple_source,target=$maple_target \
                                                 $maple_container bash')
     else:
-        os.system('docker run -p $maple_port:$maple_port -dit \
+        result = os.system('docker run -p $maple_port:$maple_port -dit \
                                                 --name $maple_container \
                                                 $maple_container bash')
+
+    if result != 0: raise Exception("[maple] Error inside container")
+
 def rinse(container=None):
     """
     Stop and remove the local container, opposite of maple pour
@@ -71,6 +74,7 @@ def shell():
     """
     Get shell access to the local container
     """
+    pour()
     os.system('docker exec -it $maple_container bash')
 
 def execute(command):
