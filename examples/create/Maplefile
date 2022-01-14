@@ -4,4 +4,4 @@
 maple_container="create"
 maple_image="ubuntu:latest"
 maple_target="/home/mount"
-maple_backend="singularity"
+maple_backend="docker"
