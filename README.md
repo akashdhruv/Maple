@@ -9,8 +9,6 @@
 mkdir -p $HOME/.local/bin
 export PATH="$PATH:$HOME/.local/bin"
 
-git submodule update --init $Flash-X_HOME/tools/maple
-cd $Flash-X_HOME/tools/maple
 ./setup develop
 ./setup clean
 ```
