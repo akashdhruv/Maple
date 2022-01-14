@@ -5,6 +5,5 @@ import pymaple
 maple = pymaple.Maple()
 
 maple.build()
-maple.run("pwd")
+maple.execute("pwd")
 maple.clean()
-maple.remove()

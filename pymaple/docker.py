@@ -13,7 +13,8 @@ def build(image=None,root=False):
     else:
         dockerfile = 'resources/dockerfile.user'
 
-    os.system('docker build -t $maple_container --build-arg maple_image=$maple_image \
+    os.system('docker build -t $maple_container --no-cache \
+                                                --build-arg maple_image=$maple_image \
                                                 --build-arg maple_target=$maple_target \
                                                 --build-arg maple_user=$maple_user \
                                                 --build-arg maple_group=$maple_group \
@@ -45,17 +46,6 @@ def login():
     """
     os.system('docker login')
 
-def run(command):
-    """
-    Run local image in a container
-    """
-    # pour, execute, and rinse make a run
-    pour()
-    result = execute(command)
-    rinse()
-
-    if result != 0: raise Exception("[maple] Error inside container")
-
 def pour():
     """
     Pour local image in a container, opposite of maple rinse
@@ -69,8 +59,15 @@ def pour():
         os.system('docker run -p $maple_port:$maple_port -dit \
                                                 --name $maple_container \
                                                 $maple_container bash')
+def rinse(container=None):
+    """
+    Stop and remove the local container, opposite of maple pour
+    """
+    if container: os.environ['maple_container'] = str(container)
+    os.system('docker stop $maple_container')
+    os.system('docker rm $maple_container')
 
-def bash():
+def shell():
     """
     Get shell access to the local container
     """
@@ -80,26 +77,20 @@ def execute(command):
     """
     Run local image in a container
     """
+    pour()
+
     command='"{0}"'.format(command)
     result = os.system('docker exec $maple_container bash -c {0}'.format(str(command)))
 
-    if result != 0: raise Exception("[maple] Error inside container")
+    rinse()
 
-    return result
+    if result != 0: raise Exception("[maple] Error inside container")
 
 def notebook():
     """
     Launch ipython notebook inside the container
     """
     execute('jupyter notebook --port=$maple_port --no-browser --ip=0.0.0.0')
-
-def rinse(container=None):
-    """
-    Stop and remove the local container, opposite of maple pour
-    """
-    if container: os.environ['maple_container'] = str(container)
-    os.system('docker stop $maple_container')
-    os.system('docker rm $maple_container')
 
 def images():
     """
@@ -127,8 +118,6 @@ def clean(container=None):
     clean local container environment
     """
     if container: os.environ['maple_container'] = str(container)
-    os.system('docker stop $maple_container')
-    os.system('docker rm $maple_container')
     os.system('docker rmi $maple_container $(docker images --filter dangling=true -q --no-trunc)')
 
 def remove(image=None):

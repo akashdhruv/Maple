@@ -3,13 +3,13 @@
 import os
 import random
 
-from . import docker
+from . import docker,singularity
 
 class Maple(object):
     """
     User interface to maple
     """
-    dict_backend = {'docker' : docker}
+    dict_backend = {'docker' : docker, 'singularity': singularity}
 
     def __init__(self,**attributes):
         """
@@ -90,54 +90,12 @@ class Maple(object):
         self._set_env()
         self._attributes['backend'].build()
 
-    def commit(self):
-        """
-        Commit changes from local container to local image
-        """
-        self._set_env()
-        self._attributes['backend'].commit()
-
     def pull(self):
         """
         Pull remote image
         """
         self._set_env()
         self._attributes['backend'].pull()
-
-    def push(self,tag):
-        """
-        Push local image to remote tag/image
-        """
-        self._set_env()
-        self._attributes['backend'].push(tag)
-
-    def login(self):
-        """
-        Login to container backend (currently docker)
-        """
-        self._set_env()
-        self._attributes['backend'].login()
-
-    def run(self,command):
-        """
-        Run local image in a container
-        """
-        self._set_env()
-        self._attributes['backend'].run(command)
-
-    def pour(self):
-        """
-        Pour local image in a container, opposite of maple rinse
-        """
-        self._set_env()
-        self._attributes['backend'].pour()
-
-    def bash(self):
-        """
-        Get shell access to the local container
-        """
-        self._set_env()
-        self._attributes['backend'].bash()
 
     def execute(self,command):
         """
@@ -153,51 +111,9 @@ class Maple(object):
         self._set_env()
         self._attributes['backend'].notebook()
 
-    def rinse(self):
-        """
-        Stop and remove the local container, opposite of maple pour
-        """
-        self._set_env()
-        self._attributes['backend'].rinse()
-
-    def images(self):
-        """
-        List all images on system
-        """
-        self._set_env()
-        self._attributes['backend'].images()
-
-    def containers(self):
-        """
-        List all containers on system
-        """
-        self._set_env()
-        self._attributes['backend'].containers()
-
-    def squash(self):
-        """
-        Squash and prune layers
-        """
-        self._set_env()
-        self._attributes['backend'].squash()
-
     def clean(self):
         """
         Clean local container envment
         """
         self._set_env()
         self._attributes['backend'].clean()
-
-    def remove(self):
-        """
-        Remove a remote image
-        """
-        self._set_env()
-        self._attributes['backend'].remove()
-
-    def prune(self):
-        """
-        Prune system
-        """
-        self._set_env()
-        self._attributes['backend'].prune()
