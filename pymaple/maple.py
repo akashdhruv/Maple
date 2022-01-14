@@ -113,7 +113,14 @@ class Maple(object):
 
     def clean(self):
         """
-        Clean local container envment
+        Clean local container environment
         """
         self._set_env()
         self._attributes['backend'].clean()
+
+    def remove(self):
+        """
+        Remove remote container
+        """
+        self._set_env()
+        self._attributes['backend'].remove()

@@ -12,6 +12,9 @@ RUN bash -c 'if [[ ${OSTYPE} == linux-gnu ]] ; then addgroup --gid $maple_group 
 RUN adduser --disabled-password --gecos '' --uid $maple_user --gid $maple_group user
 USER user
 
+# MPI environment variable
+ENV OMPI_MCA_btl_vader_single_copy_mechanism=none
+
 # Set working directory using maple_target from Maplefile
 ARG maple_target
 WORKDIR $maple_target

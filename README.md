@@ -5,84 +5,59 @@
 ![flash-container](https://github.com/akashdhruv/Maple/workflows/flash-container/badge.svg)
 
 ### Installation
+```
+mkdir -p $HOME/.local/bin
+export PATH="$PATH:$HOME/.local/bin"
 
-```./setup develop```
+git submodule update --init $Flash-X_HOME/tools/maple
+cd $Flash-X_HOME/tools/maple
+./setup develop
+./setup clean
+```
+### Writing a Maplefile
+
+  ```Maplefile``` is used to define environment variables required by ```maple```. Following is a list of variables:
+  
+  ```maple_image```: Name of the image in remote registry   	 
+  
+  ```maple_container```: Name of the local container  	
+  
+  ```maple_target```: Name of the target dir to mount src dir 
+  
+  ```maple_port```: Port ID for jupyter notebooks 
+  
+  ```maple_backend```: Backend (docker/singularity)
+  
+  ```maple``` passes these variables to its internal ```Dockerfile``` to build the images and containers.
+
+### CLI use:
+
+uitilty  - Build maple image from local image using ```maple build```
+
+  - Getting shell access:
+
+    ```maple shell```: provides shell access to the container
+
+    ```maple commit```: Save changes from local container to local image (only available with docker backend)
+
+    ```maple squash```: Prune redundant layers from a local container and save it to local image (do this to reduce size of an image, only available with docker backend)
+
+    ```maple rinse```: this commands stops and deletes the local container (only available with docker backend)
+
+  - Launch an ipython notebook inside the 
+
+    ```maple notebook```: launches the notebook server
+
+  - Execute commands inside the container
+
+    ```maple execute "echo Hello World!"```: example to launch specific command inside the container
+
+  - Cleanup
+
+    ```maple clean```: deletes the local image, if you want to update remote image with changes to local image run ```maple push <remote_image_name:tag>``` before ```maple clean```
+
+    ```maple remove```: deletes the instance of remote image on local machine, doing this means that ```maple build``` will have to perform the expensive task of pulling the remote image again if you decide to rebuild the local image.
 
 ### Examples
 
 See ```examples/create```  ```examples/bubblebox```  ```examples/flashsim```
- 
-### Configuration variables
-
-```maple_container```: Local container name
-
-```maple_image```: Remote image name
-
-```maple_source```: Source directory
-
-```maple_target```: Mount path
-
-### Running a docker container with FLASH executable
-
-Build and run the local container
-
-```
-cd examples/flashxsim
-
-$HOME/.local/bin/maple build
-```
-
-```
-$HOME/.local/bin/maple run "mpirun -n 1 /home/run/flash4"
-```
-
-### Running a docker container with FLASH developer environment
-
-
-Build and pour ```maple_image``` to ```maple_container```
-
-```
-$HOME/.local/bin/maple build
-```
-
-```
-$HOME/.local/bin/maple pour 
-```
-
-If ```maple_image``` is not locally available it will be pulled from ```docker``` registry. Use ```./maple pull``` to pull the image without creating a local container.
-
-Enter the ```bash``` environment of local container using
-
-```
-$HOME/.local/bin/maple bash
-```
-
-To commit changes made to the local container and save work locally type
-
-```
-$HOME/.local/bin/maple commit
-```
-
-To stop the local container run
-
-```
-$HOME/.local/bin/maple rinse
-```
-
-When you stop your local ```docker``` server, the local container will stop automatically. Any uncommited work will be lost when local container stops.
-
-To push the save image created by ```./maple commit``` to docker registry type
-
-```
-$HOME/.local/bin/maple push <remote_image_name>
-```
-
-### Purge all local images and containers
-
-Do this to clean up your docker data
-
-```
-$HOME/.local/bin/maple clean
-```
-
-Don't run this if you still need local images to finish work

@@ -90,22 +90,11 @@ def push(tag):
 @maple.command(name='login')
 def login():
     """
-    Login to container backend (currently docker)
+    Login to container backend
     """
     pymaple.Maple.dict_backend[os.getenv('maple_backend')].login()
 
-# Pour an image in a local container to access interactive shell
-# If maple_source or maple_traget are present then they will be mounted inside the containter.
-# This is useful for mounting maple_source for development
-#
-@maple.command('pour')
-def pour():
-    """
-    Pour local image in a container
-    """
-    pymaple.Maple.dict_backend[os.getenv('maple_backend')].pour()
-
-# Enter the shell environment of a "poured" container
+# Enter the shell environment of a container
 #
 @maple.command('shell')
 def shell():
@@ -123,12 +112,12 @@ def notebook():
     """
     pymaple.Maple.dict_backend[os.getenv('maple_backend')].notebook()
 
-# Execute a command in a poured container
+# Execute a command in a container
 @maple.command('execute')
 @click.argument('command',default='echo Hello World!')
 def execute(command):
     """
-    Execute command in a poured container
+    Execute command in a container
     """
     pymaple.Maple.dict_backend[os.getenv('maple_backend')].execute(command)
 
@@ -181,7 +170,7 @@ def squash(container):
 @click.argument('container',default=os.getenv('maple_container'))
 def clean(container):
     """
-    clean local container environment
+    Clean local image/container environment
     """
     pymaple.Maple.dict_backend[os.getenv('maple_backend')].clean(container)
 
@@ -191,7 +180,7 @@ def clean(container):
 @click.argument('image',default=os.getenv('maple_image'))
 def remove(image):
     """
-    Remove a remote image
+    Remove a remote image from local cache
     """
     pymaple.Maple.dict_backend[os.getenv('maple_backend')].remove(image)
 
