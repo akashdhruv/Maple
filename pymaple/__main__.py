@@ -121,6 +121,17 @@ def execute(command):
     """
     pymaple.Maple.dict_backend[os.getenv('maple_backend')].execute(command)
 
+# Pour an image in a local container to access interactive shell
+# If maple_source or maple_traget are present then they will be mounted inside the containter.
+# This is useful for mounting maple_source for development
+#
+@maple.command('pour')
+def pour():
+    """
+    Pour local image in a container
+    """
+    pymaple.Maple.dict_backend[os.getenv('maple_backend')].pour()
+
 # Rinse a local container
 # Do this if the local container is not needed
 #

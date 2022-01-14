@@ -35,6 +35,12 @@ def login():
     """
     print("[maple] command not available for singularity backend")
 
+def pour(container=None):
+    """
+    Pour local image in a container, opposite of maple rinse
+    """
+    print("[maple] command not available for singularity backend")
+
 def rinse(container=None):
     """
     Stop and remove the local container, opposite of maple pour

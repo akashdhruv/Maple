@@ -36,13 +36,15 @@ uitilty  - Build maple image from local image using ```maple build```
 
   - Getting shell access:
 
-    ```maple shell```: provides shell access to the container
+    ```maple pour```: Pour local image into a container
+
+    ```maple shell```: Provides shell access to the container
 
     ```maple commit```: Save changes from local container to local image (only available with docker backend)
 
     ```maple squash```: Prune redundant layers from a local container and save it to local image (do this to reduce size of an image, only available with docker backend)
 
-    ```maple rinse```: this commands stops and deletes the local container (only available with docker backend)
+    ```maple rinse```: This commands stops and deletes the local container (only available with docker backend)
 
   - Launch an ipython notebook inside the 
 
