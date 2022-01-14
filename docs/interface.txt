@@ -2,11 +2,9 @@ Command line use:
 
 - `maple build`: to build a local image from remote image
 
-- `maple pour`: to pour image into a container to enable shell access and port forwarding.
-
 - `maple notebook`: launches the notebook server
 
--  `maple bash`: provides shell access to the container
+-  `maple shell`: provides shell access to the container
 
 - `maple execute --command="echo Hello World!"`: example to launch specific command inside the container
 
