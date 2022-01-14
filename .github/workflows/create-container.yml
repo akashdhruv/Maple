@@ -28,10 +28,7 @@ jobs:
       run: |
           cd examples/create
           maple build
-          maple run "pwd"
-          maple pour
           maple execute
-          maple rinse
           maple clean
           maple remove
           python3 MapleAPI.py

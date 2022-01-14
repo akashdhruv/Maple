@@ -46,15 +46,6 @@ def login():
     """
     os.system('docker login')
 
-def run(command):
-    """
-    Run local image in a container
-    """
-    # pour, execute, and rinse make a run
-    pour()
-    execute(command)
-    rinse()
-
 def pour():
     """
     Pour local image in a container, opposite of maple rinse
@@ -68,8 +59,15 @@ def pour():
         os.system('docker run -p $maple_port:$maple_port -dit \
                                                 --name $maple_container \
                                                 $maple_container bash')
+def rinse(container=None):
+    """
+    Stop and remove the local container, opposite of maple pour
+    """
+    if container: os.environ['maple_container'] = str(container)
+    os.system('docker stop $maple_container')
+    os.system('docker rm $maple_container')
 
-def bash():
+def shell():
     """
     Get shell access to the local container
     """
@@ -79,8 +77,12 @@ def execute(command):
     """
     Run local image in a container
     """
+    pour()
+
     command='"{0}"'.format(command)
     result = os.system('docker exec $maple_container bash -c {0}'.format(str(command)))
+
+    rinse()
 
     if result != 0: raise Exception("[maple] Error inside container")
 
@@ -90,20 +92,11 @@ def notebook():
     """
     execute('jupyter notebook --port=$maple_port --no-browser --ip=0.0.0.0')
 
-def rinse(container=None):
-    """
-    Stop and remove the local container, opposite of maple pour
-    """
-    if container: os.environ['maple_container'] = str(container)
-    os.system('docker stop $maple_container')
-    os.system('docker rm $maple_container')
-
 def images():
     """
     List all images on system
     """
     os.system('docker images -a')
-    os.system('ls *.sif 2> /dev/null')
 
 def containers():
     """
@@ -125,8 +118,6 @@ def clean(container=None):
     clean local container environment
     """
     if container: os.environ['maple_container'] = str(container)
-    os.system('docker stop $maple_container')
-    os.system('docker rm $maple_container')
     os.system('docker rmi $maple_container $(docker images --filter dangling=true -q --no-trunc)')
 
 def remove(image=None):

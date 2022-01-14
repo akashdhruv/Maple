@@ -94,19 +94,6 @@ def login():
     """
     pymaple.Maple.dict_backend[os.getenv('maple_backend')].login()
 
-# Run an image in a local container
-# This functionality executes the CMD statement in a Dockerfile.
-# If maple_source or maple_target are present then they will be mounted inside the container. 
-# This is useful for accessing simulation output/plotfiles
-#
-@maple.command('run')
-@click.argument('command',default='echo Hello World!')
-def run(command):
-    """
-    Run a command inside the local container
-    """
-    pymaple.Maple.dict_backend[os.getenv('maple_backend')].run(command)
-
 # Pour an image in a local container to access interactive shell
 # If maple_source or maple_traget are present then they will be mounted inside the containter.
 # This is useful for mounting maple_source for development
@@ -120,12 +107,12 @@ def pour():
 
 # Enter the shell environment of a "poured" container
 #
-@maple.command('bash')
-def bash():
+@maple.command('shell')
+def shell():
     """
     Get shell access to the local container
     """
-    pymaple.Maple.dict_backend[os.getenv('maple_backend')].bash()
+    pymaple.Maple.dict_backend[os.getenv('maple_backend')].shell()
 
 # Launch a notebook inside the container
 #
@@ -159,19 +146,23 @@ def rinse(container):
 # List all images
 #
 @maple.command('images')
-def images():
+@click.argument('backend',default=os.getenv('maple_backend'))
+def images(backend):
     """
     List all images on system
     """
+    os.environ['maple_backend'] = str(backend)
     pymaple.Maple.dict_backend[os.getenv('maple_backend')].images()
 
 # List all container
 #
 @maple.command('containers')
-def containers():
+@click.argument('backend',default=os.getenv('maple_backend'))
+def containers(backend):
     """
     List all containers on system
     """
+    os.environ['maple_backend'] = str(backend)
     pymaple.Maple.dict_backend[os.getenv('maple_backend')].containers()
 
 # Squash and prune layers
@@ -207,10 +198,12 @@ def remove(image):
 # Prune system
 #
 @maple.command('prune')
-def prune():
+@click.argument('backend',default=os.getenv('maple_backend'))
+def prune(backend):
     """
     Prune system
     """
+    os.environ['maple_backend'] = str(backend)
     pymaple.Maple.dict_backend[os.getenv('maple_backend')].prune()
 
 if __name__ == "__main__":
