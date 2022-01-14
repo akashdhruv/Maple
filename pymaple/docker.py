@@ -74,7 +74,6 @@ def shell():
     """
     Get shell access to the local container
     """
-    pour()
     os.system('docker exec -it $maple_container bash')
 
 def execute(command):
