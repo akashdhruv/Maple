@@ -1,9 +1,9 @@
 # Maple API file to run a Flash-X simulation
 
-import pymaple
+import maple
 
 # Create a Maple object
-flashsim = pymaple.Maple(container='flashsim',image='akashdhruv/flash:boiling',
+flashsim = maple.Maple(container='flashsim',image='akashdhruv/flash:boiling',
                       target='/home/mount/simulation')
 
 # Build the local image

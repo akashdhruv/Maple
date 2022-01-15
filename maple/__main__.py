@@ -3,7 +3,7 @@
 import click
 import os
 
-import pymaple
+import maple as pymaple
 
 # CLI group
 #

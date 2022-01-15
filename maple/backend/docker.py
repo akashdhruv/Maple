@@ -18,7 +18,8 @@ def build(image=None,root=False):
                                                 --build-arg maple_target=$maple_target \
                                                 --build-arg maple_user=$maple_user \
                                                 --build-arg maple_group=$maple_group \
-                                                --file=$maple_dir/pymaple/{0} .'.format(dockerfile))
+                                                --file=$maple_dir/{0} .'.format(dockerfile))
+
 def commit():
     """
     Commit changes from local container to local image

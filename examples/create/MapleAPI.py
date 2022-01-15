@@ -1,8 +1,8 @@
 # Maple API script
 
-import pymaple
+import maple
 
-maple = pymaple.Maple()
+maple = maple.Maple()
 
 maple.build()
 maple.execute("pwd")
