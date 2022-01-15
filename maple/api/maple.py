@@ -3,7 +3,7 @@
 import os
 import random
 
-from . import docker,singularity
+from ..backend import docker,singularity
 
 class Maple(object):
     """
