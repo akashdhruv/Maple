@@ -1,1 +1,1 @@
-from .maple import Maple
+from ._maple import Maple
