@@ -30,8 +30,6 @@ export PATH="$PATH:$HOME/.local/bin"
 
 ### CLI use:
 
-uitilty  - Build maple image from local image using ```maple build```
-
   - Building an image
 
     ```maple image build```: Build local image from remote image
