@@ -1,37 +1,10 @@
 """Python API for singularity interface in maple"""
 
 import os
-import warnings
-
-from . import docker
-
-def build(image=None,root=False):
-    """
-    Builds a local image from remote image
-    """
-    os.system('singularity build $maple_container.sif docker://$maple_image')
 
 def commit():
     """
     Commit changes from local container to local image
-    """
-    print("[maple] command not available for singularity backend")
-
-def pull(image=None):
-    """
-    Pull remote image
-    """
-    print("[maple] command not available for singularity backend")
-
-def push(tag):
-    """
-    Push local image to remote tag/image
-    """
-    print("[maple] command not available for singularity backend")
-
-def login():
-    """
-    Login to container account
     """
     print("[maple] command not available for singularity backend")
 
@@ -82,40 +55,8 @@ def notebook():
     """
     execute('jupyter notebook --port=$maple_port --no-browser --ip=0.0.0.0')
 
-def images():
-    """
-    List all images on system
-    """
-    os.system('ls *.sif 2> /dev/null')
-
-def containers():
+def list():
     """
     List all containers on system
     """
     print("[maple] command not available for singularity backend")
-
-def squash(container=None):
-    """
-    Squash an image and remove layers
-    """
-    if container: os.environ['maple_container'] = str(container)
-    print("[maple] command not available for singularity backend")
-
-def clean(container=None):
-    """
-    clean local container environment
-    """
-    if container: os.environ['maple_container'] = str(container)
-    os.system('rm -f -v $maple_container.sif')
-
-def remove(image=None):
-    """
-    Remove a remote image
-    """
-    print("[maple] command not available for singularity backend")
-
-def prune():
-    """
-    Prune system
-    """
-    os.system('singularity cache clean')

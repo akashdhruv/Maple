@@ -4,6 +4,6 @@ import maple
 
 maple = maple.Maple()
 
-maple.build()
-maple.execute("pwd")
-maple.clean()
+maple.image.build()
+maple.container.execute("pwd")
+maple.image.clean()
