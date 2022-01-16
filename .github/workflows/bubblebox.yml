@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: ./.github/actions/maple@v1
+    - uses: ./.github/actions/maple
     - name: Run examples/bubblebox
       run: |
           cd examples/bubblebox

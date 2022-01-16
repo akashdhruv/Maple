@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: eWaterCycle/setup-singularity@v7
-    - uses: ./.github/actions/maple@v1
+    - uses: ./.github/actions/maple
     - name: Run examples/create
       run: |
           cd examples/create
