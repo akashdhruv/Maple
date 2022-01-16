@@ -1,6 +1,6 @@
 # Maple API script
 
-import maple
+import maple.api as maple
 
 maple = maple.Maple()
 

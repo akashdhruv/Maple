@@ -1,6 +1,6 @@
 # Maple API file to run a Flash-X simulation
 
-import maple
+import maple.api as maple
 
 # Create a Maple object
 flashsim = maple.Maple(container='flashsim',image='akashdhruv/flash:boiling',

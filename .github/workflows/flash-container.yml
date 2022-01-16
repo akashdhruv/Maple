@@ -20,7 +20,7 @@ jobs:
       run: |
           mkdir -p $HOME/.local/bin
           export PATH="PATH:$HOME/.local/bin"
-    - name: Setup PyMaple
+    - name: Setup Maple
       run: | 
           ./setup develop
           ./setup clean
