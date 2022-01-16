@@ -13,8 +13,9 @@ on:
 jobs:
   example:
     name: "example"
-    uses: akashdhruv/Maple/.github/workflows/maple-env.yml@development
     steps:
+    - uses: actions/checkout@v2
+    - uses: ./.github/actions/maple@v1
     - name: Run examples/flashsim
       run: |
           cd examples/flashsim

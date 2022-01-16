@@ -1,0 +1,10 @@
+# Name of the composite action
+name: maple
+  
+runs:
+  using: "composite"
+  steps: 
+    - run: mkdir -p $HOME/.local/bin && export PATH="PATH:$HOME/.local/bin"
+      shell: bash
+    - run: ./setup develop && ./setup clean
+      shell: bash

@@ -13,9 +13,10 @@ on:
 jobs:
   example:
     name: "example"
-    uses: akashdhruv/Maple/.github/workflows/maple-env.yml@development
     steps:
+    - uses: actions/checkout@v2
     - uses: eWaterCycle/setup-singularity@v7
+    - uses: ./.github/actions/maple@v1
     - name: Run examples/create
       run: |
           cd examples/create
