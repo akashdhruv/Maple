@@ -13,7 +13,7 @@ on:
 jobs:
   example:
     name: "example"
-    - uses: ./.github/workflows/maple-env.yml
+    uses: ./.github/workflows/maple-env.yml
     steps:
     - name: Run examples/flashsim
       run: |
