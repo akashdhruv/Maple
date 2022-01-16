@@ -14,6 +14,7 @@ jobs:
   example:
     name: "example"
     uses: akashdhruv/Maple/.github/workflows/maple-env.yml@development
+    steps:
     - name: Run examples/bubblebox
       run: |
           cd examples/bubblebox
