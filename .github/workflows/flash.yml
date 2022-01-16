@@ -1,4 +1,4 @@
-name: flash-container
+name: flash
 
 on:
   pull_request:
@@ -11,19 +11,10 @@ on:
       - 'docs/'
 
 jobs:
-  ubuntu-latest:
-    name: "ubuntu-latest"
-    runs-on: ubuntu-latest
+  example:
+    name: "example"
+    - uses: ./.github/workflows/maple-env.yml
     steps:
-    - uses: actions/checkout@v2      
-    - name: Dependencies1
-      run: |
-          mkdir -p $HOME/.local/bin
-          export PATH="PATH:$HOME/.local/bin"
-    - name: Setup Maple
-      run: | 
-          ./setup develop
-          ./setup clean
     - name: Run examples/flashsim
       run: |
           cd examples/flashsim

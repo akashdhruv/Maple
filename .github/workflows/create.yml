@@ -1,4 +1,4 @@
-name: create-container
+name: create
 
 on:
   pull_request:
@@ -11,19 +11,10 @@ on:
       - 'docs/'
 
 jobs:
-  ubuntu-latest:
-    name: "ubuntu-latest"
-    runs-on: ubuntu-latest
+  example:
+    name: "example"
+    - uses: ./.github/workflows/maple-env
     steps:
-    - uses: actions/checkout@v2      
-    - name: Dependencies1
-      run: |
-          mkdir -p $HOME/.local/bin
-          export PATH="PATH:$HOME/.local/bin"
-    - name: Setup Maple
-      run: |
-          ./setup develop
-          ./setup clean
     - uses: eWaterCycle/setup-singularity@v7
     - name: Run examples/create
       run: |
