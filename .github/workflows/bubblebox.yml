@@ -1,4 +1,4 @@
-name: bubblebox-container
+name: bubblebox
 
 on:
   pull_request:
@@ -11,19 +11,12 @@ on:
       - 'docs/'
 
 jobs:
-  ubuntu-latest:
-    name: "ubuntu-latest"
+  example:
+    name: "example"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Dependencies1
-      run: |
-          mkdir -p $HOME/.local/bin
-          export PATH="PATH:$HOME/.local/bin"
-    - name: Setup Maple
-      run: |
-          ./setup develop
-          ./setup clean
+    - uses: ./.github/actions/maple
     - name: Run examples/bubblebox
       run: |
           cd examples/bubblebox
