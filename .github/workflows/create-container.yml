@@ -20,15 +20,16 @@ jobs:
       run: |
           mkdir -p $HOME/.local/bin
           export PATH="PATH:$HOME/.local/bin"
-    - name: Setup PyMaple
+    - name: Setup Maple
       run: |
           ./setup develop
           ./setup clean
+    - uses: eWaterCycle/setup-singularity@v7
     - name: Run examples/create
       run: |
           cd examples/create
-          maple build
-          maple execute
-          maple clean
-          maple remove
+          maple image build
+          maple container execute
+          maple image clean
+          maple image remove
           python3 MapleAPI.py

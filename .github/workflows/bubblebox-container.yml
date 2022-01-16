@@ -20,14 +20,14 @@ jobs:
       run: |
           mkdir -p $HOME/.local/bin
           export PATH="PATH:$HOME/.local/bin"
-    - name: Setup PyMaple
+    - name: Setup Maple
       run: |
           ./setup develop
           ./setup clean
     - name: Run examples/bubblebox
       run: |
           cd examples/bubblebox
-          maple build
-          maple execute "python3 example.py"
-          maple clean
-          maple remove
+          maple image build
+          maple container execute "python3 example.py"
+          maple image clean
+          maple image remove

@@ -20,15 +20,16 @@ jobs:
       run: |
           mkdir -p $HOME/.local/bin
           export PATH="PATH:$HOME/.local/bin"
-    - name: Setup PyMaple
+    - name: Setup Maple
       run: | 
           ./setup develop
           ./setup clean
     - name: Run examples/flashsim
       run: |
           cd examples/flashsim
-          maple build
-          maple execute "export OMPI_MCA_btl_vader_single_copy_mechanism=none && mpirun -n 1 /home/run/flash4"
-          maple clean
-          maple remove
+          maple image build
+          maple container execute "export OMPI_MCA_btl_vader_single_copy_mechanism=none && \
+                                   mpirun -n 1 /home/run/flash4"
+          maple image clean
+          maple image remove
           python3 MapleAPI.py
