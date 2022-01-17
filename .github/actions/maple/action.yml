@@ -5,6 +5,7 @@ runs:
   using: "composite"
   steps:
     - run: cd ~/. && pwd 
+      shell: bash
     - run: mkdir -p $HOME/.local/bin && export PATH="PATH:$HOME/.local/bin"
       shell: bash
     - run: ./setup develop && ./setup clean
