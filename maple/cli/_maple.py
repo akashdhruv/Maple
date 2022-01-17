@@ -25,13 +25,10 @@ def maple():
     # port                Port ID for the container (used when running jupyter notebooks)
     # docker              Container backend (docker/singularity)
 
-    try:
-        Maplefile = open('Maplefile')
-    except OSError:
-        Maplefile = None
+    Maplefile = os.path.exists('Maplefile')
 
     if Maplefile:
-        for key,value in toml.load(Maplefile).items():
+        for key,value in toml.load('Maplefile').items():
             os.environ['maple_'+key] = str(value)
 
     if not os.getenv('maple_backend'): os.environ['maple_backend'] = 'docker'

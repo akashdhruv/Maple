@@ -20,8 +20,7 @@ jobs:
     - name: Run examples/bubblebox
       run: |
           cd examples/bubblebox
-          maple --help
-          #maple image build
-          #maple container execute "python3 example.py"
-          #maple image clean
-          #maple image remove
+          maple image build
+          maple container execute "python3 example.py"
+          maple image clean
+          maple image remove
