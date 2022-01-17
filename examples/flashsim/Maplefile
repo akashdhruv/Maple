@@ -1,5 +1,5 @@
 # Maplefile
-base = "akashdhruv/flash:boiling"
-container = "flashsim"
-target = "/home/mount/simulation"
-port = "3000"
+base="akashdhruv/flash:boiling"
+container="flashsim"
+target="/home/mount/simulation"
+port="3000"
