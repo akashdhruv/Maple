@@ -16,13 +16,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: ./.github/actions/maple
+    - uses: ./.github/actions/install
     - name: Run examples/flashsim
       run: |
           cd examples/flashsim
           maple image build
           maple container execute "export OMPI_MCA_btl_vader_single_copy_mechanism=none && \
                                    mpirun -n 1 /home/run/flash4"
-          maple image clean
+          maple container clean
           maple image remove
           python3 MapleAPI.py

@@ -16,11 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: ./.github/actions/maple
+    - uses: ./.github/actions/install
     - name: Run examples/bubblebox
       run: |
           cd examples/bubblebox
-          maple image build
+          maple image build --as-root
           maple container execute "python3 example.py"
-          maple image clean
+          maple container clean
           maple image remove

@@ -1,8 +1,8 @@
 # Dockerfile for maple
 
-# Build local image from remote image
-ARG maple_image
-FROM ${maple_image}
+# Build from a base image
+ARG maple_base
+FROM ${maple_base}
 
 # Add current user to container (comment when trying to login as root)
 ARG maple_user

@@ -15,7 +15,7 @@ with open('maple/__meta__.py', mode='r') as source:
                             '__license__', '__description__']}
 
 # core dependencies - click, docker, singularity
-DEPENDENCIES = []
+DEPENDENCIES = ['click','toml']
 
 setup(
     name                 = metadata['__pkgname__'],
@@ -25,6 +25,7 @@ setup(
     license              = metadata['__license__'],
     packages             = find_packages(where='./'),
     package_dir          = {'': './'},
+    package_data         = {'': ['resources/Dockerfile.root','resources/Dockerfile.user']},
     include_package_data = True,
     long_description     = long_description,
     classifiers          = ['Programming Language :: Python :: 3.8',

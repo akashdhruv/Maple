@@ -24,13 +24,20 @@ def pour():
 
     if result != 0: raise Exception("[maple] Error inside container")
 
-def rinse(container=None):
+def rinse(container='None'):
     """
     Stop and remove the local container, opposite of maple pour
     """
-    if container: os.environ['maple_container'] = str(container)
+    if container != 'None': os.environ['maple_container'] = str(container)
     os.system('docker stop $maple_container')
     os.system('docker rm $maple_container')
+
+def clean(container='None'):
+    """
+    clean local container environment
+    """
+    if container != 'None': os.environ['maple_container'] = str(container)
+    os.system('docker rmi $maple_container $(docker images --filter dangling=true -q --no-trunc)')
 
 def shell():
     """
@@ -38,15 +45,17 @@ def shell():
     """
     os.system('docker exec -it $maple_container bash')
 
-def execute(command):
+def execute(command,commit_flag=False):
     """
     Run local image in a container
     """
     pour()
-
+    
     command='"{0}"'.format(command)
     result = os.system('docker exec $maple_container bash -c {0}'.format(str(command)))
-
+  
+    if commit_flag: commit()
+    
     rinse()
 
     if result != 0: raise Exception("[maple] Error inside container")

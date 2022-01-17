@@ -2,10 +2,14 @@
 
 from . import MapleEnv, MapleImage, MapleContainer
 
+from ..backend import docker,singularity
+
 class Maple(object):
     """
     User interface to maple
     """
+    backend = {'docker':docker, 'singularity':singularity}
+
     def __init__(self,**attributes):
         """
         Parameters

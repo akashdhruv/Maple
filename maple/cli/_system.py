@@ -22,13 +22,15 @@ def login():
     """
     Login to container backend
     """
-    api.MapleEnv.backend[os.getenv('maple_backend')].system.login()
+    api.Maple.backend[os.getenv('maple_backend')].system.login()
 
 # Prune system
 #
 @system.command('prune')
-def prune():
+@click.argument('backend',default='None')
+def prune(backend):
     """
     Prune system
     """
-    api.MapleEnv.backend[os.getenv('maple_backend')].system.prune()
+    if backend != 'None': os.environ['maple_backend'] = str(backend)
+    api.Maple.backend[os.getenv('maple_backend')].system.prune()

@@ -6,4 +6,5 @@ maple = maple.Maple()
 
 maple.image.build()
 maple.container.execute("pwd")
-maple.image.clean()
+maple.container.clean()
+maple.image.remove()
