@@ -8,5 +8,9 @@ runs:
       shell: bash
     - run: mkdir -p $HOME/.local/bin && export PATH="PATH:$HOME/.local/bin"
       shell: bash
+    - run: cd Maple && PWD
+      shell: bash
+    - run: PWD
+      shell: bash
     - run: ./setup develop && ./setup clean
       shell: bash
