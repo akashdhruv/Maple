@@ -30,6 +30,7 @@ def maple():
     if Maplefile:
         for key,value in toml.load('Maplefile').items():
             os.environ['maple_'+key] = str(value)
+            print(key,value)
 
     if not os.getenv('maple_backend'): os.environ['maple_backend'] = 'docker'
     if not os.getenv('maple_user'): os.environ['maple_user'] = os.popen('id -u').read().split()[0]
