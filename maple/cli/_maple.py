@@ -23,7 +23,7 @@ def maple():
     # target              Name of the target dir to mount source dir
     # source              Name of the source dir - usually $PWD
     # port                Port ID for the container (used when running jupyter notebooks)
-    # docker              Container backend (docker/singularity)
+    # backend             Container backend (docker/singularity)
 
     Maplefile = os.path.exists('Maplefile')
 
