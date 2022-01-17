@@ -11,8 +11,8 @@ on:
       - 'docs/'
 
 jobs:
-  example:
-    name: "example"
+  cli:
+    name: "cli"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -21,8 +21,17 @@ jobs:
       run: |
           cd examples/flashsim
           maple image build
-          maple container execute "export OMPI_MCA_btl_vader_single_copy_mechanism=none && \
-                                   mpirun -n 1 /home/run/flash4"
+          maple container execute "mpirun -n 1 /home/run/flash4"
           maple container clean
           maple image remove
+
+  api:
+    name: "api"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ./.github/actions/install
+    - name: Run examples/flashsim
+      run: |
+          cd examples/flashsim
           python3 MapleAPI.py

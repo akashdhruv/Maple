@@ -8,7 +8,7 @@ runs:
       shell: bash
     - run: mkdir -p $HOME/.local/bin && export PATH="PATH:$HOME/.local/bin"
       shell: bash
-    - run: cd ~/Maple ./setup develop && ./setup install
+    - run: cd ~/Maple && ./setup develop && ./setup install
       shell: bash
     - run: rm -rf ~/Maple
       shell: bash
