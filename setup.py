@@ -25,6 +25,7 @@ setup(
     license              = metadata['__license__'],
     packages             = find_packages(where='./'),
     package_dir          = {'': './'},
+    package_data         = {'': ['resources/Dockerfile.root','resources/Dockerfile.user']},
     include_package_data = True,
     long_description     = long_description,
     classifiers          = ['Programming Language :: Python :: 3.8',
