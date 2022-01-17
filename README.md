@@ -8,9 +8,7 @@
 ```
 mkdir -p $HOME/.local/bin
 export PATH="$PATH:$HOME/.local/bin"
-
-./setup develop
-./setup clean
+./setup install
 ```
 ### Writing a Maplefile
 
