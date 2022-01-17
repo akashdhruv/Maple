@@ -11,8 +11,8 @@ on:
       - 'docs/'
 
 jobs:
-  example:
-    name: "example"
+  cli:
+    name: "cli"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

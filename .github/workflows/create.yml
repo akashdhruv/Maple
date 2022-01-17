@@ -11,8 +11,8 @@ on:
       - 'docs/'
 
 jobs:
-  example:
-    name: "example"
+  cli:
+    name: "cli"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -25,4 +25,14 @@ jobs:
           maple container execute
           maple container clean
           maple image remove
+
+  api:
+    name: "api"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ./.github/actions/install
+    - name: Run examples/create
+      run: |
+          cd examples/create
           python3 MapleAPI.py
