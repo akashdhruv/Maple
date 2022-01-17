@@ -4,9 +4,9 @@ name: maple
 runs:
   using: "composite"
   steps:
-    - run: cd ~/. && pwd 
+    - run: cd ~/. && gh repo clone akashdhruv/Maple
       shell: bash
     - run: mkdir -p $HOME/.local/bin && export PATH="PATH:$HOME/.local/bin"
       shell: bash
-    - run: ./setup develop && ./setup clean
+    - run: cd ~/Maple && ./setup develop && ./setup clean
       shell: bash
