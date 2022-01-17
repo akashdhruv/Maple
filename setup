@@ -8,7 +8,7 @@ fi
 
 # Install mode 
 if [ $1 = "install" ]; then
-    python3 setup.py build
+    python3 setup.py build --user
     python3 setup.py install --user
     cp maple/maple $HOME/.local/bin
 fi

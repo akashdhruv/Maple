@@ -1,7 +1,7 @@
 """Python CLI for maple"""
 
 import click
-import yaml
+import toml
 import os
 
 # CLI group
@@ -31,7 +31,7 @@ def maple():
         Maplefile = None
 
     if Maplefile:
-        for key,value in yaml.load(Maplefile,Loader=yaml.FullLoader).items():
+        for key,value in toml.load(Maplefile).items():
             os.environ['maple_'+key] = str(value)
 
     if not os.getenv('maple_backend'): os.environ['maple_backend'] = 'docker'

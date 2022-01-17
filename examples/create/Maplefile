@@ -1,5 +1,5 @@
 # Maplefile
-base: ubuntu:latest
-container: create
-target: /home/mount
-backend: singularity
+base = "ubuntu:latest"
+container = "create"
+target = "/home/mount"
+backend = "singularity"
