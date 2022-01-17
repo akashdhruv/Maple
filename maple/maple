@@ -1,32 +1,9 @@
-#!/bin/bash
+#!/usr/bin/python3
 
-# MAPLE is wrapper around containerization tools like docker/singularity to provide support for HPC
-# applications.
-#
-# This is a pilot interface for MAPLE, eventually we intend this to be a python library that
-# can build and deploy docker/singularity containers for HPC applications
+""" MAPLE is wrapper around containerization tools like docker/singularity 
+    to provide support for HPC applications.
+"""
+import maple
 
-
-# Read variables from a Maplefile
-# VARIABLE                                             DESCRIPTION
-# ----------------------------------------------------------------
-# maple_image               Name of the image in remote registry    
-# maple_container           Name of the local container
-# maple_target              Name of the target dir to mount source dir
-# maple_source              Name of the source dir - usually $PWD
-# maple_port                Port ID for the container (used when running jupyter notebooks)
-# maple_docker              Container backend (docker/singularity)
-set -a
-. Maplefile
-set +a
-
-
-# Set maple_dir if it does not exist
-#
-if [[ -z "${maple_dir}" ]]; then
-    maple_dir=$(dirname $0)
-fi
-
-# Call core python file for command line interface
-#
-python3 ${maple_dir} "$@"
+if __name__ == "__main__":
+    maple.cli.maple()

@@ -1,6 +1,7 @@
 """Python CLI for maple"""
 
 import click
+import yaml
 import os
 
 # CLI group
@@ -8,21 +9,30 @@ import os
 @click.group(name='maple')
 def maple():
     """
-    Simple CLI for using docker/singularity containers for HPC applications
+    CLI for using docker/singularity containers for HPC applications
     """
     # Check if required environment variables are defined in the Maplefile
     # If not then assign default values
 
     # VARIABLE                                             DESCRIPTION
     # ----------------------------------------------------------------
-    # maple_user                Name of the user - usually current user
-    # maple_group               Name of the users group
-    # maple_image               Name of the image in remote registry    
-    # maple_container           Name of the local container
-    # maple_target              Name of the target dir to mount source dir
-    # maple_source              Name of the source dir - usually $PWD
-    # maple_port                Port ID for the container (used when running jupyter notebooks)
-    # maple_docker              Container backend (docker/singularity)
+    # user                Name of the user - usually current user
+    # group               Name of the users group
+    # base                Name of the base image in remote registry    
+    # container           Name of the local container
+    # target              Name of the target dir to mount source dir
+    # source              Name of the source dir - usually $PWD
+    # port                Port ID for the container (used when running jupyter notebooks)
+    # docker              Container backend (docker/singularity)
+
+    try:
+        Maplefile = open('Maplefile')
+    except OSError:
+        Maplefile = None
+
+    if Maplefile:
+        for key,value in yaml.load(Maplefile,Loader=yaml.FullLoader).items():
+            os.environ['maple_'+key] = str(value)
 
     if not os.getenv('maple_backend'): os.environ['maple_backend'] = 'docker'
     if not os.getenv('maple_user'): os.environ['maple_user'] = os.popen('id -u').read().split()[0]

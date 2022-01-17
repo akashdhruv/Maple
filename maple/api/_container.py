@@ -8,12 +8,12 @@ class MapleContainer(object):
         super().__init__()
         self.env=MapleEnv
 
-    def execute(self,command):
+    def execute(self,command,commit=False):
         """
         Execute command
         """
         self.env.set_vars()
-        self.env.backend.container.execute(command)
+        self.env.backend.container.execute(command,commit)
 
     def notebook(self):
         """

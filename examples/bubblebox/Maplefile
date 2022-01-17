@@ -1,5 +1,4 @@
 # Maplefile
-
-maple_container="bubblebox"
-maple_image="akashdhruv/bubblebox:publish"
-maple_target="/home/mount/bubblebox"
+base: akashdhruv/bubblebox:publish
+container: bubblebox
+target: /home/mount/bubblebox

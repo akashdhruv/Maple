@@ -1,7 +1,5 @@
 # Maplefile
-
-# Container and image information
-maple_container="create"
-maple_image="ubuntu:latest"
-maple_target="/home/mount"
-maple_backend="singularity"
+base: ubuntu:latest
+container: create
+target: /home/mount
+backend: singularity
