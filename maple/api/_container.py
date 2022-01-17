@@ -8,6 +8,13 @@ class MapleContainer(object):
         super().__init__()
         self.env=MapleEnv
 
+    def clean(self):
+        """
+        Clean local container environment
+        """
+        self.env.set_vars()
+        self.env.backend.container.clean()
+
     def execute(self,command,commit=False):
         """
         Execute command

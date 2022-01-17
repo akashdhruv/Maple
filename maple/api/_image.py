@@ -22,13 +22,6 @@ class MapleImage(object):
         self.env.set_vars()
         self.env.backend.image.pull()
 
-    def clean(self):
-        """
-        Clean local container environment
-        """
-        self.env.set_vars()
-        self.env.backend.image.clean()
-
     def remove(self):
         """
         Remove remote container
