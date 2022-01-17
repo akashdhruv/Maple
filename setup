@@ -16,4 +16,5 @@ fi
 # Clean after installation
 if [ $1 = "clean" ]; then
    rm -rf *.egg-info
+   rm -rf build dist
 fi
