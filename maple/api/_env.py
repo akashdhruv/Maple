@@ -17,7 +17,7 @@ class MapleEnv(object):
         ----------
         attributes : dictionary
                      { 'container' : container name,
-                       'image'     : remote image name,
+                       'base'      : remote image name,
                        'source'    : source directory,
                        'target'    : target directory,
                        'user'      : local user,
@@ -59,7 +59,7 @@ class MapleEnv(object):
         """
         Private method for initialization
         """
-        _default_attributes = { 'container' : 'ubuntu', 'image':'ubuntu:latest', 
+        _default_attributes = { 'container' : 'ubuntu', 'base':'ubuntu:latest', 
                                 'source'    : None, 'target' : None, 
                                 'user'      : os.popen('id -u').read().split()[0],
                                 'group'     : os.popen('id -g').read().split()[0],

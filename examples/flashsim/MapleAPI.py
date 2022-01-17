@@ -3,7 +3,7 @@
 import maple.api as maple
 
 # Create a Maple object
-flashsim = maple.Maple(container='flashsim',image='akashdhruv/flash:boiling',
+flashsim = maple.Maple(container='flashsim',base='akashdhruv/flash:boiling',
                       target='/home/mount/simulation')
 
 # Build the local image
