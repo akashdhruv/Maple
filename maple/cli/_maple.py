@@ -30,8 +30,6 @@ def maple():
     except OSError:
         Maplefile = None
 
-    print(Maplefile)
-
     if Maplefile:
         for key,value in toml.load(Maplefile).items():
             os.environ['maple_'+key] = str(value)

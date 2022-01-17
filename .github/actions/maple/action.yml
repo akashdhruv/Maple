@@ -8,5 +8,5 @@ runs:
       shell: bash
     - run: mkdir -p $HOME/.local/bin && export PATH="PATH:$HOME/.local/bin"
       shell: bash
-    - run: pip3 install toml && cd ~/Maple && ./setup develop && ./setup clean
+    - run: cd ~/Maple && ./setup develop && ./setup clean
       shell: bash
