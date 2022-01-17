@@ -1,5 +1,6 @@
 # Name of the composite action
 name: maple
+
   
 runs:
   using: "composite"
