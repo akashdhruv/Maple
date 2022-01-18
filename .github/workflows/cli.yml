@@ -1,4 +1,4 @@
-name: tests-cli
+name: cli
 
 on:
   pull_request:
