@@ -2,9 +2,9 @@
 
 # Build from a base image
 ARG maple_base
-FROM ${maple_base}
+FROM $maple_base
 
-# Add current user to container (comment when trying to login as root)
+# Add current user to container
 USER root
 
 # Set working directory using maple_target from Maplefile

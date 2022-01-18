@@ -2,14 +2,18 @@
 
 # Build from a base image
 ARG maple_base
-FROM ${maple_base}
+FROM $maple_base
 
-# Add current user to container (comment when trying to login as root)
+# Add current user to container
 ARG maple_user
 ARG maple_group
 ENV maple_group=$maple_group
-RUN bash -c 'if [[ ${OSTYPE} == linux-gnu ]] ; then addgroup --gid $maple_group user ; fi'
-RUN adduser --disabled-password --gecos '' --uid $maple_user --gid $maple_group user
+
+RUN bash -c 'if [[ ${EUID} == 0 ]] ; then \
+             if [[ ${OSTYPE} == linux-gnu ]] ; then addgroup --gid $maple_group user ; fi ; fi'
+
+RUN bash -c 'if [[ ${EUID} == 0 ]] ; then \
+             adduser --disabled-password --gecos ',,,,' --uid $maple_user --gid $maple_group user ; fi'
 USER user
 
 # MPI environment variable
