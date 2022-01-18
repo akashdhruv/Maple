@@ -1,4 +1,4 @@
-name: flash
+name: api
 
 on:
   pull_request:
@@ -11,22 +11,19 @@ on:
       - 'docs/'
 
 jobs:
-  cli:
-    name: "cli"
+  create:
+    name: "create"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: ./.github/actions/install
-    - name: Run examples/flashsim
+    - name: Run examples/create
       run: |
-          cd examples/flashsim
-          maple image build
-          maple container execute "mpirun -n 1 /home/run/flash4"
-          maple container clean
-          maple image remove
+          cd examples/create
+          python3 MapleAPI.py
 
-  api:
-    name: "api"
+  flash:
+    name: "flash"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
