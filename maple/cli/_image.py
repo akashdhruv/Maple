@@ -54,11 +54,13 @@ def push(base):
 # Create a new tag for the base image
 @image.command(name='tag')
 @click.argument('base')
-def tag(base):
+@click.option('--set/--not-set', default=False, help='tag a new base image from local image')
+@click.option('--get/--not-get', default=False, help='tag local image from base image')
+def tag(base,set,get):
     """
     Create a tag for a new image
     """
-    api.Maple.backend[os.getenv('maple_backend')].image.tag(base)
+    api.Maple.backend[os.getenv('maple_backend')].image.tag(base,set,get)
 
 # List all images
 #
