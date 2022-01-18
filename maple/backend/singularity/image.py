@@ -23,12 +23,13 @@ def push(base=None):
     if base: os.environ['maple_base'] = str(base)
     print("[maple] command not available for singularity backend")
 
-def tag(base):
+def tag(base,set,get):
     """
     Retag an image
     """
     if base: os.environ['maple_base'] = str(base)
-    os.system('cp $maple_container.sif $maple_base.sif')
+    if set: os.system('cp $maple_container.sif $maple_base.sif')
+    if get: os.system('cp $maple_base.sif $maple_container.sif')
 
 def list():
     """

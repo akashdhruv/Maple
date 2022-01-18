@@ -29,13 +29,14 @@ def pull(base=None):
     if base: os.environ['maple_base'] = str(base)
     os.system('docker pull ${maple_base}')
 
-def tag(base):
+def tag(base,set,get):
     """
     Retag an image
     """
     os.environ['maple_base'] = str(base)
-    os.system('docker tag $maple_container $maple_base')
- 
+    if set: os.system('docker tag $maple_container $maple_base')
+    if get: os.system('docker tag $maple_base $maple_container') 
+
 def push(base=None):
     """
     Push local image to remote tag/image
