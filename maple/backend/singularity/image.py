@@ -2,41 +2,31 @@
 
 import os
 
-def build(base=None,as_root=False):
+def build(image,base=None,as_root=False):
     """
     Builds a local image from remote image
     """
-    if(base): os.environ['maple_base'] = str(base)
-    os.system('singularity build $maple_container.sif $maple_base')
-    os.system('mv $maple_container.sif $maple_home/$maple_container.sif')
+    if base: os.environ['maple_base'] = str(base)
+    os.system('singularity build {0}.sif $maple_base'.format(image))
+    os.system('mv ${0}.sif $maple_home/${0}.sif'.format(image))
 
-def pull(base=None):
+def pull(image):
     """
     Pull remote image
     """
-    if(base): os.environ['maple_base'] = str(base)
     print("[maple] command not available for singularity backend")
 
-def push(base=None):
+def push(image):
     """
     Push local image to remote tag/image
     """
-    if base: os.environ['maple_base'] = str(base)
     print("[maple] command not available for singularity backend")
 
-def get(base):
+def tag(base,image):
     """
-    Get tag from a base image
+    Tag an image from base
     """
-    os.environ['maple_base'] = str(base)
-    os.system('cp $maple_home/$maple_base.sif $maple_home/$maple_container.sif')
-
-def set(base):
-    """
-    Set tag for a base image
-    """
-    os.environ['maple_base'] = str(base)
-    os.system('cp $maple_home/$maple_container.sif $maple_home/$maple_base.sif')
+    os.system('cp $maple_home/{0}.sif $maple_home/{1}.sif'.format(base,image))
 
 def list():
     """
@@ -44,23 +34,14 @@ def list():
     """
     os.system('ls $maple_home/*.sif 2> /dev/null')
 
-def squash():
+def squash(image):
     """
     Squash an image and remove layers
     """
-    if image: os.environ['maple_container'] = str(image)
     print("[maple] command not available for singularity backend")
 
-def clean(local='None'):
+def delete(image):
     """
-    clean local container environment
+    Delete an image
     """
-    if local != 'None': os.environ['maple_container'] = str(local)
-    os.system('rm -f -v $maple_home/$maple_container.sif')
-
-def remove(base='None'):
-    """
-    Remove a remote image
-    """
-    if base != 'None': os.environ['maple_base'] = str(base)
-    print("[maple] command not available for singularity backend")
+    os.system('rm -f -v $maple_home/{0}.sif'.format(image))

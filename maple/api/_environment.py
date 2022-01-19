@@ -3,14 +3,10 @@
 import os
 import random
 
-from ..backend import docker,singularity
-
-class MapleEnv(object):
+class Environment(object):
     """
     Base class for defining maple environment
     """
-    backend = {'docker':docker, 'singularity':singularity}
-
     def __init__(self,**attributes):
         """
         Parameters
@@ -27,33 +23,21 @@ class MapleEnv(object):
         """
         super().__init__()
         self._set_attributes(attributes)
-           
-    def __getitem__(self,key):
-        """
-        Get variable data
-        """
-        if not key in self.__dict__.keys(): 
-            raise ValueError('[maple]: attribute "{}" not present'.format(key))
-        else:
-            return getattr(self,key)
+ 
+    @property
+    def backend(self):
+        return self._backend
 
-    def __setitem__(self,key,value):
-        """
-        Set variable data
-        """
-        if not key in self.__dict__.keys():
-            raise ValueError('[maple]: attribute "{}" not present'.format(key))
-        elif key=='backend' or key=='port':
-            raise NotImplementedError('[maple]: cannot edit "{0}" after intitialization'.format(key))
-        else:
-            setattr(self,key,value)
+    @property
+    def port(self):
+        return self._port
 
-    def set_vars(self):
+    def setvars(self):
         """
         Set environment variables
         """
         for key, value in self.__dict__.items():
-            if(value): os.environ['maple_'+key] = str(value)
+            if(value): os.environ['maple'+key] = str(value)
 
     def _set_attributes(self,attributes):
         """
@@ -72,15 +56,9 @@ class MapleEnv(object):
             else:
                 raise ValueError('[maple]: attribute "{}" not present'.format(key))
 
-        for key, value in _default_attributes.items(): setattr(self,key,value)
-
-        # Set backend docker/singularity
-        self.backend = MapleEnv.backend[self.backend]
+        for key, value in _default_attributes.items(): setattr(self,'_'+key,value)
 
         # Condition to check if target and source directories are defined in the Maplefile
         # assign default if they are not, and deal with execptions
-        if not self.target:
-            self.target = '/home'
-            self.source = None
-        else:
-            if not self.source: self.source = os.getenv('PWD')
+        if not self._target: self._target = '/home/mount'
+        if not self._source: self._source = os.getenv('PWD')

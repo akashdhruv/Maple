@@ -2,23 +2,23 @@
 
 import os
 
-def commit():
+def commit(image):
     """
     Commit changes from local container to local image
     """
     print("[maple] command not available for singularity backend")
 
-def pour():
+def pour(image):
     """
     Pour local image in a container, opposite of maple rinse
     """
     if(os.getenv('maple_source') and os.getenv('maple_target')):
         result = os.system('singularity instance start --containall --cleanenv \
                                                        --bind $maple_source:$maple_target \
-                                                       $maple_home/$maple_container.sif $maple_container')
+                                                       $maple_home/{0}.sif $maple_container'.format(image))
     else:
         result = os.system('singularity instance start --containall --cleanenv \
-                                                       $maple_home/$maple_container.sif $maple_container')
+                                                       $maple_home/{0}.sif $maple_container'.format(image))
 
     if result != 0: raise Exception("[maple] Error inside container")
 
@@ -26,8 +26,8 @@ def rinse(container='None'):
     """
     Stop and remove the local container, opposite of maple pour
     """
-    if container != 'None': os.environ['maple_container'] = str(container)
-    os.system('singularity instance stop $maple_container')
+    if container == 'None': container = os.getenv('maple_container')
+    os.system('singularity instance stop {0}'.format(container))
 
 def shell():
     """
@@ -49,8 +49,7 @@ def notebook(port='8888'):
     """
     Launch ipython notebook inside the container
     """
-    os.environ['maple_port'] = str(port)
-    execute('jupyter notebook --port=$maple_port --no-browser --ip=0.0.0.0')
+    execute('jupyter notebook --port={0} --no-browser --ip=0.0.0.0'.format(port))
 
 def list():
     """

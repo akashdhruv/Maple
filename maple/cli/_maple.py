@@ -7,7 +7,9 @@ import os
 # CLI group
 #
 @click.group(name='maple')
-def maple():
+@click.option('--docker/--not-docker', default=False, help='option for docker')
+@click.option('--singularity/--not-singularity', default=False, help='option for singularity')
+def maple(docker,singularity):
     """
     CLI for using docker/singularity containers for HPC applications
     """
@@ -16,13 +18,11 @@ def maple():
 
     # VARIABLE                                             DESCRIPTION
     # ----------------------------------------------------------------
+    # base                Name of the base image to build container
     # user                Name of the user - usually current user
     # group               Name of the users group
-    # base                Name of the base image in remote registry    
-    # container           Name of the local container
     # target              Name of the target dir to mount source dir
     # source              Name of the source dir - usually $PWD
-    # port                Port ID for the container (used when running jupyter notebooks)
     # backend             Container backend (docker/singularity)
 
     Maplefile = os.path.exists('Maplefile')
@@ -37,8 +37,8 @@ def maple():
 
     # Condition to check if target and source directories are defined in the Maplefile
     # assign default if they are not, and deal with execptions
-    if not os.getenv('maple_target'):
-        os.environ['maple_target'] = '/home'
-        if os.getenv('maple_source'): del os.environ['maple_source']
-    else:
-        if not os.getenv('maple_source'): os.environ['maple_source'] = os.getenv('PWD')
+    if not os.getenv('maple_target'): os.environ['maple_target'] = '/home/mount'
+    if not os.getenv('maple_source'): os.environ['maple_source'] = os.getenv('PWD')
+
+    if docker: os.environ['maple_backend'] = 'docker'
+    if singularity: os.environ['maple_backend'] = 'singularity'

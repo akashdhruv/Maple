@@ -4,7 +4,7 @@ import os
 
 from . import container
 
-def build(base=None,as_root=False):
+def build(image,base=None,as_root=False):
     """
     Builds a local image from remote image
     """
@@ -15,40 +15,29 @@ def build(base=None,as_root=False):
     else:
         dockerfile = 'resources/Dockerfile.user'
 
-    os.system('docker build -t $maple_container --no-cache \
-                                                --build-arg maple_base=$maple_base \
-                                                --build-arg maple_user=$maple_user \
-                                                --build-arg maple_group=$maple_group \
-                                                --file=$maple_dir/{0} .'.format(dockerfile))
+    os.system('docker build -t {0} --no-cache \
+                                   --build-arg maple_base=$maple_base \
+                                   --build-arg maple_user=$maple_user \
+                                   --build-arg maple_group=$maple_group \
+                                   --file=$maple_dir/{1} .'.format(image,dockerfile))
 
-def pull(base=None):
+def pull(image):
     """
     Pull remote image
     """
-    if base: os.environ['maple_base'] = str(base)
-    os.system('docker pull ${maple_base}')
+    os.system('docker pull {0}'.format(image))
 
-def get(base):
-    """
-    Get tag from a base image
-    """
-    os.environ['maple_base'] = str(base)
-    os.system('docker tag $maple_base $maple_container') 
-
-def set(base):
-    """
-    Set tag for a base image
-    """
-    os.environ['maple_base'] = str(base)
-    os.system('docker tag $maple_container $maple_base')
-
-def push(base=None):
+def push(image):
     """
     Push local image to remote tag/image
     """
-    if base: os.environ['maple_base'] = str(base)
-    os.system('docker tag $maple_container $maple_base')
-    os.system('docker push $maple_base')
+    os.system('docker push {0}'.format(image))
+
+def tag(base,image):
+    """
+    Tag an image from base
+    """
+    os.system('docker tag {0} {1}'.format(base,image))
 
 def list():
     """
@@ -56,26 +45,19 @@ def list():
     """
     os.system('docker images')
 
-def squash():
+def squash(image):
     """
-    Squash local image and remove layers
+    Squash an image and remove layers
     """
-    container.pour()
-    os.system('docker export $maple_container > $maple_container.tar')
-    os.system('cat $maple_container.tar | docker import - $maple_container')
-    os.system('rm $maple_container.tar')
+    os.environ['maple_container'] = str(image+'_container')
+    container.pour(image)
+    os.system('docker export $maple_container > {0}.tar'.format(image))
+    os.system('cat {0}.tar | docker import - {0}'.format(image))
+    os.system('rm {0}.tar'.format(image))
     container.rinse()
 
-def clean(local='None'):
+def delete(image):
     """
-    clean local container environment
+    Delete an image
     """
-    if local != 'None': os.environ['maple_container'] = str(local)
-    os.system('docker rmi $maple_container $(docker images --filter dangling=true -q --no-trunc)')
-
-def remove(base='None'):
-    """
-    Remove a remote image
-    """
-    if base != 'None': os.environ['maple_base'] = str(base)
-    os.system('docker rmi $maple_base')
+    os.system('docker rmi {0} $(docker images --filter dangling=true -q --no-trunc)'.format(image))
