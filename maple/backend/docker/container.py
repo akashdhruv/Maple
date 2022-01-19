@@ -8,17 +8,17 @@ def commit(image):
     """
     os.system('docker commit $maple_container {0}'.format(image))
 
-def pour(image):
+def pour(image,port_cmd=''):
     """
     Pour local image in a container, opposite of maple rinse
     """
     if(os.getenv('maple_source') and os.getenv('maple_target')):
-        result = os.system('docker run -dit --name $maple_container \
+        result = os.system('docker run {0} -dit --name $maple_container \
                                        --mount type=bind,source=$maple_source,target=$maple_target \
-                                       {0} bash'.format(image))
+                                       {1} bash'.format(port_cmd,image))
     else:
-        result = os.system('docker run -dit --name $maple_container \
-                                       {0} bash'.format(image))
+        result = os.system('docker run {0} -dit --name $maple_container \
+                                       {1} bash'.format(port_cmd,image))
 
     if result != 0: raise Exception("[maple] Error inside container")
 
@@ -41,9 +41,11 @@ def run(image,command,with_commit=False):
     Run and rinse the local container
     """
     pour(image)
-    execute(command)
+    result = execute(command)
     if with_commit: commit(image)
     rinse()
+
+    if result != 0: raise Exception("[maple] Error inside container")
 
 def execute(command):
     """
@@ -51,14 +53,18 @@ def execute(command):
     """
     command = '"{0}"'.format(command)
     result = os.system('docker exec --workdir $maple_target $maple_container bash -c {0}'.format(str(command)))
-  
-    if result != 0: raise Exception("[maple] Error inside container")
 
-def notebook(port='8888'):
+    return result 
+ 
+def notebook(image,port='8888'):
     """
     Launch ipython notebook inside the container
     """
-    execute('jupyter notebook --port={0} --no-browser --ip=0.0.0.0'.format(port))
+    pour(image,port_cmd='-p {0}:{0}'.format(port))
+    result = execute('jupyter notebook --port={0} --no-browser --ip=0.0.0.0'.format(port))
+    rinse()
+
+    if result != 0: raise Exception("[maple] Error inside container")
 
 def list():
     """

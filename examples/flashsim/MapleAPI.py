@@ -8,16 +8,14 @@ image_singularity = maple.Image(name='local',base='docker://akashdhruv/flash:boi
 
 container = maple.Container(name='flashsim',target='/home/mount/simulation')
 
-# Build the local image
+# Build images
 image_docker.build()
 image_singularity.build()
 
-# Run docker container
-container.pour(image_docker)
-container.execute("mpirun -n 1 /home/run/flash4")
-container.rinse()
+# Run containers
+container.run(image_docker,"mpirun -n 1 /home/run/flash4")
+container.run(image_singularity,"mpirun -n 1 /home/run/flash4")
 
-# Run singularity container
-container.pour(image_singularity)
-container.execute("mpirun -n 1 /home/run/flash4")
-container.rinse()
+# Delete images
+image_docker.delete()
+image_singularity.delete()
