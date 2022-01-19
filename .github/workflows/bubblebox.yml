@@ -1,0 +1,27 @@
+name: bubblebox
+
+on:
+  pull_request:
+    branches: 
+      - main
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
+      - 'CITATION'
+      - 'docs/'
+
+jobs:
+  cli:
+    name: "cli"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ./.github/actions/install
+    - name: Run examples/bubblebox
+      run: |
+          cd examples/bubblebox
+          maple image build local
+          maple container pour --image=local
+          maple container execute "python3 example.py"
+          maple container rinse
+          maple image delete local
