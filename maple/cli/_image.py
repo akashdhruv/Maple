@@ -11,7 +11,7 @@ from .  import maple
 @maple.group(name='image')
 def image():
     """
-    Image management, type maple image --help for more module
+    Image management, type maple image --help for more info
     """
     pass
 
