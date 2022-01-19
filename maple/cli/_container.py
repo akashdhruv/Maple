@@ -19,7 +19,7 @@ def container():
 # Saves changes to local container as an image, currently uses docker
 #
 @container.command(name='commit')
-@click.argument('image')
+@click.option('--image', required=True)
 def commit(image):
     """
     Commit changes from local container to local image
@@ -54,12 +54,22 @@ def execute(command):
     """
     backend.dict[os.getenv('maple_backend')].container.execute(command)
 
+# Run a command inside a container and commit changes
+@container.command('run')
+@click.option('--image', required=True)
+@click.argument('command')
+def run(image,command):
+    """
+    Run a command inside container and commit changes
+    """
+    backend.dict[os.getenv('maple_backend')].container.run(image,command)
+
 # Pour an image in a local container to access interactive shell
 # If maple_source or maple_traget are present then they will be mounted inside the containter.
 # This is useful for mounting maple_source for development
 #
 @container.command('pour')
-@click.argument('image')
+@click.option('--image', required=True)
 def pour(image):
     """
     Pour local image in a container

@@ -21,7 +21,7 @@ jobs:
       run: |
           cd examples/bubblebox
           maple image build local
-          maple container pour local
+          maple container pour --image=local
           maple container execute "python3 example.py"
           maple container rinse
           maple image delete local
@@ -37,7 +37,7 @@ jobs:
       run: |
           cd examples/create
           maple image build local
-          maple container pour local
+          maple container pour --image=local
           maple container execute
           maple container rinse
           maple image delete local
@@ -52,7 +52,7 @@ jobs:
       run: |
           cd examples/flashsim
           maple image build local
-          maple container pour local
+          maple container pour --image=local
           maple container execute "mpirun -n 1 /home/run/flash4"
           maple container rinse
           maple image delete local
