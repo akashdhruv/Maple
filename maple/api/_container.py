@@ -63,4 +63,4 @@ class Container(Environment):
         """
         self._backend=image.backend
         self.setvars()
-        backend.dict[self._backend].container.pour(image.name,command,commit)
+        backend.dict[self._backend].container.run(image.name,command,commit)
