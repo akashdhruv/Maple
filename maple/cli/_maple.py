@@ -7,8 +7,8 @@ import os
 # CLI group
 #
 @click.group(name='maple')
-@click.option('--docker/--not-docker', default=False, help='option for docker')
-@click.option('--singularity/--not-singularity', default=False, help='option for singularity')
+@click.option('--docker', is_flag=True, help='option for docker backend')
+@click.option('--singularity', is_flag=True, help='option for singularity backend')
 def maple(docker,singularity):
     """
     CLI for using docker/singularity containers for HPC applications
