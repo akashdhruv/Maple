@@ -1,8 +1,8 @@
 ## Maple - A Python API and CLI for managing HPC projects with containers
 
-![bubblebox-container](https://github.com/akashdhruv/Maple/workflows/bubblebox-container/badge.svg)
-![create-container](https://github.com/akashdhruv/Maple/workflows/create-container/badge.svg)
-![flash-container](https://github.com/akashdhruv/Maple/workflows/flash-container/badge.svg)
+![bubblebox-container](https://github.com/akashdhruv/Maple/workflows/bubblebox/badge.svg)
+![create-container](https://github.com/akashdhruv/Maple/workflows/create/badge.svg)
+![flash-container](https://github.com/akashdhruv/Maple/workflows/flash/badge.svg)
 
 ### Installation
 ```
