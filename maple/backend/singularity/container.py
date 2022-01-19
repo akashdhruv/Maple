@@ -35,13 +35,13 @@ def shell():
     """
     os.system('singularity shell --pwd $maple_target instance://$maple_container')
 
-def run(image,command):
+def run(image,command,with_commit=False):
     """
     Run and rinse the local container
     """
     pour(image)
     execute(command)
-    commit(image)
+    if with_commit: commit(image)
     rinse()
 
 def execute(command):
