@@ -36,6 +36,15 @@ def shell():
     """
     os.system('docker exec -it --workdir $maple_target $maple_container bash')
 
+def run(image,command):
+    """
+    Run and rinse the local container
+    """
+    pour(image)
+    execute(command)
+    commit(image)
+    rinse()
+
 def execute(command):
     """
     Run local image in a container
