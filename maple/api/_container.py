@@ -57,10 +57,10 @@ class Container(Environment):
         self.setvars()
         backend.dict[self._backend].container.execute(command)
 
-    def run(self,image,command):
+    def run(self,image,command,commit=False):
         """
         Run a container and commit to image
         """
         self._backend=image.backend
         self.setvars()
-        backend.dict[self._backend].container.pour(image.name,command)
+        backend.dict[self._backend].container.pour(image.name,command,commit)

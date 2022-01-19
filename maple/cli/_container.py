@@ -57,12 +57,13 @@ def execute(command):
 # Run a command inside a container and commit changes
 @container.command('run')
 @click.option('--image', required=True)
+@click.option('--commit', is_flag=True, help='flag to commit changes to the image')
 @click.argument('command')
-def run(image,command):
+def run(image,command,commit):
     """
     Run a command inside container and commit changes
     """
-    backend.dict[os.getenv('maple_backend')].container.run(image,command)
+    backend.dict[os.getenv('maple_backend')].container.run(image,command,commit)
 
 # Pour an image in a local container to access interactive shell
 # If maple_source or maple_traget are present then they will be mounted inside the containter.
