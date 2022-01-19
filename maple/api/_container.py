@@ -31,31 +31,12 @@ class Container(Environment):
         if not self._target: self._target = '/home/mount'
         if not self._source: self._source = os.getenv('PWD')
 
-        # Set port and container name for environment variables
+        # Set container name for environment variables
         self._container = self._name
-        self._port = str(random.randint(1111,9999))
 
-    def pour(self,image):
-        """
-        Pour a container
-        """
-        self._backend=image.backend
-        self.setvars()
-        backend.dict[self._backend].container.pour(image.name)
-
-    def rinse(self):
-        """
-        Rinse a container
-        """
-        self.setvars()
-        backend.dict[self._backend].container.rinse()
-
-    def execute(self,command):
-        """
-        Execute command
-        """
-        self.setvars()
-        backend.dict[self._backend].container.execute(command)
+    @property
+    def name(self):
+        return self._name
 
     def run(self,image,command,commit=False):
         """

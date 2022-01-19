@@ -40,9 +40,12 @@ def run(image,command,with_commit=False):
     Run and rinse the local container
     """
     pour(image)
-    execute(command)
+    result = execute(command)
     if with_commit: commit(image)
     rinse()
+
+    if result != 0: raise Exception("[maple] Error inside container")
+
 
 def execute(command):
     """
@@ -52,13 +55,18 @@ def execute(command):
     result = os.system('singularity exec --pwd $maple_target \
                                          instance://$maple_container bash -c {0}'.format(str(command)))
 
-    if result != 0: raise Exception("[maple] Error inside container")
+    return result
 
-def notebook(port='8888'):
+def notebook(image,port='8888'):
     """
     Launch ipython notebook inside the container
     """
-    execute('jupyter notebook --port={0} --no-browser --ip=0.0.0.0'.format(port))
+    pour(image)
+    result = execute('jupyter notebook --port={0} --no-browser --ip=0.0.0.0'.format(port))
+    rinse()
+
+    if result != 0: raise Exception("[maple] Error inside container")
+
 
 def list():
     """

@@ -79,9 +79,10 @@ def squash(image):
 # Clean all local images and containers
 #
 @image.command('delete')
-@click.argument('image')
-def delete(image):
+@click.argument('images', nargs=-1)
+def delete(images):
     """
-    Delete a local image
+    Delete a local images
     """
-    backend.dict[os.getenv('maple_backend')].image.delete(image)
+    for img in images:
+        backend.dict[os.getenv('maple_backend')].image.delete(img)

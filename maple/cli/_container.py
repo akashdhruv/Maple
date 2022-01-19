@@ -38,12 +38,13 @@ def shell():
 # Launch a notebook inside the container
 #
 @container.command('notebook')
+@click.option('--image', required=True)
 @click.option('--port', default='8888', help='port for notebook server')
-def notebook(port):
+def notebook(image,port):
     """
     Launch ipython notebook inside the container
     """
-    backend.dict[os.getenv('maple_backend')].container.notebook(port)
+    backend.dict[os.getenv('maple_backend')].container.notebook(image,port)
 
 # Execute a command in a container
 @container.command('execute')
@@ -52,7 +53,8 @@ def execute(command):
     """
     Execute command in a container
     """
-    backend.dict[os.getenv('maple_backend')].container.execute(command)
+    result = backend.dict[os.getenv('maple_backend')].container.execute(command)
+    if result != 0: raise Exception("[maple] Error inside container")
 
 # Run a command inside a container and commit changes
 @container.command('run')
@@ -81,12 +83,15 @@ def pour(image):
 # Do this if the local container is not needed
 #
 @container.command('rinse')
-@click.argument('container', default='None')
-def rinse(container):
+@click.argument('containers', nargs=-1)
+def rinse(containers):
     """
     Stop local container
     """
-    backend.dict[os.getenv('maple_backend')].container.rinse(container)
+    if not containers: containers = ['None']
+  
+    for ctr in containers:
+        backend.dict[os.getenv('maple_backend')].container.rinse(ctr)
 
 # List all container
 #
