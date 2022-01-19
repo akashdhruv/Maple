@@ -2,10 +2,10 @@
 
 import os
 
-from .  import Environment
+from .  import Maple
 from .. import backend
 
-class Image(Environment):
+class Image(Maple):
     """
     Class to manage images
     """
@@ -42,26 +42,26 @@ class Image(Environment):
         Builds a local image from base image
         """
         if base: self._base = base
-        self.setvars()
+        self.setenv()
         backend.dict[self._backend].image.build(self._name)
 
     def squash(self):
         """
         Squash an the image
         """
-        self.setvars()
+        self.setenv()
         backend.dict[self._backend].image.squash(self._name)
 
     def tag(self,target):
         """
         Tag an image
         """
-        self.setvars()
+        self.setenv()
         backend.dict[self._backend].image.tag(self._name,target)
 
     def delete(self):
         """
         Delete the image
         """
-        self.setvars()
+        self.setenv()
         backend.dict[self._backend].image.delete(self._name)
