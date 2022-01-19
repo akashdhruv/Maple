@@ -3,7 +3,7 @@
 import os
 import random
 
-class Environment(object):
+class Maple(object):
     """
     Base class for defining maple environment
     """
@@ -17,7 +17,7 @@ class Environment(object):
         super().__init__()
         self._set_attributes(default_attributes,attributes)
  
-    def setvars(self):
+    def setenv(self):
         """
         Set environment variables
         """

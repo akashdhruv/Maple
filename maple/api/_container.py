@@ -3,10 +3,10 @@
 import os
 import random
 
-from .  import Environment
+from .  import Maple
 from .. import backend
 
-class Container(Environment):
+class Container(Maple):
     """
     Class to manage containers
     """
@@ -43,5 +43,5 @@ class Container(Environment):
         Run a container and commit to image
         """
         self._backend=image.backend
-        self.setvars()
+        self.setenv()
         backend.dict[self._backend].container.run(image.name,command,commit)

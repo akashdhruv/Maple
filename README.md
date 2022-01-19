@@ -28,7 +28,7 @@ export PATH="$PATH:$HOME/.local/bin"
 
   - Building an image
 
-    ```maple image build <image-name>```: Build local image from remote image
+    ```maple image build <image>```: Build local image from remote image
 
   - Getting shell access:
 
