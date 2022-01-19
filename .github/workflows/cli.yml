@@ -20,10 +20,11 @@ jobs:
     - name: Run examples/bubblebox
       run: |
           cd examples/bubblebox
-          maple image build
+          maple image build local
+          maple container pour local
           maple container execute "python3 example.py"
-          maple container clean
-          maple image remove
+          maple container rinse
+          maple image delete local
 
   create:
     name: "create"
@@ -35,11 +36,12 @@ jobs:
     - name: Run examples/create
       run: |
           cd examples/create
-          maple image build
+          maple image build local
+          maple container pour local
           maple container execute
-          maple container clean
-          maple image remove
-
+          maple container rinse
+          maple image delete local
+          
   flash:
     name: "flash"
     runs-on: ubuntu-latest
@@ -49,9 +51,8 @@ jobs:
     - name: Run examples/flashsim
       run: |
           cd examples/flashsim
-          maple image build
+          maple image build local
+          maple container pour local
           maple container execute "mpirun -n 1 /home/run/flash4"
-          maple container clean
-          maple image remove
-
-
+          maple container rinse
+          maple image delete local

@@ -4,6 +4,7 @@
 if [ $1 = "develop" ]; then
     python3 setup.py develop --user
     cp maple/maple $HOME/.local/bin
+    mkdir -p $HOME/.local/maple
 fi
 
 # Install mode 
@@ -11,6 +12,7 @@ if [ $1 = "install" ]; then
     python3 setup.py build
     python3 setup.py install --user
     cp maple/maple $HOME/.local/bin
+    mkdir -p $HOME/.local/maple
 fi
 
 # Clean after installation

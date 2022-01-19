@@ -1,30 +1,32 @@
 """Python API for maple"""
 
-class MapleContainer(object):
+from .  import Environment
+from .. import backend
+
+class Container(Environment):
     """
     Class to manage containers
     """
-    def __init__(self,MapleEnv):
-        super().__init__()
-        self.env=MapleEnv
+    def __init__(self,**attributes):
+        super().__init__(**attributes)
 
-    def clean(self):
+    def pour(self,image):
         """
-        Clean local container environment
+        Pour a container
         """
-        self.env.set_vars()
-        self.env.backend.container.clean()
+        self.setvars()
+        backend.dict[self.backend].container.pour(image)
 
-    def execute(self,command,commit=False):
+    def rinse(self):
+        """
+        Rinse a container
+        """
+        self.setvars()
+        backend.dict[self.backend].container.rinse()
+
+    def execute(self,command):
         """
         Execute command
         """
-        self.env.set_vars()
-        self.env.backend.container.execute(command,commit)
-
-    def notebook(self):
-        """
-        Launch ipython notebook inside the container
-        """
-        self.env.set_vars()
-        self.env.backend.container.notebook()
+        self.setvars()
+        backend.dict[self.backend].container.execute(command)

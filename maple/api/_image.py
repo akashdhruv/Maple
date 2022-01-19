@@ -1,30 +1,18 @@
 """Python API for maple"""
 
-class MapleImage(object):
+from .  import Environment
+from .. import backend
+
+class Image(Environment):
     """
     Class to manage images
     """
-    def __init__(self,MapleEnv):
-        super().__init__()
-        self.env=MapleEnv
+    def __init__(self,**attributes):
+        super().__init__(**attributes)
 
-    def build(self):
+    def build(self,image):
         """
-        Builds a local image from remote image
+        Builds a local image from base image
         """
-        self.env.set_vars()
-        self.env.backend.image.build()
-
-    def pull(self):
-        """
-        Pull remote image
-        """
-        self.env.set_vars()
-        self.env.backend.image.pull()
-
-    def remove(self):
-        """
-        Remove remote container
-        """
-        self.env.set_vars()
-        self.env.backend.image.remove()
+        self.setvars()
+        backend.dict[self.backend].image.build(image)

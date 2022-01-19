@@ -1,15 +1,12 @@
 """Python API for maple"""
 
-from . import MapleEnv, MapleImage, MapleContainer
+from .  import Environment, Image, Container
+from .. import backend
 
-from ..backend import docker,singularity
-
-class Maple(object):
+class Maple(Environment):
     """
     User interface to maple
     """
-    backend = {'docker':docker, 'singularity':singularity}
-
     def __init__(self,**attributes):
         """
         Parameters
@@ -24,19 +21,6 @@ class Maple(object):
                        'backend'   : container backend - docker/singularity
                        'port'      : port ID to deploy jupyter notebooks}
         """
-        super().__init__()
-        self.env = MapleEnv(**attributes)
-        self.image = MapleImage(self.env)
-        self.container = MapleContainer(self.env)
-           
-    def __getitem__(self,key):
-        """
-        Get variable data
-        """
-        return self.env[key]
-
-    def __setitem__(self,key,value):
-        """
-        Set variable data
-        """
-        self.env[key] = value
+        super().__init__(**attributes)
+        self.image = Image(**attributes)
+        self.container = Container(**attributes)

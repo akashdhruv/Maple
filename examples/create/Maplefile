@@ -1,5 +1,5 @@
 # Maplefile
-base="ubuntu:latest"
+base="docker://ubuntu:latest"
 container="create"
 target="/home/mount"
 backend="singularity"

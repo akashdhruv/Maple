@@ -3,34 +3,23 @@
 import click
 import os
 
-from .. import api
+from .. import backend
 from .  import maple
-
-# CLI group
-#
-@maple.group(name='system')
-def system():
-    """
-    Manage system configuration, type maple system --help for more info 
-    """
-    pass
 
 # Login to remote registry
 #
-@system.command(name='login')
+@maple.command(name='login')
 def login():
     """
     Login to container backend
     """
-    api.Maple.backend[os.getenv('maple_backend')].system.login()
+    backend.dict[os.getenv('maple_backend')].system.login()
 
 # Prune system
 #
-@system.command('prune')
-@click.argument('backend',default='None')
-def prune(backend):
+@maple.command('prune')
+def prune():
     """
     Prune system
     """
-    if backend != 'None': os.environ['maple_backend'] = str(backend)
-    api.Maple.backend[os.getenv('maple_backend')].system.prune()
+    backend.dict[os.getenv('maple_backend')].system.prune()

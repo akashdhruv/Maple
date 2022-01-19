@@ -3,7 +3,7 @@
 import click
 import os
 
-from .. import api
+from .. import backend
 from .  import maple
 
 # CLI group
@@ -11,83 +11,77 @@ from .  import maple
 @maple.group(name='image')
 def image():
     """
-    Image management, type maple image --help for more info
+    Image management, type maple image --help for more module
     """
     pass
 
-# Build a container using the information supplied from Maplefile
-# Currently this uses a docker build, but we intend this interface to be more general depending
-# on the type of backend use for containerization
-#
+# Build a local image using a base image 
+# The modulermation supplied from Maplefile
 @image.command(name='build')
+@click.argument('image')
 @click.option('--base', default=None, help='value for the base image')
 @click.option('--as-root/--not-as-root', default=False, help='flag to build image as root')
-def build(base,as_root):
+def build(image,base,as_root):
     """
-    Builds a local image from remote image
+    Builds a local image from a base image
     """
-    api.Maple.backend[os.getenv('maple_backend')].image.build(base,as_root)
+    backend.dict[os.getenv('maple_backend')].image.build(image,base,as_root)
 
-# Pull image from remote registry
-# Currently pulls maple_base for a remote registry
-#
-@image.command(name='pull')
-@click.option('--base', default=None, help='value for the base image')
-def pull(base):
+# Pull base image from a remote registry
+@maple.command(name='pull')
+@click.argument('image')
+def pull(image):
     """
-    Pull remote image
+    Pull an image from remote registry
     """
-    api.Maple.backend[os.getenv('maple_backend')].image.pull(base)
+    backend.dict[os.getenv('maple_backend')].image.pull(image)
 
 # Push image to remote registry
-# Tag and push changes to local container to remote registry
 # Note will require 'maple login' if credentials are required
 #
-@image.command(name='push')
-@click.option('--base', default=None, help='value for the base image')
-def push(base):
+@maple.command(name='push')
+@click.argument('image')
+def push(image):
     """
-    Push local image to remote tag/image
+    Push an image to remote registry
     """
-    api.Maple.backend[os.getenv('maple_backend')].image.push(base)
+    backend.dict[os.getenv('maple_backend')].image.push(image)
 
-# Create a new tag for the base image
+# Tag an image from base
 @image.command(name='tag')
 @click.argument('base')
-@click.option('--set/--not-set', default=False, help='tag a new base image from local image')
-@click.option('--get/--not-get', default=False, help='tag local image from base image')
-def tag(base,set,get):
+@click.argument('image')
+def tag(base,image):
     """
-    Create a tag for a new image
+    Tag an image from base image
     """
-    api.Maple.backend[os.getenv('maple_backend')].image.tag(base,set,get)
+    backend.dict[os.getenv('maple_backend')].image.tag(base,image)
 
 # List all images
 #
 @image.command('list')
-@click.argument('backend', default='None')
-def list(backend):
+def list():
     """
     List all images on system
     """
-    if backend != 'None': os.environ['maple_backend'] = str(backend)
-    api.Maple.backend[os.getenv('maple_backend')].image.list()
+    backend.dict[os.getenv('maple_backend')].image.list()
 
 # Squash and prune layers
 #
 @image.command('squash')
-def squash():
+@click.argument('image')
+def squash(image):
     """
-    Squash and prune layers from local container and save it to local image
+    Squash and prune layers from local image
     """
-    api.Maple.backend[os.getenv('maple_backend')].image.squash()
+    backend.dict[os.getenv('maple_backend')].image.squash(image)
 
-# Delete a remote image
+# Clean all local images and containers
 #
-@image.command('remove')
-@click.argument('base', default='None')
-def remove(base):
+@image.command('delete')
+@click.argument('image')
+def delete(image):
     """
-    Remove a remote image from local cache
+    Delete a local image
     """
-    api.Maple.backend[os.getenv('maple_backend')].image.remove(base)
+    backend.dict[os.getenv('maple_backend')].image.delete(image)
