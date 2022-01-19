@@ -2,9 +2,13 @@
 
 import maple.api as maple
 
-maple_obj = maple.Maple()
+image = maple.Image()
+container = maple.Container()
 
-maple_obj.image.build('local')
-maple_obj.container.pour('local')
-maple_obj.container.execute("pwd")
-maple_obj.container.rinse()
+image.build()
+container.pour(image)
+container.execute("pwd")
+container.rinse()
+image.squash()
+image.tag('new')
+image.delete()
