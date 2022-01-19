@@ -1,4 +1,4 @@
 # Maplefile
-base="akashdhruv/bubblebox:latest"
+base="akashdhruv/bubblebox:publish"
 container="bubblebox"
 target="/home/mount/bubblebox"

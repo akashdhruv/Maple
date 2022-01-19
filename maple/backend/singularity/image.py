@@ -8,7 +8,7 @@ def build(image,base=None,as_root=False):
     """
     if base: os.environ['maple_base'] = str(base)
     os.system('singularity build {0}.sif $maple_base'.format(image))
-    os.system('mv ${0}.sif $maple_home/${0}.sif'.format(image))
+    os.system('mv {0}.sif $maple_home/{0}.sif'.format(image))
 
 def pull(image):
     """
