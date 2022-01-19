@@ -37,21 +37,21 @@ def shell():
 # Launch a notebook inside the container
 #
 @container.command('notebook')
-def notebook():
+@click.option('--port', default='8888', help='port for notebook server')
+def notebook(port):
     """
     Launch ipython notebook inside the container
     """
-    api.Maple.backend[os.getenv('maple_backend')].container.notebook()
+    api.Maple.backend[os.getenv('maple_backend')].container.notebook(port)
 
 # Execute a command in a container
 @container.command('execute')
 @click.argument('command',default='echo Hello World!')
-@click.option('--commit/--not-commit',default=False,help='flag to commit to local image')
-def execute(command,commit):
+def execute(command):
     """
     Execute command in a container
     """
-    api.Maple.backend[os.getenv('maple_backend')].container.execute(command,commit)
+    api.Maple.backend[os.getenv('maple_backend')].container.execute(command)
 
 # Pour an image in a local container to access interactive shell
 # If maple_source or maple_traget are present then they will be mounted inside the containter.
@@ -74,16 +74,6 @@ def rinse(container):
     Stop local container
     """
     api.Maple.backend[os.getenv('maple_backend')].container.rinse(container)
-
-# Clean all local images and containers
-#
-@container.command('clean')
-@click.argument('container',default='None')
-def clean(container):
-    """
-    Clean local container environment
-    """
-    api.Maple.backend[os.getenv('maple_backend')].container.clean(container)
 
 # List all container
 #

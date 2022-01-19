@@ -17,7 +17,6 @@ def build(base=None,as_root=False):
 
     os.system('docker build -t $maple_container --no-cache \
                                                 --build-arg maple_base=$maple_base \
-                                                --build-arg maple_target=$maple_target \
                                                 --build-arg maple_user=$maple_user \
                                                 --build-arg maple_group=$maple_group \
                                                 --file=$maple_dir/{0} .'.format(dockerfile))
@@ -29,13 +28,19 @@ def pull(base=None):
     if base: os.environ['maple_base'] = str(base)
     os.system('docker pull ${maple_base}')
 
-def tag(base,set,get):
+def get(base):
     """
-    Retag an image
+    Get tag from a base image
     """
     os.environ['maple_base'] = str(base)
-    if set: os.system('docker tag $maple_container $maple_base')
-    if get: os.system('docker tag $maple_base $maple_container') 
+    os.system('docker tag $maple_base $maple_container') 
+
+def set(base):
+    """
+    Set tag for a base image
+    """
+    os.environ['maple_base'] = str(base)
+    os.system('docker tag $maple_container $maple_base')
 
 def push(base=None):
     """
@@ -49,7 +54,7 @@ def list():
     """
     List all images on system
     """
-    os.system('docker images -a')
+    os.system('docker images')
 
 def squash():
     """
@@ -60,6 +65,13 @@ def squash():
     os.system('cat $maple_container.tar | docker import - $maple_container')
     os.system('rm $maple_container.tar')
     container.rinse()
+
+def clean(local='None'):
+    """
+    clean local container environment
+    """
+    if local != 'None': os.environ['maple_container'] = str(local)
+    os.system('docker rmi $maple_container $(docker images --filter dangling=true -q --no-trunc)')
 
 def remove(base='None'):
     """

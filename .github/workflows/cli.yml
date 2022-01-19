@@ -21,8 +21,10 @@ jobs:
       run: |
           cd examples/bubblebox
           maple image build
+          maple container pour
           maple container execute "python3 example.py"
-          maple container clean
+          maple container rinse
+          maple image clean
           maple image remove
 
   create:
@@ -36,8 +38,10 @@ jobs:
       run: |
           cd examples/create
           maple image build
+          maple container pour
           maple container execute
-          maple container clean
+          maple container rinse
+          maple image clean
           maple image remove
 
   flash:
@@ -50,8 +54,10 @@ jobs:
       run: |
           cd examples/flashsim
           maple image build
+          maple container pour
           maple container execute "mpirun -n 1 /home/run/flash4"
-          maple container clean
+          maple container rinse
+          maple image clean
           maple image remove
 
 

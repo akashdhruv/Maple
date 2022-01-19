@@ -8,23 +8,23 @@ class MapleContainer(object):
         super().__init__()
         self.env=MapleEnv
 
-    def clean(self):
+    def pour(self):
         """
-        Clean local container environment
+        Pour a container
         """
         self.env.set_vars()
-        self.env.backend.container.clean()
+        self.env.backend.container.pour()
 
-    def execute(self,command,commit=False):
+    def rinse(self):
+        """
+        Rinse a container
+        """
+        self.env.set_vars()
+        self.env.backend.container.rinse()
+
+    def execute(self,command):
         """
         Execute command
         """
         self.env.set_vars()
-        self.env.backend.container.execute(command,commit)
-
-    def notebook(self):
-        """
-        Launch ipython notebook inside the container
-        """
-        self.env.set_vars()
-        self.env.backend.container.notebook()
+        self.env.backend.container.execute(command)

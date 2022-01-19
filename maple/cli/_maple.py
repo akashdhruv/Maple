@@ -34,7 +34,6 @@ def maple():
     if not os.getenv('maple_backend'): os.environ['maple_backend'] = 'docker'
     if not os.getenv('maple_user'): os.environ['maple_user'] = os.popen('id -u').read().split()[0]
     if not os.getenv('maple_group'): os.environ['maple_group'] = os.popen('id -g').read().split()[0]
-    if not os.getenv('maple_port'): os.environ['maple_port'] = '8888'
 
     # Condition to check if target and source directories are defined in the Maplefile
     # assign default if they are not, and deal with execptions

@@ -10,21 +10,35 @@ class MapleImage(object):
 
     def build(self):
         """
-        Builds a local image from remote image
+        Builds a local image from base image
         """
         self.env.set_vars()
         self.env.backend.image.build()
 
-    def pull(self):
+    def set(self):
         """
-        Pull remote image
+        Set a base image from local image
         """
         self.env.set_vars()
-        self.env.backend.image.pull()
+        self.env.backend.image.set()
+
+    def get(self):
+        """
+        Get a local image from base image
+        """
+        self.env.set_vars()
+        self.env.backend.image.get()
+
+    def clean(self):
+        """
+        Clean local image
+        """
+        self.env.set_vars()
+        self.env.backend.image.clean()
 
     def remove(self):
         """
-        Remove remote container
+        Remove a base image
         """
         self.env.set_vars()
         self.env.backend.image.remove()

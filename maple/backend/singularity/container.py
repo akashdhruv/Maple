@@ -12,61 +12,48 @@ def pour():
     """
     Pour local image in a container, opposite of maple rinse
     """
-    print("[maple] command not available for singularity backend")
+    if(os.getenv('maple_source') and os.getenv('maple_target')):
+        result = os.system('singularity instance start --containall --cleanenv \
+                                                       --bind $maple_source:$maple_target \
+                                                       $maple_home/$maple_container.sif $maple_container')
+    else:
+        result = os.system('singularity instance start --containall --cleanenv \
+                                                       $maple_home/$maple_container.sif $maple_container')
+
+    if result != 0: raise Exception("[maple] Error inside container")
 
 def rinse(container='None'):
     """
     Stop and remove the local container, opposite of maple pour
     """
     if container != 'None': os.environ['maple_container'] = str(container)
-    print("[maple] command not available for singularity backend")
-
-def clean(container='None'):
-    """
-    clean local container environment
-    """
-    if container != 'None': os.environ['maple_container'] = str(container)
-    os.system('rm -f -v $maple_container.sif')
+    os.system('singularity instance stop $maple_container')
 
 def shell():
     """
     Get shell access to the local container
     """
-    if(os.getenv('maple_source') and os.getenv('maple_target')):
-        os.system('singularity shell --containall --cleanenv \
-                                                  --bind $maple_source:$maple_target \
-                                                  --pwd $maple_target $maple_container.sif')
-    else:
-        os.system('singularity shell --containall --cleanenv \
-                                                  --pwd $maple_target $maple_container.sif')
+    os.system('singularity shell --pwd $maple_target instance://$maple_container')
 
-def execute(command,commit_flag=False):
+def execute(command):
     """
     Run local image in a container
     """
-    command='"{0}"'.format(command)
-    if(os.getenv('maple_source') and os.getenv('maple_target')):
-        result = os.system('singularity exec --containall --cleanenv \
-                                             --bind $maple_source:$maple_target \
-                                             --pwd $maple_target \
-                                             $maple_container.sif bash -c {0}'.format(str(command)))
-    else:
-        result = os.system('singularity exec --containall --cleanenv \
-                                             --pwd $maple_target \
-                                             $maple_container.sif bash -c {0}'.format(str(command)))
-
-    if commit_flag: print("[maple] Cannot commit to local image")
+    command = '"{0}"'.format(command)
+    result = os.system('singularity exec --pwd $maple_target \
+                                         instance://$maple_container bash -c {0}'.format(str(command)))
 
     if result != 0: raise Exception("[maple] Error inside container")
 
-def notebook():
+def notebook(port='8888'):
     """
     Launch ipython notebook inside the container
     """
+    os.environ['maple_port'] = str(port)
     execute('jupyter notebook --port=$maple_port --no-browser --ip=0.0.0.0')
 
 def list():
     """
     List all containers on system
     """
-    print("[maple] command not available for singularity backend")
+    os.system('singularity instance list')

@@ -7,7 +7,8 @@ def build(base=None,as_root=False):
     Builds a local image from remote image
     """
     if(base): os.environ['maple_base'] = str(base)
-    os.system('singularity build $maple_container.sif docker://$maple_base')
+    os.system('singularity build $maple_container.sif $maple_base')
+    os.system('mv $maple_container.sif $maple_home/$maple_container.sif')
 
 def pull(base=None):
     """
@@ -23,19 +24,25 @@ def push(base=None):
     if base: os.environ['maple_base'] = str(base)
     print("[maple] command not available for singularity backend")
 
-def tag(base,set,get):
+def get(base):
     """
-    Retag an image
+    Get tag from a base image
     """
-    if base: os.environ['maple_base'] = str(base)
-    if set: os.system('cp $maple_container.sif $maple_base.sif')
-    if get: os.system('cp $maple_base.sif $maple_container.sif')
+    os.environ['maple_base'] = str(base)
+    os.system('cp $maple_home/$maple_base.sif $maple_home/$maple_container.sif')
+
+def set(base):
+    """
+    Set tag for a base image
+    """
+    os.environ['maple_base'] = str(base)
+    os.system('cp $maple_home/$maple_container.sif $maple_home/$maple_base.sif')
 
 def list():
     """
     List all images on system
     """
-    os.system('ls *.sif 2> /dev/null')
+    os.system('ls $maple_home/*.sif 2> /dev/null')
 
 def squash():
     """
@@ -43,6 +50,13 @@ def squash():
     """
     if image: os.environ['maple_container'] = str(image)
     print("[maple] command not available for singularity backend")
+
+def clean(local='None'):
+    """
+    clean local container environment
+    """
+    if local != 'None': os.environ['maple_container'] = str(local)
+    os.system('rm -f -v $maple_home/$maple_container.sif')
 
 def remove(base='None'):
     """

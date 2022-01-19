@@ -7,20 +7,21 @@ def commit():
     Commit changes from local container to local image
     """
     os.system('docker commit $maple_container $maple_container')
+    rinse()
 
-def pour():
+def pour(port_cmd=''):
     """
     Pour local image in a container, opposite of maple rinse
     """
     if(os.getenv('maple_source') and os.getenv('maple_target')):
-        result = os.system('docker run -p $maple_port:$maple_port -dit \
-                                                --name $maple_container \
-                                                --mount type=bind,source=$maple_source,target=$maple_target \
-                                                $maple_container bash')
+        result = os.system('docker run {0} -dit \
+                                           --name $maple_container \
+                                           --mount type=bind,source=$maple_source,target=$maple_target \
+                                           $maple_container bash'.format(port_cmd))
     else:
-        result = os.system('docker run -p $maple_port:$maple_port -dit \
-                                                --name $maple_container \
-                                                $maple_container bash')
+        result = os.system('docker run {0} -dit \
+                                           --name $maple_container \
+                                           $maple_container bash'.format(port_cmd))
 
     if result != 0: raise Exception("[maple] Error inside container")
 
@@ -32,39 +33,27 @@ def rinse(container='None'):
     os.system('docker stop $maple_container')
     os.system('docker rm $maple_container')
 
-def clean(container='None'):
-    """
-    clean local container environment
-    """
-    if container != 'None': os.environ['maple_container'] = str(container)
-    os.system('docker rmi $maple_container $(docker images --filter dangling=true -q --no-trunc)')
-
 def shell():
     """
     Get shell access to the local container
     """
-    os.system('docker exec -it $maple_container bash')
+    os.system('docker exec -it --workdir $maple_target $maple_container bash')
 
-def execute(command,commit_flag=False):
+def execute(command,with_commit=False):
     """
     Run local image in a container
     """
-    pour()
-    
-    command='"{0}"'.format(command)
-    result = os.system('docker exec $maple_container bash -c {0}'.format(str(command)))
+    command = '"{0}"'.format(command)
+    result = os.system('docker exec --workdir $maple_target $maple_container bash -c {0}'.format(str(command)))
   
-    if commit_flag: commit()
-    
-    rinse()
-
     if result != 0: raise Exception("[maple] Error inside container")
 
-def notebook():
+def notebook(port='8888'):
     """
     Launch ipython notebook inside the container
     """
-    execute('jupyter notebook --port=$maple_port --no-browser --ip=0.0.0.0')
+    os.environ['maple_port'] = str(port)
+    execute('jupyter notebook --port=$maple_port --no-browser --ip=0.0.0.0',port_cmd='-p $maple_port:$maple_port')
 
 def list():
     """

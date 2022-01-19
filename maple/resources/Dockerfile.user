@@ -7,18 +7,14 @@ FROM $maple_base
 # Add current user to container
 ARG maple_user
 ARG maple_group
+
 ENV maple_group=$maple_group
+ENV maple_user=$maple_user
 
-RUN bash -c 'if [[ ${EUID} == 0 ]] ; then \
-             if [[ ${OSTYPE} == linux-gnu ]] ; then addgroup --gid $maple_group user ; fi ; fi'
+RUN bash -c 'if [[ ${OSTYPE} == linux-gnu ]] ; then addgroup --gid $maple_group user ; fi'
+RUN bash -c 'adduser --disabled-password --gecos ',,,,' --uid $maple_user --gid $maple_group user'
 
-RUN bash -c 'if [[ ${EUID} == 0 ]] ; then \
-             adduser --disabled-password --gecos ',,,,' --uid $maple_user --gid $maple_group user ; fi'
 USER user
 
 # MPI environment variable
 ENV OMPI_MCA_btl_vader_single_copy_mechanism=none
-
-# Set working directory using maple_target from Maplefile
-ARG maple_target
-WORKDIR $maple_target
