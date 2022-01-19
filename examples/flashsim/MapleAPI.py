@@ -3,17 +3,21 @@
 import maple.api as maple
 
 # Create a Maple object
-flashsim = maple.Maple(container='flashsim',base='akashdhruv/flash:boiling',
-                      target='/home/mount/simulation')
+image_docker      = maple.Image(name='local',base='akashdhruv/flash:boiling',backend='docker')
+image_singularity = maple.Image(name='local',base='docker://akashdhruv/flash:boiling',backend='singularity')
+
+container = maple.Container(name='flashsim',target='/home/mount/simulation')
 
 # Build the local image
-flashsim.image.build('local')
+image_docker.build()
+image_singularity.build()
 
-# Pour a container
-flashsim.container.pour('local')
+# Run docker container
+container.pour(image_docker)
+container.execute("mpirun -n 1 /home/run/flash4")
+container.rinse()
 
-# Run a command inside the container
-flashsim.container.execute("mpirun -n 1 /home/run/flash4")
-
-# Rinse a container
-flashsim.container.rinse()
+# Run singularity container
+container.pour(image_singularity)
+container.execute("mpirun -n 1 /home/run/flash4")
+container.rinse()

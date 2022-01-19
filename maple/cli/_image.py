@@ -50,12 +50,12 @@ def push(image):
 # Tag an image from base
 @image.command(name='tag')
 @click.argument('base')
-@click.argument('image')
-def tag(base,image):
+@click.argument('target')
+def tag(base,target):
     """
-    Tag an image from base image
+    Tag a target image from base image
     """
-    backend.dict[os.getenv('maple_backend')].image.tag(base,image)
+    backend.dict[os.getenv('maple_backend')].image.tag(base,target)
 
 # List all images
 #

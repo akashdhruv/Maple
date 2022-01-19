@@ -22,11 +22,11 @@ def push(image):
     """
     print("[maple] command not available for singularity backend")
 
-def tag(base,image):
+def tag(base,target):
     """
     Tag an image from base
     """
-    os.system('cp $maple_home/{0}.sif $maple_home/{1}.sif'.format(base,image))
+    os.system('cp $maple_home/{0}.sif $maple_home/{1}.sif'.format(base,target))
 
 def list():
     """

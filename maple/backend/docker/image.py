@@ -33,11 +33,11 @@ def push(image):
     """
     os.system('docker push {0}'.format(image))
 
-def tag(base,image):
+def tag(base,target):
     """
     Tag an image from base
     """
-    os.system('docker tag {0} {1}'.format(base,image))
+    os.system('docker tag {0} {1}'.format(base,target))
 
 def list():
     """

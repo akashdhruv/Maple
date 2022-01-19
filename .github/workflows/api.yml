@@ -28,6 +28,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: ./.github/actions/install
+    - uses: eWaterCycle/setup-singularity@v7
     - name: Run examples/flashsim
       run: |
           cd examples/flashsim
