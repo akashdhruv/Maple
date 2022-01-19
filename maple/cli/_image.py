@@ -20,7 +20,7 @@ def image():
 @image.command(name='build')
 @click.argument('image')
 @click.option('--base', default=None, help='value for the base image')
-@click.option('--as-root/--not-as-root', default=False, help='flag to build image as root')
+@click.option('--as-root', is_flag=True, help='flag to build image as root')
 def build(image,base,as_root):
     """
     Builds a local image from a base image
