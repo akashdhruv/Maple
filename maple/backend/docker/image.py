@@ -56,6 +56,12 @@ def squash(image):
     os.system('rm {0}.tar'.format(image))
     container.rinse()
 
+def scan(image):
+    """
+    Scan an image
+    """
+    os.system('docker scan {0}'.format(image))
+
 def delete(image):
     """
     Delete an image
