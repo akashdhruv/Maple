@@ -10,16 +10,18 @@ def build(image,base=None,as_root=False):
     """
     if base: os.environ['maple_base'] = str(base)
 
-    if as_root:
-        dockerfile = 'resources/Dockerfile.root'
+    if os.path.exists('Dockerfile'):
+        dockerfile = 'Dockerfile'
+    elif as_root:
+        dockerfile = os.getenv('maple_dir')+'/resources/Dockerfile.root'
     else:
-        dockerfile = 'resources/Dockerfile.user'
+        dockerfile = os.getenv('maple_dir')+'/resources/Dockerfile.user'
 
     os.system('docker build -t {0} --no-cache \
                                    --build-arg maple_base=$maple_base \
                                    --build-arg maple_user=$maple_user \
                                    --build-arg maple_group=$maple_group \
-                                   --file=$maple_dir/{1} .'.format(image,dockerfile))
+                                   --file={1} $maple_home/context'.format(image,dockerfile))
 
 def pull(image):
     """
