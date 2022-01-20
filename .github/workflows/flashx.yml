@@ -1,4 +1,4 @@
-name: create
+name: flashx
 
 on:
   pull_request:
@@ -10,30 +10,30 @@ on:
       - 'CITATION'
       - 'docs/'
 
-jobs:
+jobs:         
   cli:
     name: "cli"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: eWaterCycle/setup-singularity@v7
     - uses: ./.github/actions/install
-    - name: Run examples/create
+    - name: Run examples/flashx
       run: |
-          cd examples/create
+          cd examples/flashx
           maple image build local
           maple container pour --image=local
-          maple container execute
+          maple container execute "mpirun -n 1 /home/run/flash4"
           maple container rinse
           maple image delete local
-          
+
   api:
     name: "api"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: ./.github/actions/install
-    - name: Run examples/create
+    - uses: eWaterCycle/setup-singularity@v7
+    - name: Run examples/flashx
       run: |
-          cd examples/create
+          cd examples/flashx
           python3 MapleAPI.py
