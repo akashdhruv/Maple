@@ -7,7 +7,7 @@ import os
 # CLI group
 #
 @click.group(name='maple')
-@click.option('--docker',  is_flag=True, help='option for docker backend')
+@click.option('--docker',  is_flag=True, help='option for docker backend (default) ')
 @click.option('--singularity',  is_flag=True, help='option for singularity backend')
 def maple(docker,singularity):
     """

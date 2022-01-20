@@ -72,7 +72,7 @@ def list():
 @click.argument('image')
 def squash(image):
     """
-    Squash and prune layers from local image
+    Squash and remove layers from local image, reduces size of the image
     """
     backend.dict[os.getenv('maple_backend')].image.squash(image)
 
@@ -82,7 +82,7 @@ def squash(image):
 @click.argument('images', nargs=-1)
 def delete(images):
     """
-    Delete a local images
+    Delete local images, accepts multiple arguments
     """
     for img in images:
         backend.dict[os.getenv('maple_backend')].image.delete(img)

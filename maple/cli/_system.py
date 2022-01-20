@@ -20,6 +20,6 @@ def login():
 @maple.command('prune')
 def prune():
     """
-    Prune system
+    Clear backend cache
     """
     backend.dict[os.getenv('maple_backend')].system.prune()
