@@ -1,4 +1,4 @@
-name: flash
+name: minimal
 
 on:
   pull_request:
@@ -10,30 +10,30 @@ on:
       - 'CITATION'
       - 'docs/'
 
-jobs:         
+jobs:
   cli:
     name: "cli"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: eWaterCycle/setup-singularity@v7
     - uses: ./.github/actions/install
-    - name: Run examples/flashsim
+    - name: Run examples/minimal
       run: |
-          cd examples/flashsim
+          cd examples/minimal
           maple image build local
           maple container pour --image=local
-          maple container execute "mpirun -n 1 /home/run/flash4"
+          maple container execute
           maple container rinse
           maple image delete local
-
+          
   api:
     name: "api"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: ./.github/actions/install
-    - uses: eWaterCycle/setup-singularity@v7
-    - name: Run examples/flashsim
+    - name: Run examples/minimal
       run: |
-          cd examples/flashsim
+          cd examples/minimal
           python3 MapleAPI.py

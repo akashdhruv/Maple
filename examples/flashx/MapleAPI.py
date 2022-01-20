@@ -6,7 +6,7 @@ import maple.api as maple
 image_docker      = maple.Image(name='local',base='akashdhruv/flash:boiling',backend='docker')
 image_singularity = maple.Image(name='local',base='docker://akashdhruv/flash:boiling',backend='singularity')
 
-container = maple.Container(name='flashsim',target='/home/mount/simulation')
+container = maple.Container(name='flashx',target='/home/mount/simulation')
 
 # Build images
 image_docker.build()

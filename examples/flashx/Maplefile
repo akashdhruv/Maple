@@ -1,4 +1,4 @@
 # Maplefile
 base="akashdhruv/flash:boiling"
-container="flashsim"
+container="flashx"
 target="/home/mount/simulation"
