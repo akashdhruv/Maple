@@ -40,6 +40,12 @@ def squash(image):
     """
     print("[maple] command not available for singularity backend")
 
+def scan(image):
+    """
+    Scan an image
+    """
+    print("[maple] command not available for singularity backend")
+
 def delete(image):
     """
     Delete an image

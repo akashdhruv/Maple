@@ -29,23 +29,25 @@ def build(image,base,as_root):
 
 # Pull base image from a remote registry
 @maple.command(name='pull')
-@click.argument('image')
-def pull(image):
+@click.argument('images', nargs=-1)
+def pull(images):
     """
-    Pull an image from remote registry
+    Pull images from remote registry, accepts multiple arguments
     """
-    backend.dict[os.getenv('maple_backend')].image.pull(image)
+    for img in images:
+        backend.dict[os.getenv('maple_backend')].image.pull(img)
 
 # Push image to remote registry
 # Note will require 'maple login' if credentials are required
 #
 @maple.command(name='push')
-@click.argument('image')
-def push(image):
+@click.argument('images', nargs=-1)
+def push(images):
     """
-    Push an image to remote registry
+    Push images to remote registry, accepts multiple arguments
     """
-    backend.dict[os.getenv('maple_backend')].image.push(image)
+    for img in images:
+        backend.dict[os.getenv('maple_backend')].image.push(img)
 
 # Tag an image from base
 @image.command(name='tag')
@@ -75,6 +77,16 @@ def squash(image):
     Squash and remove layers from local image, reduces size of the image
     """
     backend.dict[os.getenv('maple_backend')].image.squash(image)
+
+# Scan all the images
+@maple.command('scan')
+@click.argument('images', nargs=-1)
+def scan(images):
+    """
+    Scan local images, accepts multiple arguments
+    """
+    for img in images:
+        backend.dict[os.getenv('maple_backend')].image.scan(img)
 
 # Clean all local images and containers
 #
