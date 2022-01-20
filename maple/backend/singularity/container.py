@@ -15,10 +15,10 @@ def pour(image):
     if(os.getenv('maple_source') and os.getenv('maple_target')):
         result = os.system('singularity instance start --containall --cleanenv \
                                                        --bind $maple_source:$maple_target \
-                                                       $maple_home/{0}.sif $maple_container'.format(image))
+                                                       $maple_home/images/{0}.sif $maple_container'.format(image))
     else:
         result = os.system('singularity instance start --containall --cleanenv \
-                                                       $maple_home/{0}.sif $maple_container'.format(image))
+                                                       $maple_home/images/{0}.sif $maple_container'.format(image))
 
     if result != 0: raise Exception("[maple] Error inside container")
 
