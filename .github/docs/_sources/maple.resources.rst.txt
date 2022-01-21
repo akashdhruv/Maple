@@ -1,0 +1,10 @@
+maple.resources package
+=======================
+
+Module contents
+---------------
+
+.. automodule:: maple.resources
+   :members:
+   :undoc-members:
+   :show-inheritance:

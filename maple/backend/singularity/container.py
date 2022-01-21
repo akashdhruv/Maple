@@ -20,12 +20,16 @@ def pour(image,options='--no-home'):
 
     if result != 0: raise Exception("[maple] Error inside container")
 
-def rinse(container='None'):
+def rinse(container='None',rinse_all=False):
     """
     Stop and remove the local container, opposite of maple pour
     """
     if container == 'None': container = os.getenv('maple_container')
-    os.system('singularity instance stop {0}'.format(container))
+
+    if rinse_all:
+        os.system('singularity instance stop --all')
+    else:
+        os.system('singularity instance stop {0}'.format(container))
 
 def shell():
     """
@@ -39,9 +43,20 @@ def run(image,command):
     """
     os.environ['maple_container'] = os.getenv('maple_container')+'_'+str(random.randint(1111,9999))
 
-    pour(image)
-    result = execute(command)
-    rinse()
+    # TODO Make running using instances default method for consistencey with other backend
+    # implementations
+    
+    # Method 1: Run using instances 
+    #pour(image)
+    #result = execute(command)
+    #rinse()
+
+    # Method 2: Run using .sif image
+    command = '"{0}"'.format(command)
+    result = os.system('singularity exec --no-home \
+                                         --bind $maple_source:$maple_target \
+                                         --pwd  $maple_target \
+                                         $maple_home/images/{0}.sif bash -c {1}'.format(image,str(command)))
 
     if result != 0: raise Exception("[maple] Error inside container")
 
