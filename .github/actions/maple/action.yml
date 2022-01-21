@@ -4,7 +4,7 @@ name: install
 inputs:
   workdir: 
     description: 'Working directory for maple'
-    default: ${{env.working_directory}}
+    default: ${{GITHUB_WORKSPACE}}
   
 runs:
   using: "composite"
