@@ -47,7 +47,7 @@ class Image(Maple):
         self.setenv()
         Backend().image.squash(self._name)
 
-    def tag(self.traget):
+    def tag(self,traget):
         """
         Tag an image
         """
