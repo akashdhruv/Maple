@@ -21,7 +21,7 @@ jobs:
     - name: Run examples/minimal
       run: |
           cd examples/minimal
-          maple image build local
+          maple image build local docker://ubuntu:latest
           maple container pour --image=local
           maple container execute
           maple container rinse

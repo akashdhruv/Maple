@@ -20,14 +20,14 @@ jobs:
           echo "::add-mask::${{secrets.DOCKER_HUB_PSK}}"
     - uses: docker/login-action@v1
       with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_PSK }}   
+        username: ${{secrets.DOCKER_HUB_USERNAME }}
+        password: ${{secrets.DOCKER_HUB_PSK}}   
     - uses: actions/checkout@v2
     - uses: ./.github/actions/install
     - name: Run examples/flashx
       run: |
           cd examples/flashx
-          maple image build local
+          maple image build local ${{secrets.DOCKER_HUB_USERNAME}}/flash:boiling
           maple container pour --image=local
           maple container execute "mpirun -n 1 /home/run/flash4"
           maple container rinse
@@ -42,8 +42,8 @@ jobs:
           echo "::add-mask::${{secrets.DOCKER_HUB_PSK}}"
     - uses: docker/login-action@v1
       with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_PSK }}   
+        username: ${{secrets.DOCKER_HUB_USERNAME}}
+        password: ${{secrets.DOCKER_HUB_PSK}}   
     - uses: actions/checkout@v2
     - uses: ./.github/actions/install
     - uses: eWaterCycle/setup-singularity@v7
