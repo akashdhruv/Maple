@@ -39,8 +39,6 @@ def run(image,command):
     """
     os.environ['maple_container'] = os.getenv('maple_container')+'_'+str(random.randint(1111,9999))
 
-    command = '"{0}"'.format(command)
-
     pour(image)
     result = execute(command)
     rinse()

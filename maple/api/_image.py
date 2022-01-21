@@ -52,7 +52,7 @@ class Image(Maple):
         Tag an image
         """
         self.setenv()
-        Backend().image.tag(self._name.target)
+        Backend().image.tag(self._name,target)
 
     def delete(self):
         """
