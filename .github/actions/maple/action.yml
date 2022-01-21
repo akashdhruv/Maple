@@ -4,7 +4,11 @@ name: maple
 runs:
   using: "composite"
   steps:
+    - run: cd ~/ && git clone git@github.com:akashdhruv/Maple.git
+      shell: bash
     - run: mkdir -p $HOME/.local/bin && export PATH="PATH:$HOME/.local/bin"
       shell: bash
-    - run: cd ~/work/_actions/akashdhruv/Maple && ls && ./setup develop && ./setup install
+    - run: cd ~/Maple && ls && ./setup develop && ./setup install
+      shell: bash
+    - run: rm -rf ~/Maple
       shell: bash
