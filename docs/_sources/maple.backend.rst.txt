@@ -10,6 +10,18 @@ Subpackages
    maple.backend.docker
    maple.backend.singularity
 
+Submodules
+----------
+
+maple.backend.\_backend module
+------------------------------
+
+.. automodule:: maple.backend._backend
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
 Module contents
 ---------------
 
@@ -17,3 +29,4 @@ Module contents
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:
