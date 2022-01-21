@@ -27,7 +27,7 @@ jobs:
     - name: Run examples/bubblebox
       run: |
           cd examples/bubblebox
-          maple image build local
+          maple image build local akashdhruv/bubblebox:publish
           maple container pour --image=local
           maple container execute "python3 example.py"
           maple container rinse

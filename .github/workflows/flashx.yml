@@ -27,7 +27,7 @@ jobs:
     - name: Run examples/flashx
       run: |
           cd examples/flashx
-          maple image build local
+          maple image build local akashdhruv/flash:boiling
           maple container pour --image=local
           maple container execute "mpirun -n 1 /home/run/flash4"
           maple container rinse
