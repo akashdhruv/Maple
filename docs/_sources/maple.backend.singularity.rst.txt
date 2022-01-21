@@ -11,6 +11,7 @@ maple.backend.singularity.container module
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:
 
 maple.backend.singularity.image module
 --------------------------------------
@@ -19,6 +20,7 @@ maple.backend.singularity.image module
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:
 
 maple.backend.singularity.system module
 ---------------------------------------
@@ -27,6 +29,7 @@ maple.backend.singularity.system module
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:
 
 Module contents
 ---------------
@@ -35,3 +38,4 @@ Module contents
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:

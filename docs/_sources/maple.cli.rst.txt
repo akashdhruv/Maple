@@ -1,6 +1,45 @@
 maple.cli package
 =================
 
+Submodules
+----------
+
+maple.cli.\_container module
+----------------------------
+
+.. automodule:: maple.cli._container
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
+maple.cli.\_image module
+------------------------
+
+.. automodule:: maple.cli._image
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
+maple.cli.\_maple module
+------------------------
+
+.. automodule:: maple.cli._maple
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
+maple.cli.\_system module
+-------------------------
+
+.. automodule:: maple.cli._system
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
 Module contents
 ---------------
 
@@ -8,3 +47,4 @@ Module contents
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:
