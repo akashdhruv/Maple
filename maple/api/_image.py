@@ -47,6 +47,13 @@ class Image(Maple):
         self.setenv()
         Backend().image.squash(self._name)
 
+    def tag(self.traget):
+        """
+        Tag an image
+        """
+        self.setenv()
+        Backend().image.tag(self._name.target)
+
     def delete(self):
         """
         Delete the image

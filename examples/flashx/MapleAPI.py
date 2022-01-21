@@ -14,7 +14,7 @@ image_singularity.build()
 
 # Run containers
 container.run(image_docker,"mpirun -n 1 /home/run/flash4")
-container.run(image_singularity,"mpirun -n 1 /home/run/flash4")
+container.run(image_singularity,"mpirun -np 1 /home/run/flash4")
 
 # Delete images
 image_docker.delete()
