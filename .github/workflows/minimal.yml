@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: eWaterCycle/setup-singularity@v7
-    - uses: ./.github/actions/maple
+    - uses: ./.github/actions/install
     - name: Run examples/minimal
       run: |
           cd examples/minimal
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: ./.github/actions/maple
+    - uses: ./.github/actions/install
     - name: Run examples/minimal
       run: |
           cd examples/minimal
