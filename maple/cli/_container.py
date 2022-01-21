@@ -83,14 +83,15 @@ def pour(image):
 #
 @container.command('rinse')
 @click.argument('containers', nargs=-1)
-def rinse(containers):
+@click.option('--all', is_flag=True, help='rinse all containers')
+def rinse(containers,all):
     """
     Stop and remove containers, accepts multiple arguments
     """
     if not containers: containers = ['None']
-  
+   
     for ctr in containers:
-        Backend().container.rinse(ctr)
+        Backend().container.rinse(ctr,all)
 
 # List all container
 #

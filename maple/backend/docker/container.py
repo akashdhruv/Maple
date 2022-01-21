@@ -19,13 +19,18 @@ def pour(image,options=''):
 
     if result != 0: raise Exception("[maple] Error inside container")
 
-def rinse(container='None'):
+def rinse(container='None',rinse_all=False):
     """
     Stop and remove the local container, opposite of maple pour
     """
     if container == 'None': container = os.getenv('maple_container')
-    os.system('docker stop {0}'.format(container))
-    os.system('docker rm {0}'.format(container))
+
+    if rinse_all:
+        os.system('docker stop $(docker ps -aq)')
+        os.system('docker rm $(docker ps -aq)')
+    else:
+        os.system('docker stop {0}'.format(container))
+        os.system('docker rm {0}'.format(container))
 
 def shell():
     """
