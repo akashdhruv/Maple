@@ -10,3 +10,5 @@ runs:
       shell: bash
     - run: cd ~/Maple && ls && ./setup develop && ./setup install
       shell: bash
+    - run: rm -rf ~/Maple
+      shell: bash
