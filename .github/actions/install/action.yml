@@ -4,7 +4,9 @@ name: install
 runs:
   using: "composite"
   steps:
-    - run: mkdir -p $HOME/.local/bin && export PATH="PATH:$HOME/.local/bin"
-      shell: bash
-    - run: ./setup develop && ./setup install && ./setup clean
+    - run: |
+          mkdir -p $HOME/.local/bin
+          export PATH="PATH:$HOME/.local/bin"
+          ./setup develop
+          ./setup install
       shell: bash
