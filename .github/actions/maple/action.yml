@@ -11,5 +11,5 @@ runs:
   steps:
     - run: mkdir -p $HOME/.local/bin && export PATH="PATH:$HOME/.local/bin"
       shell: bash
-    - run: cd ${{inputs.workdir}} ./setup develop && ./setup install
+    - run: cd ${{inputs.workdir}} && ./setup develop && ./setup install
       shell: bash
