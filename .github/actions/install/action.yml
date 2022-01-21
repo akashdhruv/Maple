@@ -1,10 +1,10 @@
 # Name of the composite action
-name: maple
+name: install
  
 runs:
   using: "composite"
   steps:
     - run: mkdir -p $HOME/.local/bin && export PATH="PATH:$HOME/.local/bin"
       shell: bash
-    - run: cd ~/work/_actions/akashdhruv/Maple && ./setup develop && ./setup install
+    - run: ./setup develop && ./setup install
       shell: bash

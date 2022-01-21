@@ -23,7 +23,7 @@ jobs:
         username: ${{secrets.DOCKER_HUB_USERNAME }}
         password: ${{secrets.DOCKER_HUB_PSK}}   
     - uses: actions/checkout@v2
-    - uses: ./.github/actions/maple
+    - uses: ./.github/actions/install
     - name: Run examples/flashx
       run: |
           cd examples/flashx
@@ -45,7 +45,7 @@ jobs:
         username: ${{secrets.DOCKER_HUB_USERNAME}}
         password: ${{secrets.DOCKER_HUB_PSK}}   
     - uses: actions/checkout@v2
-    - uses: ./.github/actions/maple
+    - uses: ./.github/actions/install
     - uses: eWaterCycle/setup-singularity@v7
     - name: Run examples/flashx
       run: |
