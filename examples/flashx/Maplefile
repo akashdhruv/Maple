@@ -1,4 +1,4 @@
 # Maplefile
 container="flashx"
 target="/home/mount/simulation"
-backend="singularity"
+backend="docker"
