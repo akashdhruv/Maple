@@ -6,7 +6,7 @@ def login():
     """
     Login to container account
     """
-    print("[maple] command not available for singularity backend")
+    print("[maple.system.login] command not available for singularity backend")
 
 def prune():
     """

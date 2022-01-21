@@ -4,12 +4,17 @@ import os
 
 from . import container
 
-def build(image,base=None,as_root=False):
+def build(target,base,as_root=False):
     """
     Builds a local image from remote image
+ 
+    Arguments
+    ---------
+    target     : Name of the local image to be built
+    base       : Name of the base image
+    as_root    : Build image as root (True/False)
     """
-    if base: os.environ['maple_base'] = str(base)
-
+    # Check if Dockerfile is present else use default
     if os.path.exists('Dockerfile'):
         dockerfile = 'Dockerfile'
     elif as_root:
@@ -17,27 +22,45 @@ def build(image,base=None,as_root=False):
     else:
         dockerfile = os.getenv('maple_dir')+'/resources/Dockerfile.user'
 
+    # execute docker build
     os.system('docker build -t {0} --no-cache \
-                                   --build-arg maple_base=$maple_base \
+                                   --build-arg maple_base={1} \
                                    --build-arg maple_user=$maple_user \
                                    --build-arg maple_group=$maple_group \
-                                   --file={1} $maple_home/context'.format(image,dockerfile))
+                                   --file={2} $maple_home/context'.format(target,base,dockerfile))
 
-def pull(image):
+def pull(target,base):
     """
     Pull remote image
-    """
-    os.system('docker pull {0}'.format(image))
 
-def push(image):
+    Arguments
+    ---------
+    target : target image to pull into
+    base   : base image in remote registry
+    """
+    os.system('docker pull {0}'.format(base))
+    os.system('docker tag {0} {1}'.format(base,target))
+
+def push(base,target):
     """
     Push local image to remote tag/image
+    
+    Arguments
+    ---------
+    base   : base image
+    target : target image to push
     """
-    os.system('docker push {0}'.format(image))
+    os.system('docker tag {0} {1}'.format(base,target))
+    os.system('docker push {0}'.format(target))
 
 def tag(base,target):
     """
-    Tag an image from base
+    Tag a target image from base image
+
+    Arguments
+    ---------
+    base   : base image
+    target : target image to push
     """
     os.system('docker tag {0} {1}'.format(base,target))
 

@@ -1,4 +1,4 @@
 # Maplefile
-base="akashdhruv/flash:boiling"
 container="flashx"
 target="/home/mount/simulation"
+backend="singularity"

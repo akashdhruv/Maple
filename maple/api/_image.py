@@ -3,7 +3,7 @@
 import os
 
 from .  import Maple
-from .. import backend
+from ..backend import Backend
 
 class Image(Maple):
     """
@@ -33,35 +33,23 @@ class Image(Maple):
     def name(self):
         return self._name
 
-    @property
-    def backend(self):
-        return self._backend
-
-    def build(self,base=None):
+    def build(self):
         """
         Builds a local image from base image
         """
-        if base: self._base = base
         self.setenv()
-        backend.dict[self._backend].image.build(self._name)
+        Backend().image.build(self._name,self._base)
 
     def squash(self):
         """
         Squash an the image
         """
         self.setenv()
-        backend.dict[self._backend].image.squash(self._name)
-
-    def tag(self,target):
-        """
-        Tag an image
-        """
-        self.setenv()
-        backend.dict[self._backend].image.tag(self._name,target)
+        Backend().image.squash(self._name)
 
     def delete(self):
         """
         Delete the image
         """
         self.setenv()
-        backend.dict[self._backend].image.delete(self._name)
+        Backend().image.delete(self._name)

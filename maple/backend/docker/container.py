@@ -1,6 +1,7 @@
 """Python API for docker interface in maple"""
 
 import os
+import random
 
 def commit(image):
     """
@@ -8,17 +9,13 @@ def commit(image):
     """
     os.system('docker commit $maple_container {0}'.format(image))
 
-def pour(image,port_cmd=''):
+def pour(image,options=''):
     """
     Pour local image in a container, opposite of maple rinse
     """
-    if(os.getenv('maple_source') and os.getenv('maple_target')):
-        result = os.system('docker run {0} -dit --name $maple_container \
-                                       --mount type=bind,source=$maple_source,target=$maple_target \
-                                       {1} bash'.format(port_cmd,image))
-    else:
-        result = os.system('docker run {0} -dit --name $maple_container \
-                                       {1} bash'.format(port_cmd,image))
+    result = os.system('docker run {0} -dit --name $maple_container \
+                                   --mount type=bind,source=$maple_source,target=$maple_target \
+                                   {1} bash'.format(options,image))
 
     if result != 0: raise Exception("[maple] Error inside container")
 
@@ -36,13 +33,14 @@ def shell():
     """
     os.system('docker exec -it --workdir $maple_target $maple_container bash')
 
-def run(image,command,with_commit=False):
+def run(image,command):
     """
     Run and rinse the local container
     """
+    os.environ['maple_container'] = os.getenv('maple_container')+'_'+str(random.randint(1111,9999))
+
     pour(image)
     result = execute(command)
-    if with_commit: commit(image)
     rinse()
 
     if result != 0: raise Exception("[maple] Error inside container")
@@ -60,7 +58,9 @@ def notebook(image,port='8888'):
     """
     Launch ipython notebook inside the container
     """
-    pour(image,port_cmd='-p {0}:{0}'.format(port))
+    os.environ['maple_container'] = os.getenv('maple_container')+'_'+str(random.randint(1111,9999))
+
+    pour(image,options='-p {0}:{0}'.format(port))
     result = execute('jupyter notebook --port={0} --no-browser --ip=0.0.0.0'.format(port))
     rinse()
 

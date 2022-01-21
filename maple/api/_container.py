@@ -4,7 +4,7 @@ import os
 import random
 
 from .  import Maple
-from .. import backend
+from ..backend import Backend
 
 class Container(Maple):
     """
@@ -27,7 +27,7 @@ class Container(Maple):
         super().__init__(default_attributes,attributes)
 
         # Condition to check if target and source directories are defined in the Maplefile
-        # assign default if they are not, and deal with execptions
+        # assign default if they are not, and deal with exceptions
         if not self._target: self._target = '/home/mount'
         if not self._source: self._source = os.getenv('PWD')
 
@@ -42,6 +42,6 @@ class Container(Maple):
         """
         Run a container and commit to image
         """
-        self._backend=image.backend
+        image.setenv()
         self.setenv()
-        backend.dict[self._backend].container.run(image.name,command,commit)
+        Backend().container.run(image.name,command,commit)

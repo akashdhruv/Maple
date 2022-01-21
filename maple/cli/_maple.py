@@ -18,7 +18,6 @@ def maple(docker,singularity):
 
     # VARIABLE                                             DESCRIPTION
     # ----------------------------------------------------------------
-    # base                Name of the base image to build container
     # user                Name of the user - usually current user
     # group               Name of the users group
     # target              Name of the target dir to mount source dir

@@ -3,7 +3,7 @@
 import click
 import os
 
-from .. import backend
+from ..backend import Backend
 from .  import maple
 
 # Login to remote registry
@@ -13,7 +13,7 @@ def login():
     """
     Login to container backend
     """
-    backend.dict[os.getenv('maple_backend')].system.login()
+    Backend().system.login()
 
 # Prune system
 #
@@ -22,4 +22,4 @@ def prune():
     """
     Clear backend cache
     """
-    backend.dict[os.getenv('maple_backend')].system.prune()
+    Backend().system.prune()
