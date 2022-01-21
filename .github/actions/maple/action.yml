@@ -6,5 +6,7 @@ runs:
   steps:
     - run: mkdir -p $HOME/.local/bin && export PATH="PATH:$HOME/.local/bin"
       shell: bash
-    - run: cd ~/work/_actions/akashdhruv/Maple && ./setup develop && ./setup install
+    - run: cd ~/work/_actions && ls
+      shell: bash
+    - run: cd ~/work/_actions/akashdhruv && ls && ./setup develop && ./setup install
       shell: bash
