@@ -1,20 +1,22 @@
-# Dockerfile for maple
+# Base Dockerfile for maple
+#
 
-# Build from a base image
+# Build local image from base image
 ARG maple_base
-FROM $maple_base
+FROM ${maple_base}
 
-# Add current user to container
+# Build image using user privileges
 ARG maple_user
 ARG maple_group
 
-ENV maple_group=$maple_group
-ENV maple_user=$maple_user
+ENV maple_group=${maple_group}
+ENV maple_user=${maple_user}
 
-RUN bash -c 'if [[ ${OSTYPE} == linux-gnu ]] ; then addgroup --gid $maple_group user ; fi'
-RUN bash -c 'adduser --disabled-password --gecos ',,,,' --uid $maple_user --gid $maple_group user'
+RUN bash -c 'if [[ ${OSTYPE} == linux-gnu ]] ; then addgroup --gid ${maple_group} user ; fi'
+RUN bash -c 'adduser --disabled-password --gecos ',,,,' --uid ${maple_user} --gid ${maple_group} user'
 
 USER user
 
 # MPI environment variable
 ENV OMPI_MCA_btl_vader_single_copy_mechanism=none
+

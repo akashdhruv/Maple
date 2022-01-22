@@ -38,21 +38,25 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Maple</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="maple.html">maple package</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="maple.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="maple.api.html">maple.api package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="maple.backend.html">maple.backend package</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">maple.cli package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="maple.resources.html">maple.resources package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="maple.html">maple package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="maple.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="maple.api.html">maple.api package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="maple.backend.html">maple.backend package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">maple.cli package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-maple.cli._container">maple.cli._container module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-maple.cli._image">maple.cli._image module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-maple.cli._maple">maple.cli._maple module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-maple.cli._system">maple.cli._system module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-maple.cli">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="maple.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="maple.html#module-maple.__meta__">maple.__meta__ module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="maple.html#module-maple">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="maple.resources.html">maple.resources package</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maple.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maple.html#module-maple.__meta__">maple.__meta__ module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maple.html#module-maple">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -71,7 +75,6 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="modules.html">Maple</a> &raquo;</li>
           <li><a href="maple.html">maple package</a> &raquo;</li>
       <li>maple.cli package</li>
       <li class="wy-breadcrumbs-aside">
@@ -90,19 +93,29 @@
 </div>
 <div class="section" id="module-maple.cli._container">
 <span id="maple-cli-container-module"></span><h2>maple.cli._container module<a class="headerlink" href="#module-maple.cli._container" title="Permalink to this headline"></a></h2>
-<p>Python CLI for maple</p>
+<p>Command Line Interface (CLI) for container management.</p>
 </div>
 <div class="section" id="module-maple.cli._image">
 <span id="maple-cli-image-module"></span><h2>maple.cli._image module<a class="headerlink" href="#module-maple.cli._image" title="Permalink to this headline"></a></h2>
-<p>Python CLI for maple</p>
+<p>Command Line Interface (CLI) for image management.</p>
 </div>
 <div class="section" id="module-maple.cli._maple">
 <span id="maple-cli-maple-module"></span><h2>maple.cli._maple module<a class="headerlink" href="#module-maple.cli._maple" title="Permalink to this headline"></a></h2>
-<p>Python CLI for maple</p>
+<p>Command Line Interface (CLI) for Maple. Reads Maplefile
+and sets environment variables</p>
+<div class="section" id="variable-description">
+<h3>VARIABLE                                             DESCRIPTION<a class="headerlink" href="#variable-description" title="Permalink to this headline"></a></h3>
+<p>container           Name of the container
+user                Name of the user - usually current user
+group               Name of the users group
+target              Name of the target dir to mount source dir
+source              Name of the source dir - usually $PWD
+backend             Container backend (docker/singularity)</p>
+</div>
 </div>
 <div class="section" id="module-maple.cli._system">
 <span id="maple-cli-system-module"></span><h2>maple.cli._system module<a class="headerlink" href="#module-maple.cli._system" title="Permalink to this headline"></a></h2>
-<p>Python CLI for maple</p>
+<p>Command Line Interface (CLI) for system configuration management.</p>
 </div>
 <div class="section" id="module-maple.cli">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-maple.cli" title="Permalink to this headline"></a></h2>

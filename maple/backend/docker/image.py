@@ -14,20 +14,29 @@ def build(target,base,as_root=False):
     base       : Name of the base image
     as_root    : Build image as root (True/False)
     """
+    # Select the base Dockerfile
+    if as_root:
+        dockerfile_base = os.getenv('maple_dir')+'/resources/Dockerfile.root'
+    else:
+        dockerfile_base = os.getenv('maple_dir')+'/resources/Dockerfile.user'
+
     # Check if Dockerfile is present else use default
     if os.path.exists('Dockerfile'):
-        dockerfile = 'Dockerfile'
-    elif as_root:
-        dockerfile = os.getenv('maple_dir')+'/resources/Dockerfile.root'
+        dockerfile_app = 'Dockerfile'
     else:
-        dockerfile = os.getenv('maple_dir')+'/resources/Dockerfile.user'
+        dockerfile_app = ''
+
+    os.system('cat {0} {1} > $maple_home/context/Dockerfile.build'.format(dockerfile_base,dockerfile_app))
 
     # execute docker build
     os.system('docker build -t {0} --no-cache \
                                    --build-arg maple_base={1} \
                                    --build-arg maple_user=$maple_user \
                                    --build-arg maple_group=$maple_group \
-                                   --file={2} $maple_home/context'.format(target,base,dockerfile))
+                                   --file=$maple_home/context/Dockerfile.build \
+                                   $maple_home/context'.format(target,base))
+
+    os.system('rm $maple_home/context/Dockerfile.build')
 
 def pull(target,base):
     """
@@ -73,6 +82,11 @@ def list():
 def squash(image):
     """
     Squash an image and remove layers
+
+    Arguments
+    ---------
+    image : image name
+
     """
     os.environ['maple_container'] = str(image+'_container')
     container.pour(image)
@@ -84,11 +98,20 @@ def squash(image):
 def scan(image):
     """
     Scan an image
+
+    Arguments
+    ---------
+    image : image name
+
     """
     os.system('docker scan {0}'.format(image))
 
 def delete(image):
     """
     Delete an image
+
+    Arguments
+    ---------
+    image : image name
     """
     os.system('docker rmi {0} $(docker images --filter dangling=true -q --no-trunc)'.format(image))

@@ -6,14 +6,14 @@ import random
 class Maple(object):
     """
     Base class for defining maple environment
+
+    Parameters
+    ----------
+    default_attributes : dictionary of default attributes
+    attributes         : dictionary of user attributes
     """
+
     def __init__(self,default_attributes,attributes):
-        """
-        Parameters
-        ----------
-        default_attributes : dictionary of default attributes
-        attributes         : dictionary of user attributes
-        """
         super().__init__()
         self._set_attributes(default_attributes,attributes)
  
@@ -27,6 +27,11 @@ class Maple(object):
     def _set_attributes(self,default_attributes,attributes):
         """
         Private method for initialization
+
+        Parameters
+        ----------
+        default_attributes : dictionary of default attributes
+        attributes         : dictionary of user attributes
         """
 
         for key in attributes:

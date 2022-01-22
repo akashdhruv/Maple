@@ -57,17 +57,29 @@ def list():
 def squash(image):
     """
     Squash an image and remove layers
+
+    Arguments
+    ---------
+    image : image name
     """
     print("[maple.image.squash] not available for singularity backend")
 
 def scan(image):
     """
     Scan an image
+
+    Arguments
+    ---------
+    image : image name
     """
     print("[maple.image.scan] not available for singularity backend")
 
 def delete(image):
     """
     Delete an image
+
+    Arguments
+    ---------
+    image : image name
     """
     os.system('rm -f -v $maple_home/images/{0}.sif'.format(image))

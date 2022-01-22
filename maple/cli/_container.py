@@ -1,4 +1,6 @@
-"""Python CLI for maple"""
+"""
+Command Line Interface (CLI) for container management.
+"""
 
 import click
 import os

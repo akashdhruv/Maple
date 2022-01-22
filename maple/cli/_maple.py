@@ -1,4 +1,17 @@
-"""Python CLI for maple"""
+"""
+Command Line Interface (CLI) for Maple. Reads Maplefile
+and sets environment variables
+
+VARIABLE                                             DESCRIPTION
+----------------------------------------------------------------
+container           Name of the container
+user                Name of the user - usually current user
+group               Name of the users group
+target              Name of the target dir to mount source dir
+source              Name of the source dir - usually $PWD
+backend             Container backend (docker/singularity)
+
+"""
 
 import click
 import toml
@@ -15,14 +28,6 @@ def maple(docker,singularity):
     """
     # Check if required environment variables are defined in the Maplefile
     # If not then assign default values
-
-    # VARIABLE                                             DESCRIPTION
-    # ----------------------------------------------------------------
-    # user                Name of the user - usually current user
-    # group               Name of the users group
-    # target              Name of the target dir to mount source dir
-    # source              Name of the source dir - usually $PWD
-    # backend             Container backend (docker/singularity)
 
     Maplefile = os.path.exists('Maplefile')
 
