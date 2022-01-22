@@ -38,21 +38,24 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Maple</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="maple.html">maple package</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="maple.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">maple.api package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="maple.backend.html">maple.backend package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="maple.cli.html">maple.cli package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="maple.resources.html">maple.resources package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="maple.html">maple package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="maple.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">maple.api package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-maple.api._container">maple.api._container module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-maple.api._image">maple.api._image module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-maple.api._maple">maple.api._maple module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-maple.api">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="maple.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="maple.html#module-maple.__meta__">maple.__meta__ module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="maple.html#module-maple">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="maple.backend.html">maple.backend package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="maple.cli.html">maple.cli package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="maple.resources.html">maple.resources package</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maple.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maple.html#module-maple.__meta__">maple.__meta__ module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maple.html#module-maple">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -71,7 +74,6 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="modules.html">Maple</a> &raquo;</li>
           <li><a href="maple.html">maple package</a> &raquo;</li>
       <li>maple.api package</li>
       <li class="wy-breadcrumbs-aside">
@@ -118,6 +120,16 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">maple.api._image.</span></span><span class="sig-name descname"><span class="pre">Image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attributes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.api._image.Image" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#maple.api._maple.Maple" title="maple.api._maple.Maple"><code class="xref py py-class docutils literal notranslate"><span class="pre">maple.api._maple.Maple</span></code></a></p>
 <p>Class to manage images</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>**attributes</strong> (<em>dictionary of user attributes</em>) – <dl class="simple">
+<dt>{ ‘base’<span class="classifier">remote image name,</span></dt><dd><p>’name’      : name of the image,
+‘backend’   : container backend - docker/singularity</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="maple.api._image.Image.build">
 <span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#maple.api._image.Image.build" title="Permalink to this definition"></a></dt>
@@ -145,6 +157,7 @@
 <dt class="sig sig-object py" id="maple.api._image.Image.tag">
 <span class="sig-name descname"><span class="pre">tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.api._image.Image.tag" title="Permalink to this definition"></a></dt>
 <dd><p>Tag an image</p>
+<p>target: target image for tagging</p>
 </dd></dl>
 
 </dd></dl>
@@ -158,10 +171,26 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">maple.api._maple.</span></span><span class="sig-name descname"><span class="pre">Maple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_attributes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.api._maple.Maple" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Base class for defining maple environment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>default_attributes</strong> (<em>dictionary of default attributes</em>) – </p></li>
+<li><p><strong>attributes</strong> (<em>dictionary of user attributes</em>) – </p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="maple.api._maple.Maple._set_attributes">
 <span class="sig-name descname"><span class="pre">_set_attributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_attributes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.api._maple.Maple._set_attributes" title="Permalink to this definition"></a></dt>
 <dd><p>Private method for initialization</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>default_attributes</strong> (<em>dictionary of default attributes</em>) – </p></li>
+<li><p><strong>attributes</strong> (<em>dictionary of user attributes</em>) – </p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

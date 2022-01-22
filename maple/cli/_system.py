@@ -1,4 +1,6 @@
-"""Python CLI for maple"""
+"""
+Command Line Interface (CLI) for system configuration management.
+"""
 
 import click
 import os

@@ -8,16 +8,18 @@ from ..backend import Backend
 class Image(Maple):
     """
     Class to manage images
-    """
+
+    Parameters
+    ----------
+    **attributes  : dictionary of user attributes
+                    { 'base'      : remote image name,
+                      'name'      : name of the image,
+                      'backend'   : container backend - docker/singularity
+
+   """
+
     def __init__(self,**attributes):
         """
-        Parameters
-        ----------
-        attributes : dictionary
-                     { 'base'      : remote image name,
-                       'name'      : name of the image,
-                       'backend'   : container backend - docker/singularity
-
         """
         default_attributes = { 'name'      : 'ubuntu',
                                'base'      : 'ubuntu:latest',
@@ -50,6 +52,8 @@ class Image(Maple):
     def tag(self,target):
         """
         Tag an image
+ 
+        target: target image for tagging
         """
         self.setenv()
         Backend().image.tag(self._name,target)

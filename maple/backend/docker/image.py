@@ -82,6 +82,11 @@ def list():
 def squash(image):
     """
     Squash an image and remove layers
+
+    Arguments
+    ---------
+    image : image name
+
     """
     os.environ['maple_container'] = str(image+'_container')
     container.pour(image)
@@ -93,11 +98,20 @@ def squash(image):
 def scan(image):
     """
     Scan an image
+
+    Arguments
+    ---------
+    image : image name
+
     """
     os.system('docker scan {0}'.format(image))
 
 def delete(image):
     """
     Delete an image
+
+    Arguments
+    ---------
+    image : image name
     """
     os.system('docker rmi {0} $(docker images --filter dangling=true -q --no-trunc)'.format(image))

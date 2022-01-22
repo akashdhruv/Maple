@@ -6,12 +6,22 @@ import random
 def commit(image):
     """
     Commit changes from local container to local image
+
+    Arguments
+    ---------
+    image : image name
     """
     print("[maple.container.commit] not available for singularity backend")
 
 def pour(image,options='--no-home'):
     """
     Pour local image in a container, opposite of maple rinse
+
+
+    Arguments
+    ---------
+    image : image name
+    options : string of options
     """
     result = os.system('singularity instance start {0} \
                                                    --bind $maple_source:$maple_target \
@@ -23,6 +33,11 @@ def pour(image,options='--no-home'):
 def rinse(container='None',rinse_all=False):
     """
     Stop and remove the local container, opposite of maple pour
+
+    Arguments
+    ---------
+    container : name of the container to rinse
+    rinse_all : (True/Flase) flag to rinse all container
     """
     if container == 'None': container = os.getenv('maple_container')
 
@@ -40,18 +55,14 @@ def shell():
 def run(image,command):
     """
     Run and rinse the local container
+
+    Arguments
+    ---------
+    image : image name
+    command : command string
     """
     os.environ['maple_container'] = os.getenv('maple_container')+'_'+str(random.randint(1111,9999))
 
-    # TODO Make running using instances default method for consistencey with other backend
-    # implementations
-    
-    # Method 1: Run using instances 
-    #pour(image)
-    #result = execute(command)
-    #rinse()
-
-    # Method 2: Run using .sif image
     command = '"{0}"'.format(command)
     result = os.system('singularity exec --no-home \
                                          --bind $maple_source:$maple_target \
@@ -63,6 +74,10 @@ def run(image,command):
 def execute(command):
     """
     Run local image in a container
+
+    Arguments
+    ---------
+    command : command string
     """
     command = '"{0}"'.format(command)
     result = os.system('singularity exec --pwd $maple_target \
@@ -73,6 +88,11 @@ def execute(command):
 def notebook(image,port='8888'):
     """
     Launch ipython notebook inside the container
+
+    Arguments
+    ---------
+    image : image name
+    port  : port id ('8888')
     """
     os.environ['maple_container'] = os.getenv('maple_container')+'_'+str(random.randint(1111,9999))
 
