@@ -1,6 +1,3 @@
-# Base Dockerfile for maple
-#
-
 # Build local image from base image
 ARG maple_base
 FROM ${maple_base}

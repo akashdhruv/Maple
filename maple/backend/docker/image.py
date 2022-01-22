@@ -14,11 +14,13 @@ def build(target,base,as_root=False):
     base       : Name of the base image
     as_root    : Build image as root (True/False)
     """
-    # Select the base Dockerfile
+    # Select the base and user Dockerfile
+    dockerfile_base  = os.getenv('maple_dir')+'/resources/Dockerfile.base'
+
     if as_root:
-        dockerfile_base = os.getenv('maple_dir')+'/resources/Dockerfile.root'
+        dockerfile_user = os.getenv('maple_dir')+'/resources/Dockerfile.root'
     else:
-        dockerfile_base = os.getenv('maple_dir')+'/resources/Dockerfile.user'
+        dockerfile_user = os.getenv('maple_dir')+'/resources/Dockerfile.user'
 
     # Check if Dockerfile is present else use default
     if os.path.exists('Dockerfile'):
@@ -26,7 +28,9 @@ def build(target,base,as_root=False):
     else:
         dockerfile_app = ''
 
-    os.system('cat {0} {1} > $maple_home/context/Dockerfile.build'.format(dockerfile_base,dockerfile_app))
+    os.system('cat {0} {1} {2} > $maple_home/context/Dockerfile.build'.format(dockerfile_base,
+                                                                              dockerfile_app,
+                                                                              dockerfile_user))
 
     # execute docker build
     os.system('docker build -t {0} --no-cache \
