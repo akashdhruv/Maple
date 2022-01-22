@@ -1,8 +1,13 @@
-# Dockerfile for maple
+# Base Docker file for maple
+# 
 
-# Build from a base image
+# Build local image from base image
 ARG maple_base
-FROM $maple_base
+FROM ${maple_base}
 
-# Add current user to container
+# Build image using root privileges
 USER root
+
+# MPI environment variable
+ENV OMPI_MCA_btl_vader_single_copy_mechanism=none
+
