@@ -21,11 +21,11 @@ jobs:
     - name: Run examples/minimal
       run: |
           cd examples/minimal
-          maple image build local docker://ubuntu:latest
-          maple container pour --image=local
+          maple image build minimal docker://ubuntu:latest
+          maple container pour --image=minimal
           maple container execute
           maple container rinse
-          maple image delete local
+          maple image delete minimal
           
   api:
     name: "api"

@@ -11,8 +11,8 @@ on:
       - 'docs/'
 
 jobs:         
-  cli:
-    name: "cli"
+  boiling-cli:
+    name: "boiling-cli"
     runs-on: ubuntu-latest
     steps:
     - name: Login to Docker Hub
@@ -26,15 +26,15 @@ jobs:
     - uses: ./.github/actions/install
     - name: Run examples/flashx
       run: |
-          cd examples/flashx
-          maple image build local ${{secrets.DOCKER_HUB_USERNAME}}/flash:boiling
-          maple container pour --image=local
+          cd examples/flashx/boiling
+          maple image build boiling ${{secrets.DOCKER_HUB_USERNAME}}/flash:boiling
+          maple container pour --image=boiling
           maple container execute "mpirun -n 1 /home/run/flash4"
           maple container rinse
-          maple image delete local
+          maple image delete boiling
 
-  api:
-    name: "api"
+  boiling-api:
+    name: "boiling-api"
     runs-on: ubuntu-latest
     steps:
     - name: Login to Docker Hub
@@ -49,5 +49,26 @@ jobs:
     - uses: eWaterCycle/setup-singularity@v7
     - name: Run examples/flashx
       run: |
-          cd examples/flashx
+          cd examples/flashx/boiling
           python3 MapleAPI.py
+
+  lidcav-cli:
+    name: "lidcav-cli"
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to Docker Hub
+      run: |
+          echo "::add-mask::${{secrets.DOCKER_HUB_PSK}}"
+    - uses: docker/login-action@v1
+      with:
+        username: ${{secrets.DOCKER_HUB_USERNAME}}
+        password: ${{secrets.DOCKER_HUB_PSK}}   
+    - uses: actions/checkout@v2
+    - uses: ./.github/actions/install
+    - uses: eWaterCycle/setup-singularity@v7
+    - name: Run examples/flashx
+      run: |
+          sudo apt-get install -y libopenmpi-dev openmpi-bin
+          cd examples/flashx/lidcav
+          maple image build lidcav
+          mpirun -n 1 maple container run --image=lidcav "/home/run/flashx"
