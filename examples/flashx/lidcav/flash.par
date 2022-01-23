@@ -1,0 +1,76 @@
+# 	Runtime parameters for the Lid Driven Cavity problem.
+gr_pmRpDivergenceFree = 1
+gr_pmRpNfieldDivf = 2
+gr_pmRpConsvFluxes = .TRUE.
+gr_pmRpConsvFluxDensities = .FALSE.
+
+# Inverse of Reynolds Number
+ins_invReynolds      = .01
+
+# Subgrid Scale model flag (0 no sgs model, 1 sgs model)
+ins_isgs            = 0
+
+#       Grid dimensionality and geometry
+geometry	= "cartesian"
+
+#       Size of computational volume
+xmin		=  0.0
+xmax		=  1.0
+ymin		=  0.0
+ymax		=  1.0
+
+#       Boundary conditions
+xl_boundary_type = "noslip_ins"
+xr_boundary_type = "noslip_ins"
+yl_boundary_type = "noslip_ins"
+yr_boundary_type = "movlid_ins"
+
+#       Simulation (grid, time, I/O) parameters
+run_comment	= "2D Lid Driven Cavity problem"
+log_file	= "INS_Lid_Driven_Cavity.log"
+basenm		= "INS_Lid_Driven_Cavity_"
+restart         = .false.
+nend            = 1000
+tmax            = 100. 
+ins_cflFlg      = 1
+ins_cfl         = 0.3
+ins_sigma	= 0.2
+ins_dtSpec      = 1.0
+dtinit          = 1.0
+tstep_change_factor = 1.1
+ins_pressureCorrect= .true.
+
+plot_var_1	= "pres"
+plot_var_2      = "velx"
+plot_var_3      = "vely"
+plot_var_4      = "omgm"
+  
+checkpointFileIntervalTime = 1.
+checkpointFileIntervalStep = 5
+
+plotFileIntervalTime = 1.
+plotFileIntervalStep = 5
+
+
+# AMR parameters
+nblockx	= 4
+nblocky	= 4
+nfres   = 1000
+
+lrefine_min       = 2
+lrefine_max       = 2
+
+#	Flux Conservation for AMR
+flux_correct    = .true.
+
+# AMReX Poisson Solver Parameters
+gr_amrexMG_composite_solve = ".TRUE."
+gr_amrexMG_Tol = 1e-13
+gr_amrexMG_max_iter = 200
+
+# HYPRE Poisson Solver Parameters
+gr_hyprePrintSolveInfo = ".FALSE."
+gr_hyprePcType = "HYPRE_AMG"
+gr_hypreSolverType = "HYPRE_BICGSTAB"
+gr_hypreRelTol = 1.0e-12
+gr_hypreFloor  = 1.0e-16
