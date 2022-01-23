@@ -14,8 +14,8 @@ on:
 # Worflow jobs listed below
 jobs:         
 
-  boiling-cli:
-    name: "Boiling-CLI"
+  cli:
+    name: "CLI"
     runs-on: ubuntu-latest
     steps:
     - name: Login to Docker Hub
@@ -36,8 +36,8 @@ jobs:
           maple container rinse
           maple image delete boiling
 
-  boiling-api:
-    name: "Boiling-API"
+  api:
+    name: "API"
     runs-on: ubuntu-latest
     steps:
     - name: Login to Docker Hub
@@ -55,8 +55,8 @@ jobs:
           cd examples/flashx/boiling
           python3 MapleAPI.py
 
-  lidcav-mpi-run:
-    name: "Lidcav-MPI-run"
+  mpi:
+    name: "MPI"
     runs-on: ubuntu-latest
     steps:
     - name: Login to Docker Hub
