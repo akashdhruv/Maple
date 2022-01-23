@@ -1,5 +1,8 @@
-name: bubblebox
+# GitHub workflos for examples/bubblebox
+name: BubbleBox
 
+# Launch workflow during pull request to main
+# branch
 on:
   pull_request:
     branches: 
@@ -10,20 +13,31 @@ on:
       - 'CITATION'
       - 'docs/'
 
+# Define jobs here
 jobs:
+
+  # job to test Command Line Interface (CLI)
   cli:
-    name: "cli"
+    name: "CLI"
     runs-on: ubuntu-latest
     steps:
+    
+    # Login to Docker Hub account
+    # 
     - name: Login to Docker Hub
       run: |
           echo "::add-mask::${{secrets.DOCKER_HUB_PSK}}"
     - uses: docker/login-action@v1
       with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_PSK }}   
+        username: ${{secrets.DOCKER_HUB_USERNAME}}
+        password: ${{secrets.DOCKER_HUB_PSK}}
+
+    # Checkout repositories and install Maple
+    #
     - uses: actions/checkout@v2
     - uses: ./.github/actions/install
+
+    # Run example
     - name: Run examples/bubblebox
       run: |
           cd examples/bubblebox
