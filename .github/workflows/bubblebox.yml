@@ -27,7 +27,7 @@ jobs:
     - name: Run examples/bubblebox
       run: |
           cd examples/bubblebox
-          maple image build local ${{secrets.DOCKER_HUB_USERNAME}}/bubblebox:publish
+          maple image build local ${{secrets.DOCKER_HUB_USERNAME}}/bubblebox:latest
           maple container pour --image=local
           maple container execute "python3 example.py"
           maple container rinse
