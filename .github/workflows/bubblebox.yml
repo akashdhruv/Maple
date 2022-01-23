@@ -17,7 +17,7 @@ on:
 jobs:
 
   # job to test Command Line Interface (CLI)
-  cli:
+  CLI:
     name: "CLI"
     runs-on: ubuntu-latest
     steps:

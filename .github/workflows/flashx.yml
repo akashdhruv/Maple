@@ -14,7 +14,7 @@ on:
 # Worflow jobs listed below
 jobs:         
 
-  cli:
+  CLI:
     name: "CLI"
     runs-on: ubuntu-latest
     steps:
@@ -36,7 +36,7 @@ jobs:
           maple container rinse
           maple image delete boiling
 
-  api:
+  API:
     name: "API"
     runs-on: ubuntu-latest
     steps:
@@ -55,7 +55,7 @@ jobs:
           cd examples/flashx/boiling
           python3 MapleAPI.py
 
-  mpi:
+  MPI:
     name: "MPI"
     runs-on: ubuntu-latest
     steps:
