@@ -4,7 +4,7 @@ import os
 
 from . import container
 
-def build(target,base,as_root=False):
+def build(target,base='None',as_root=False):
     """
     Builds a local image from remote image
  
@@ -14,6 +14,9 @@ def build(target,base,as_root=False):
     base       : Name of the base image
     as_root    : Build image as root (True/False)
     """
+    # Check if base image was supplied
+    if base != 'None': os.environ['maple_base'] = str(base) 
+
     # Select the base and user Dockerfile
     dockerfile_base  = os.getenv('maple_dir')+'/resources/Dockerfile.base'
 
@@ -34,11 +37,11 @@ def build(target,base,as_root=False):
 
     # execute docker build
     os.system('docker build -t {0} --no-cache \
-                                   --build-arg maple_base={1} \
+                                   --build-arg maple_base=$maple_base \
                                    --build-arg maple_user=$maple_user \
                                    --build-arg maple_group=$maple_group \
                                    --file=$maple_home/context/Dockerfile.build \
-                                   $maple_home/context'.format(target,base))
+                                   $maple_home/context'.format(target))
 
     os.system('rm $maple_home/context/Dockerfile.build')
 

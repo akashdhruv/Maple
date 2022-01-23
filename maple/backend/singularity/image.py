@@ -2,7 +2,7 @@
 
 import os
 
-def build(target,base,as_root=False):
+def build(target,base='None',as_root=False):
     """
     Builds a local image from remote image
  
@@ -12,7 +12,10 @@ def build(target,base,as_root=False):
     base       : Name of the base image
     as_root    : Build image as root (True/False)
     """
-    os.system('singularity build {0}.sif {1}'.format(target,base))
+    # Check if base image was supplied
+    if base != 'None': os.environ['maple_base'] = str(base) 
+
+    os.system('singularity build {0}.sif $maple_base'.format(target))
     os.system('mv {0}.sif $maple_home/images/{0}.sif'.format(target))
 
 def pull(target,base):
