@@ -4,7 +4,12 @@
 ![create-container](https://github.com/akashdhruv/Maple/workflows/create/badge.svg)
 ![flash-container](https://github.com/akashdhruv/Maple/workflows/flash/badge.svg)
 
+### Tutorial
+
+![Tutorial](https://www.youtube.com/watch?v=gNmVtj7-RBY)
+
 ### Installation
+
 ```
 mkdir -p $HOME/.local/bin
 export PATH="$PATH:$HOME/.local/bin"
