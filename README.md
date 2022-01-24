@@ -6,7 +6,7 @@
 
 ### Tutorial
 
-<video src='https://www.youtube.com/watch?v=gNmVtj7-RBY' width=180/>
+[![Tutorial](http://img.youtube.com/vi/gNmVtj7-RBY/0.jpg)](http://www.youtube.com/watch?v=gNmVtj7-RBY "Containerization with Flash-X")
 
 ### Installation
 
