@@ -6,7 +6,7 @@
 
 ### Tutorial
 
-`video: https://www.youtube.com/watch?v=gNmVtj7-RBY`
+<video src='https://www.youtube.com/watch?v=gNmVtj7-RBY' width=180/>
 
 ### Installation
 
