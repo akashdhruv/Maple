@@ -1,5 +1,6 @@
-# Maplefile for Flash-X
-# VARIABLE                                             DESCRIPTION
+# Maplefile
+#
+# VARIABLE            DESCRIPTION
 # ----------------------------------------------------------------
 # base                Name of the base image
 # container           Name of the local container

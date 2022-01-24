@@ -1,5 +1,13 @@
 # Maplefile
+#
+# VARIABLE            DESCRIPTION
+# ----------------------------------------------------------------
+# base                Name of the base image
+# container           Name of the local container
+# target              Name of the target dir to mount source dir
+# backend             Container backend (docker/singularity)
+
 base="akashdhruv/flashx:boiling"
-container="flashx"
-target="/home/mount/simulation"
+container="boiling"
+target="/home/mount/boiling"
 backend="docker"

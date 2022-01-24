@@ -4,7 +4,12 @@
 ![create-container](https://github.com/akashdhruv/Maple/workflows/create/badge.svg)
 ![flash-container](https://github.com/akashdhruv/Maple/workflows/flash/badge.svg)
 
+### Tutorial
+
+[![Tutorial](http://img.youtube.com/vi/gNmVtj7-RBY/0.jpg)](http://www.youtube.com/watch?v=gNmVtj7-RBY "Containerization with Flash-X")
+
 ### Installation
+
 ```
 mkdir -p $HOME/.local/bin
 export PATH="$PATH:$HOME/.local/bin"

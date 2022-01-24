@@ -1,4 +1,11 @@
 # Maplefile
+#
+# VARIABLE            DESCRIPTION
+# ----------------------------------------------------------------
+# container           Name of the local container
+# target              Name of the target dir to mount source dir
+# backend             Container backend (docker/singularity)
+
 container="create"
 target="/home/mount"
 backend="singularity"
