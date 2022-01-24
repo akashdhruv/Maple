@@ -19,13 +19,13 @@ export PATH="$PATH:$HOME/.local/bin"
 
   ```Maplefile``` is used to define environment variables required by ```maple```. Following is a list of variables:
   
-  ```maple_base```: Name of the base image
+  ```base```: Name of the base image
   
-  ```maple_container```: Name of the local container  	
+  ```container```: Name of the local container  	
   
-  ```maple_target```: Name of the target dir to mount source dir
+  ```target```: Name of the target dir to mount source dir
   
-  ```maple_backend```: Backend (docker/singularity)
+  ```backend```: Backend (docker/singularity)
   
   ```maple``` passes these variables to its internal ```Dockerfile``` to build the images and containers.
 
