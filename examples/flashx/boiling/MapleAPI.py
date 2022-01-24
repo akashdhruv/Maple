@@ -3,8 +3,8 @@
 import maple.api as maple
 
 # Create a Maple object
-image_docker      = maple.Image(name='local',base='akashdhruv/flash:boiling',backend='docker')
-image_singularity = maple.Image(name='local',base='docker://akashdhruv/flash:boiling',backend='singularity')
+image_docker      = maple.Image(name='local',base='akashdhruv/flashx:boiling',backend='docker')
+image_singularity = maple.Image(name='local',base='docker://akashdhruv/flashx:boiling',backend='singularity')
 
 container = maple.Container(name='flashx',target='/home/mount/simulation')
 

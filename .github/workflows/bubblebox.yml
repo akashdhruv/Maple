@@ -21,9 +21,6 @@ jobs:
     name: "CLI"
     runs-on: ubuntu-latest
     steps:
-    
-    # Login to Docker Hub account
-    # 
     - name: Login to Docker Hub
       run: |
           echo "::add-mask::${{secrets.DOCKER_HUB_PSK}}"
@@ -31,13 +28,8 @@ jobs:
       with:
         username: ${{secrets.DOCKER_HUB_USERNAME}}
         password: ${{secrets.DOCKER_HUB_PSK}}
-
-    # Checkout repositories and install Maple
-    #
     - uses: actions/checkout@v2
     - uses: ./.github/actions/install
-
-    # Run example
     - name: Run examples/bubblebox
       run: |
           cd examples/bubblebox
