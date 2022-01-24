@@ -25,7 +25,7 @@ jobs:
           cd examples/flashx/boiling
           maple image build boiling
           maple container pour --image=boiling
-          maple container execute "mpirun -n 1 /home/run/flash4"
+          maple container execute "mpirun -n 1 /home/run/flashx"
           maple container rinse
           maple image delete boiling
 
