@@ -1,4 +1,5 @@
 # Maplefile
+base="akashdhruv/flashx:boiling"
 container="flashx"
 target="/home/mount/simulation"
 backend="docker"

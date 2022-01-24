@@ -1,201 +1,110 @@
-# 	Runtime parameters for the Inflow-Outflow problem.
-
+# 	Runtime parameters for the Pool Boiling problem.
 gr_pmRpDivergenceFree = 1
 gr_pmRpNfieldDivf = 2
 gr_pmRpConsvFluxes = .TRUE.
 gr_pmRpConsvFluxDensities = .FALSE.
 
-# Particles
-pt_maxPerProc=3500
-
 # Inverse of Reynolds Number
-invRe = 0.003
+ins_invReynolds   = .003
 
-# Prandtl Number
-Pr = 7
+# 1/Fr**2, Fr (Froude Number)
+ins_gravY           = -1.0
 
-# Stefan Number
-St = 0.4
+# Gas density and viscosity scaled by liquid
+mph_rhoGas  = 0.005
+mph_muGas   = 0.02
+mph_iPropSmear = 1.0
 
-iConvU = 0
+# Gas thermal conductivity and specific heat
+mph_thcoGas = 0.2
+mph_CpGas   = 0.7
 
-# Subgrid Scale model flag (0 no sgs model, 1 sgs model)
-isgs            = 0
+# Stefan number and saturation temperature
+mph_Stefan  = 0.15
+mph_Tsat    = 0.0
 
-# Densities
-rho1 = 1.0
-rho2 = 204.0
+# Inverse Weber Number
+mph_invWeber = 1.0
 
-# Viscosities
-vis1 = 1.0
-vis2 = 48.0
+# Prandtl number
+ht_Prandtl = 7.0
 
-# Thermal Properties
-thco1 = 1.0
-thco2 = 7.0
+# Heater parameters
+sim_nucSeedRadius =  0.1 # Re-nucleation seed size
+sim_numHeaters    =  2   # Number of heaters
 
-cp1   = 1.0
-cp2   = 277
-
-# Gravity in the +y direction
-gravX =   0.0
-gravY =  -1.0
-gravZ =   0.0
-
-# sten is the inverse of the Weber number
-sten = 1.0
-
-# Number of heat flux extrapolation iterations
-hfit = 10
-
-# Microlayer parameters
-Ab = 5.4d-10
-Bb = 5.7d-7
-Cb = 2.4d-7
-
-# Constant microlayer heat flux and curvature
-qmic =  0.0
-fmic =  0.0
-
-# Temperatures
-tbulk =  0.0
-tsat  =  0.0
-tnuc  =  0.0
-
-# Nucleation frequency
-twait =  0.3
-
-# Additional nucleation sites
-ncDensPlus = 0
-
-# Level set sink strength
-sinkB = 1.0
-
-# Natural convection parameter
-Ra = 0.00
-
-# Number of level-set redistancing iterations
-inls = 2
-lsit = 2
+# Outflow parameters
+sim_lsSink        =  1.0 # Level set sink strength
+sim_outflowRegion =  2.0 # Outflow region 
 
 #       Grid dimensionality and geometry
 geometry	= "cartesian"
 
-# Bodies:
-#sm_NumBodies   =  1
-#gr_sbNumBodies =  1
-
 #       Size of computational volume
-xmin =    0.00
-xmax =    5.00
-ymin =    0.00
-ymax =    5.00
+xmin		=  0.0
+xmax		=  3.0
+ymin		=  0.0
+ymax		=  3.0
+zmin            =  0.0
+zmax            =  3.0
 
 #       Boundary conditions
-xl_boundary_type = "neumann_ins"
-xr_boundary_type = "neumann_ins"
-yl_boundary_type = "neumann_ins"
-yr_boundary_type = "neumann_ins"
-
-#      Poisson Solver Boundary Conditions
-xl_mg_boundary_type = "outflow"
-xr_mg_boundary_type = "outflow"
-yl_mg_boundary_type = "outflow"
-yr_mg_boundary_type = "outflow"
+xl_boundary_type = "noslip_ins"
+xr_boundary_type = "noslip_ins"
+yl_boundary_type = "noslip_ins"
+yr_boundary_type = "outflow_ins"
+zl_boundary_type = "noslip_ins"
+zr_boundary_type = "noslip_ins"
 
 #       Simulation (grid, time, I/O) parameters
-run_comment	= "2D Inflow-Outflow Cylinder problem"
-log_file	= "INS_INOUT.log"
-basenm		= "INS_INOUT_"
-
+run_comment	= "Pool Boiling problem"
+log_file	= "INS_Pool_Boiling.log"
+basenm		= "INS_Pool_Boiling_"
 restart         = .false.
-#checkPointFileNumber = 1
-#plotFileNumber  = 1
-
-nend = 100
-tmax            = 2500.0
-cflflg          = 0
-cfl             = 0.4
-sigma		= 0.4
-dtspec          = 1.0d-4
-dtinit          = 1.0d-4
-tstep_change_factor=1.01
-
+nend            = 200
+tmax            = 100. 
+ins_cflFlg      = 0
+ins_cfl         = 0.3
+ins_sigma	= 0.2
+ins_dtSpec      = 0.1d-2
+dtinit          = 0.1d-2
+tstep_change_factor = 1.0
+ins_pressureCorrect= .false.
 
 #Integration Scheme:
-intschm            = 2
+ins_intSchm            = 2
 
-#Plot Variables for Visit
 plot_var_1	= "pres"
 plot_var_2      = "velx"
 plot_var_3      = "vely"
-plot_var_4      = "omgz"
-plot_var_5      = "dust" #divergence
+plot_var_4      = "dfun"
   
-pfft_setupOnce  = .false.
-convertToConsvdInMeshInterp = .false.
+checkpointFileIntervalTime = 5.
+checkpointFileIntervalStep = 5
 
-checkpointFileIntervalTime = 10.0
+plotFileIntervalTime = 5.
+plotFileIntervalStep = 5
 
-#plotFileIntervalTime = 0.1
-plotFileIntervalStep = 100
+# AMR parameters
+nblockx	= 3
+nblocky	= 3
+nblockz = 3
+nfres   = 1000
 
-##	AMR parameters
-nblockx	= 5
-nblocky	= 5
+lrefine_min       = 1
+lrefine_max       = 1
 
-lrefine_min	= 1
-lrefine_max     = 1
-mgrid_solveLevelKPD = 1
-lrefine_min_init = 1
-
-nrefs           = 1000000
-#refine_var_1    = "dfun"
-#refine_cutoff_1 = .1
-#derefine_cutoff_1 = -.1
-
-enableMaskedGCFill=.true.
-
-##	Flux Conservation for AMR
+#	Flux Conservation for AMR
 flux_correct    = .true.
 
-# Multigrid Convergence tolerance
-# Rickers Multigrid HG:
-mg_maxResidualNorm = 1.e-10
+# AMReX Poisson Solver Parameters
+gr_amrexMG_composite_solve = ".TRUE."
+gr_amrexMG_Tol = 1e-13
+gr_amrexMG_max_iter = 200
 
-## Multigrid Convergence tolerance
-mgrid_npresmooth = 5
-mgrid_npossmooth = 4
-mgrid_print_norm = .true.
-mgrid_max_residual_norm = 1.e-10
-mgrid_max_vcycles = 20
-
-# BiPCGStab Parameters:
-bipcgs_max_residual_norm = 1.e-10
-bipcgs_max_cycles = 1000
-bipcgs_print_norm = .true.
-
-## Force Direct solve in this level:
-#maxDirectSolveLevel=2
-
-## Pfft Parameters:
-## Use Central Finite Difference discretization operator:
-gr_pfftDiffOpDiscretize = 2
-gr_mgDiffOpDiscretize   = 2
-
- 
-# HYPRE-Poisson solver settings:
-gr_hyprePrintSolveInfo  = .FALSE.
-gr_hypreInfoLevel       = 1
-gr_hypreMaxIter         = 1000
-#gr_hypreRelTol          = 5.0e-6
-gr_hypreRelTol          = 1.0e-8
-gr_hypreFloor           = 1.0e-16
-#gr_hyprePCType          = "HYPRE_PARASAILS"
-#gr_hyprePCType          = "HYPRE_ILU"
-gr_hyprePCType          = "HYPRE_AMG"
-gr_hypreSolverType      = "HYPRE_PCG"
-#gr_hypreSolverType      = "HYPRE_BICGSTAB"
-#gr_hypreSolverType      = "HYPRE_GMRES"
-#gr_hypreSolverType      = "HYPRE_AMG"
-#gr_hypreSolverType      = "HYPRE_SPLIT"
+# HYPRE Poisson Solver Parameters
+gr_hyprePrintSolveInfo = ".FALSE."
+gr_hyprePcType = "HYPRE_AMG"
+gr_hypreSolverType = "HYPRE_BICGSTAB"
+gr_hypreRelTol = 1.0e-12
+gr_hypreFloor  = 1.0e-16
