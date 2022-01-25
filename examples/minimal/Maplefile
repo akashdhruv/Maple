@@ -1,11 +1,18 @@
-# Maplefile
+# Maplefile for examples/minimal
 #
-# VARIABLE            DESCRIPTION
-# ----------------------------------------------------------------
-# container           Name of the local container
-# target              Name of the target dir to mount source dir
-# backend             Container backend (docker/singularity)
 
+# Name of the local container
 container="create"
+
+# Name of the target directory to mount inside the container
 target="/home/mount"
+
+# Container backend
 backend="singularity"
+
+# Default run command
+run="echo Run!"
+
+# Default execute commands
+execute=["echo Hello World!",
+         "echo Second line."]

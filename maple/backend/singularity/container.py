@@ -71,18 +71,19 @@ def run(image,command):
 
     if result != 0: raise Exception("[maple] Error inside container")
 
-def execute(command):
+def execute(cmd_list):
     """
     Run local image in a container
 
     Arguments
     ---------
-    command : command string
+    cmd_list : list of command strings
     """
-    command = '"{0}"'.format(command)
-    result = os.system('singularity exec --pwd $maple_target \
-                                         instance://$maple_container bash -c {0}'.format(str(command)))
+    for command in cmd_list:
 
+        command = '"{0}"'.format(command)
+        result = os.system('singularity exec --pwd $maple_target \
+                                             instance://$maple_container bash -c {0}'.format(str(command)))
     return result
 
 def notebook(image,port='8888'):

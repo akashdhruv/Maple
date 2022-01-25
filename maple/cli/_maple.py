@@ -33,7 +33,7 @@ def maple(docker,singularity):
 
     if Maplefile:
         for key,value in toml.load('Maplefile').items():
-            os.environ['maple_'+key] = str(value)
+            if key not in ['run','execute']: os.environ['maple_'+key] = str(value)
 
     if not os.getenv('maple_backend'): os.environ['maple_backend'] = 'docker'
     if not os.getenv('maple_user'): os.environ['maple_user'] = os.popen('id -u').read().split()[0]

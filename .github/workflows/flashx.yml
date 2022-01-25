@@ -53,4 +53,4 @@ jobs:
           sudo apt-get install -y libopenmpi-dev openmpi-bin
           cd examples/flashx/lidcav
           maple image build lidcav
-          mpirun -n 1 maple container run --image=lidcav "/home/run/flashx"
+          mpirun -n 1 maple container run --image=lidcav

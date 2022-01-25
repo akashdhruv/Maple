@@ -1,13 +1,16 @@
-# Maplefile
-#
-# VARIABLE            DESCRIPTION
-# ----------------------------------------------------------------
-# base                Name of the base image
-# container           Name of the local container
-# target              Name of the target dir to mount source dir
-# backend             Container backend (docker/singularity)
+# Maplefile for examples/flashx/lidcav
 
+# Name of the base image
 base="docker://akashdhruv/flashx:lidcav"
+
+# Name of the local container
 container="lidcav"
+
+# Name of the mount directory inside the container
 target="/home/mount/lidcav"
+
+# Container backend
 backend="singularity"
+
+# Default run command
+run="/home/run/flashx"
