@@ -2,21 +2,16 @@
 
 import os
 
-def build(target,base='None',as_root=False):
+def build(as_root=False):
     """
     Builds a local image from remote image
  
     Arguments
     ---------
-    target     : Name of the local image to be built
-    base       : Name of the base image
     as_root    : Build image as root (True/False)
     """
-    # Check if base image was supplied
-    if base != 'None': os.environ['maple_base'] = str(base) 
-
-    os.system('singularity build {0}.sif $maple_base'.format(target))
-    os.system('mv {0}.sif $maple_home/images/{0}.sif'.format(target))
+    os.system('singularity build $maple_image.sif $maple_base')
+    os.system('mv $maple_image.sif $maple_home/images/$maple_image.sif')
 
 def pull(target,base):
     """
@@ -57,13 +52,9 @@ def list():
     """
     os.system('ls $maple_home/images/*.sif 2> /dev/null')
 
-def squash(image):
+def squash():
     """
     Squash an image and remove layers
-
-    Arguments
-    ---------
-    image : image name
     """
     print("[maple.image.squash] not available for singularity backend")
 
@@ -77,12 +68,8 @@ def scan(image):
     """
     print("[maple.image.scan] not available for singularity backend")
 
-def delete(image):
+def delete():
     """
     Delete an image
-
-    Arguments
-    ---------
-    image : image name
     """
-    os.system('rm -f -v $maple_home/images/{0}.sif'.format(image))
+    os.system('rm -f -v $maple_home/images/$maple_image.sif')

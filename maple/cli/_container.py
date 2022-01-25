@@ -22,12 +22,13 @@ def container():
 # Saves changes to local container as an image, currently uses docker
 #
 @container.command(name='commit')
-@click.option('--image', required=True)
+@click.option('--image', default='None', help='image to commit changes')
 def commit(image):
     """
     Commit changes from a poured container to an image
     """
-    Backend().container.commit(image)
+    if image != 'None': os.environ['maple_image'] = str(image)
+    Backend().container.commit()
 
 # Enter the shell environment of a container
 #
@@ -41,27 +42,31 @@ def shell():
 # Launch a notebook inside the container
 #
 @container.command('notebook')
-@click.option('--image', required=True)
+@click.option('--image', default='None', help='image to launch notebook')
 @click.option('--port', default='8888', help='port for notebook server')
 def notebook(image,port):
     """
     Launch ipython notebook inside a container using an image
     """
-    Backend().container.notebook(image,port)
+    if image != 'None': os.environ['maple_image'] = str(image)
+    Backend().container.notebook(port)
 
 # Run a command inside a container and commit changes
 @container.command('run')
-@click.option('--image', required=True)
+@click.option('--image', default='None', help='image to run')
+@click.option('--options', default='', help='run options')
 @click.argument('command', default='None')
-def run(image,command):
+def run(image,options,command):
     """
     Pour a container to a run a command and then rinse it
     """
+    if image != 'None': os.environ['maple_image'] = str(image)
+
     Maplefile = os.path.exists('Maplefile')
     if Maplefile and command == 'None':
         if 'run' in toml.load('Maplefile'): command = toml.load('Maplefile')['run']
 
-    Backend().container.run(image,command)
+    Backend().container.run(command,options)
 
 # Execute a command in a container
 @container.command('execute')
@@ -84,12 +89,13 @@ def execute(command):
 # This is useful for mounting maple_source for development
 #
 @container.command('pour')
-@click.option('--image', required=True)
+@click.option('--image', default='None', help='image to pour inside container')
 def pour(image):
     """
     Pour an image into a container
     """
-    Backend().container.pour(image)
+    if image != 'None': os.environ['maple_image'] = str(image)
+    Backend().container.pour()
 
 # Rinse a local container
 # Do this if the local container is not needed
@@ -104,7 +110,8 @@ def rinse(containers,all):
     if not containers: containers = ['None']
    
     for ctr in containers:
-        Backend().container.rinse(ctr,all)
+        if ctr != 'None': os.environ['maple_container'] = str(ctr)
+        Backend().container.rinse(all)
 
 # List all container
 #
