@@ -21,7 +21,7 @@ def image():
 # The modulermation supplied from Maplefile
 @image.command(name='build')
 @click.argument('image', default='None')
-@click.argument('base', default='None')
+@click.option('--base', default='None', help='base image name')
 @click.option('--as-root', is_flag=True, help='flag to build image as root')
 def build(image,base,as_root):
     """

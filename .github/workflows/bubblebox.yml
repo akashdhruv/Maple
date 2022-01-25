@@ -33,7 +33,7 @@ jobs:
     - name: Run examples/bubblebox
       run: |
           cd examples/bubblebox
-          maple image build bubblebox ${{secrets.DOCKER_HUB_USERNAME}}/bubblebox:latest
+          maple image build bubblebox --base=${{secrets.DOCKER_HUB_USERNAME}}/bubblebox:latest
           maple container pour --image=bubblebox
           maple container execute "python3 example.py"
           maple container rinse
