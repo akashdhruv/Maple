@@ -3,48 +3,41 @@
 import os
 import random
 
-def commit(image):
+def commit():
     """
     Commit changes from local container to local image
-
-    Arguments
-    ---------
-    image : image name
     """
+    if image != 'None': os.environ['maple_image'] = str(image)
+
     print("[maple.container.commit] not available for singularity backend")
 
-def pour(image,options='--no-home'):
+def pour(options='--no-home'):
     """
     Pour local image in a container, opposite of maple rinse
 
-
     Arguments
     ---------
-    image : image name
     options : string of options
     """
     result = os.system('singularity instance start {0} \
                                                    --bind $maple_source:$maple_target \
-                                                   $maple_home/images/{1}.sif \
-                                                   $maple_container'.format(options,image))
+                                                   $maple_home/images/$maple_image.sif \
+                                                   $maple_container'.format(options))
 
     if result != 0: raise Exception("[maple] Error inside container")
 
-def rinse(container='None',rinse_all=False):
+def rinse(rinse_all=False):
     """
     Stop and remove the local container, opposite of maple pour
 
     Arguments
     ---------
-    container : name of the container to rinse
-    rinse_all : (True/Flase) flag to rinse all container
+    rinse_all : (True/False) flag to rinse all container
     """
-    if container == 'None': container = os.getenv('maple_container')
-
     if rinse_all:
         os.system('singularity instance stop --all')
     else:
-        os.system('singularity instance stop {0}'.format(container))
+        os.system('singularity instance stop $maple_container')
 
 def shell():
     """
@@ -52,22 +45,22 @@ def shell():
     """
     os.system('singularity shell --pwd $maple_target instance://$maple_container')
 
-def run(image,command):
+def run(command='None',options=''):
     """
     Run and rinse the local container
 
     Arguments
     ---------
-    image : image name
     command : command string
+    options : run options
     """
     os.environ['maple_container'] = os.getenv('maple_container')+'_'+str(random.randint(1111,9999))
 
     command = '"{0}"'.format(command)
-    result = os.system('singularity exec --no-home \
-                                         --bind $maple_source:$maple_target \
-                                         --pwd  $maple_target \
-                                         $maple_home/images/{0}.sif bash -c {1}'.format(image,str(command)))
+    result = os.system('singularity exec {0} --no-home \
+                                             --bind $maple_source:$maple_target \
+                                             --pwd  $maple_target \
+                                             $maple_home/images/$maple_image.sif bash -c {1}'.format(options,str(command)))
 
     if result != 0: raise Exception("[maple] Error inside container")
 
@@ -86,18 +79,17 @@ def execute(cmd_list):
                                              instance://$maple_container bash -c {0}'.format(str(command)))
     return result
 
-def notebook(image,port='8888'):
+def notebook(port='8888'):
     """
     Launch ipython notebook inside the container
 
     Arguments
     ---------
-    image : image name
     port  : port id ('8888')
     """
     os.environ['maple_container'] = os.getenv('maple_container')+'_'+str(random.randint(1111,9999))
 
-    pour(image,options='--cleanenv')
+    pour(options='--cleanenv')
     result = execute('jupyter notebook --port={0} --no-browser --ip=0.0.0.0'.format(port))
     rinse()
 

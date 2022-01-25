@@ -4,19 +4,14 @@ import os
 
 from . import container
 
-def build(target,base='None',as_root=False):
+def build(as_root=False):
     """
     Builds a local image from remote image
  
     Arguments
     ---------
-    target     : Name of the local image to be built
-    base       : Name of the base image
     as_root    : Build image as root (True/False)
     """
-    # Check if base image was supplied
-    if base != 'None': os.environ['maple_base'] = str(base) 
-
     # Select the base and user Dockerfile
     dockerfile_base  = os.getenv('maple_dir')+'/resources/Dockerfile.base'
 
@@ -36,12 +31,12 @@ def build(target,base='None',as_root=False):
                                                                               dockerfile_user))
 
     # execute docker build
-    os.system('docker build -t {0} --no-cache \
+    os.system('docker build -t $maple_image --no-cache \
                                    --build-arg maple_base=$maple_base \
                                    --build-arg maple_user=$maple_user \
                                    --build-arg maple_group=$maple_group \
                                    --file=$maple_home/context/Dockerfile.build \
-                                   $maple_home/context'.format(target))
+                                   $maple_home/context')
 
     os.system('rm $maple_home/context/Dockerfile.build')
 
@@ -86,20 +81,16 @@ def list():
     """
     os.system('docker images')
 
-def squash(image):
+def squash():
     """
     Squash an image and remove layers
-
-    Arguments
-    ---------
-    image : image name
-
     """
-    os.environ['maple_container'] = str(image+'_container')
-    container.pour(image)
-    os.system('docker export $maple_container > {0}.tar'.format(image))
-    os.system('cat {0}.tar | docker import - {0}'.format(image))
-    os.system('rm {0}.tar'.format(image))
+    os.environ['maple_container'] = os.environ['maple_image']+'_container'
+
+    container.pour()
+    os.system('docker export $maple_container > $maple_image.tar')
+    os.system('cat $maple_image.tar | docker import - $maple_image')
+    os.system('rm $maple_image.tar')
     container.rinse()
 
 def scan(image):
@@ -113,12 +104,8 @@ def scan(image):
     """
     os.system('docker scan {0}'.format(image))
 
-def delete(image):
+def delete():
     """
     Delete an image
-
-    Arguments
-    ---------
-    image : image name
     """
-    os.system('docker rmi {0} $(docker images --filter dangling=true -q --no-trunc)'.format(image))
+    os.system('docker rmi $maple_image $(docker images --filter dangling=true -q --no-trunc)')

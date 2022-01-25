@@ -20,14 +20,17 @@ def image():
 # Build a local image using a base image 
 # The modulermation supplied from Maplefile
 @image.command(name='build')
-@click.argument('target', required=True)
+@click.argument('image', default='None')
 @click.argument('base', default='None')
 @click.option('--as-root', is_flag=True, help='flag to build image as root')
-def build(target,base,as_root):
+def build(image,base,as_root):
     """
     Builds a local image from a base image
     """
-    Backend().image.build(target,base,as_root)
+    if base  != 'None': os.environ['maple_base'] = str(base) 
+    if image != 'None': os.environ['maple_image'] = str(image)
+
+    Backend().image.build(as_root)
 
 # Pull base image from a remote registry
 @maple.command(name='pull')
@@ -52,7 +55,7 @@ def push(base,target):
     Backend().image.push(base,target)
 
 # Tag an image from base
-@image.command(name='tag')
+@maple.command(name='tag')
 @click.argument('base', required=True)
 @click.argument('target', required=True)
 def tag(base,target):
@@ -73,12 +76,13 @@ def list():
 # Squash and prune layers
 #
 @image.command('squash')
-@click.argument('image', required=True)
+@click.argument('image', default='None')
 def squash(image):
     """
     Squash and remove layers from local image, reduces size of the image
     """
-    Backend().image.squash(image)
+    if image != 'None': os.environ['maple_image'] = str(image)
+    Backend().image.squash()
 
 # Scan all the images
 @maple.command('scan')
@@ -92,10 +96,13 @@ def scan(image):
 # Clean all local images and containers
 #
 @image.command('delete')
-@click.argument('images', nargs=-1, required=True)
+@click.argument('images', nargs=-1)
 def delete(images):
     """
     Delete local images, accepts multiple arguments
     """
+    if not images: images = ['None']
+
     for img in images:
-        Backend().image.delete(img)
+        if img != 'None': os.environ['maple_image'] = str(img)
+        Backend().image.delete()

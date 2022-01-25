@@ -95,22 +95,17 @@
 <p>Python API for singularity interface in maple</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="maple.backend.singularity.container.commit">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.singularity.container.</span></span><span class="sig-name descname"><span class="pre">commit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.singularity.container.commit" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">maple.backend.singularity.container.</span></span><span class="sig-name descname"><span class="pre">commit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.singularity.container.commit" title="Permalink to this definition"></a></dt>
 <dd><p>Commit changes from local container to local image</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>image name</em>) – </p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="maple.backend.singularity.container.execute">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.singularity.container.</span></span><span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.singularity.container.execute" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">maple.backend.singularity.container.</span></span><span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.singularity.container.execute" title="Permalink to this definition"></a></dt>
 <dd><p>Run local image in a container</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>command</strong> (<em>command string</em>) – </p>
+<dd class="field-odd"><p><strong>cmd_list</strong> (<em>list of command strings</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -123,55 +118,46 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="maple.backend.singularity.container.notebook">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.singularity.container.</span></span><span class="sig-name descname"><span class="pre">notebook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'8888'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.singularity.container.notebook" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">maple.backend.singularity.container.</span></span><span class="sig-name descname"><span class="pre">notebook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'8888'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.singularity.container.notebook" title="Permalink to this definition"></a></dt>
 <dd><p>Launch ipython notebook inside the container</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>image</strong> (<em>image name</em>) – </p></li>
-<li><p><strong>port</strong> (<em>port id</em><em> (</em><em>'8888'</em><em>)</em>) – </p></li>
-</ul>
+<dd class="field-odd"><p><strong>port</strong> (<em>port id</em><em> (</em><em>'8888'</em><em>)</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="maple.backend.singularity.container.pour">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.singularity.container.</span></span><span class="sig-name descname"><span class="pre">pour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'--no-home'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.singularity.container.pour" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">maple.backend.singularity.container.</span></span><span class="sig-name descname"><span class="pre">pour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'--no-home'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.singularity.container.pour" title="Permalink to this definition"></a></dt>
 <dd><p>Pour local image in a container, opposite of maple rinse</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>image</strong> (<em>image name</em>) – </p></li>
-<li><p><strong>options</strong> (<em>string of options</em>) – </p></li>
-</ul>
+<dd class="field-odd"><p><strong>options</strong> (<em>string of options</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="maple.backend.singularity.container.rinse">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.singularity.container.</span></span><span class="sig-name descname"><span class="pre">rinse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'None'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rinse_all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.singularity.container.rinse" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">maple.backend.singularity.container.</span></span><span class="sig-name descname"><span class="pre">rinse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rinse_all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.singularity.container.rinse" title="Permalink to this definition"></a></dt>
 <dd><p>Stop and remove the local container, opposite of maple pour</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>container</strong> (<em>name of the container to rinse</em>) – </p></li>
-<li><p><strong>rinse_all</strong> (<em>(</em><em>True/Flase</em><em>) </em><em>flag to rinse all container</em>) – </p></li>
-</ul>
+<dd class="field-odd"><p><strong>rinse_all</strong> (<em>(</em><em>True/False</em><em>) </em><em>flag to rinse all container</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="maple.backend.singularity.container.run">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.singularity.container.</span></span><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.singularity.container.run" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">maple.backend.singularity.container.</span></span><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'None'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.singularity.container.run" title="Permalink to this definition"></a></dt>
 <dd><p>Run and rinse the local container</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>image</strong> (<em>image name</em>) – </p></li>
 <li><p><strong>command</strong> (<em>command string</em>) – </p></li>
+<li><p><strong>options</strong> (<em>run options</em>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -189,28 +175,19 @@
 <p>Python API for singularity interface in maple</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="maple.backend.singularity.image.build">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.singularity.image.</span></span><span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.singularity.image.build" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">maple.backend.singularity.image.</span></span><span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">as_root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.singularity.image.build" title="Permalink to this definition"></a></dt>
 <dd><p>Builds a local image from remote image</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>target</strong> (<em>Name of the local image to be built</em>) – </p></li>
-<li><p><strong>base</strong> (<em>Name of the base image</em>) – </p></li>
-<li><p><strong>as_root</strong> (<em>Build image as root</em><em> (</em><em>True/False</em><em>)</em>) – </p></li>
-</ul>
+<dd class="field-odd"><p><strong>as_root</strong> (<em>Build image as root</em><em> (</em><em>True/False</em><em>)</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="maple.backend.singularity.image.delete">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.singularity.image.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.singularity.image.delete" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">maple.backend.singularity.image.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.singularity.image.delete" title="Permalink to this definition"></a></dt>
 <dd><p>Delete an image</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>image name</em>) – </p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -260,13 +237,8 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="maple.backend.singularity.image.squash">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.singularity.image.</span></span><span class="sig-name descname"><span class="pre">squash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.singularity.image.squash" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">maple.backend.singularity.image.</span></span><span class="sig-name descname"><span class="pre">squash</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.singularity.image.squash" title="Permalink to this definition"></a></dt>
 <dd><p>Squash an image and remove layers</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>image name</em>) – </p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">

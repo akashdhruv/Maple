@@ -3,49 +3,40 @@
 import os
 import random
 
-def commit(image):
+def commit():
     """
     Commit changes from local container to local image
-
-    Arguments
-    ---------
-    image : image name
     """
-    os.system('docker commit $maple_container {0}'.format(image))
+    os.system('docker commit $maple_container $maple_image')
 
-def pour(image,options=''):
+def pour(options=''):
     """
     Pour local image in a container, opposite of maple rinse
 
     Arguments
     ---------
-    image   : image name
     options : string of options
-
     """
     result = os.system('docker run {0} -dit --name $maple_container \
                                    --mount type=bind,source=$maple_source,target=$maple_target \
-                                   {1} bash'.format(options,image))
+                                   $maple_image bash'.format(options))
 
     if result != 0: raise Exception("[maple] Error inside container")
 
-def rinse(container='None',rinse_all=False):
+def rinse(rinse_all=False):
     """
     Stop and remove the local container, opposite of maple pour
 
     Arguments
     ---------
-    container : name of the container to rinse
-    rinse_all : (True/Flase) flag to rinse all container
+    rinse_all : (True/False) flag to rinse all container
     """
-    if container == 'None': container = os.getenv('maple_container')
-
     if rinse_all:
         os.system('docker stop $(docker ps -aq)')
         os.system('docker rm $(docker ps -aq)')
     else:
-        os.system('docker stop {0}'.format(container))
-        os.system('docker rm {0}'.format(container))
+        os.system('docker stop $maple_container')
+        os.system('docker rm $maple_container')
 
 def shell():
     """
@@ -53,29 +44,28 @@ def shell():
     """
     os.system('docker exec -it --workdir $maple_target $maple_container bash')
 
-def run(image,command):
+def run(command='None',options=''):
     """
     Run and rinse the local container
 
     Arguments
     ---------
-    image : image name
     command : command string
-
+    options : run options
     """
     os.environ['maple_container'] = os.getenv('maple_container')+'_'+str(random.randint(1111,9999))
 
     command = '"{0}"'.format(command)
-    result = os.system('docker run --name $maple_container \
-                                   --mount type=bind,source=$maple_source,target=$maple_target \
-                                   --workdir $maple_target \
-                                   {0} bash -c {1}'.format(image,str(command)))
+    result = os.system('docker run {0} --name $maple_container \
+                                       --mount type=bind,source=$maple_source,target=$maple_target \
+                                       --workdir $maple_target \
+                                       $maple_image bash -c {1}'.format(options,str(command)))
 
     rinse()
 
     if result != 0: raise Exception("[maple] Error inside container")
 
-def execute(cmd_list):
+def execute(cmd_list=['None']):
     """
     Run local image in a container
 
@@ -90,7 +80,7 @@ def execute(cmd_list):
 
     return result 
  
-def notebook(image,port='8888'):
+def notebook(port='8888'):
     """
     Launch ipython notebook inside the container
 
@@ -102,7 +92,7 @@ def notebook(image,port='8888'):
     """
     os.environ['maple_container'] = os.getenv('maple_container')+'_'+str(random.randint(1111,9999))
 
-    pour(image,options='-p {0}:{0}'.format(port))
+    pour(options='-p {0}:{0}'.format(port))
     result = execute('jupyter notebook --port={0} --no-browser --ip=0.0.0.0'.format(port))
     rinse()
 

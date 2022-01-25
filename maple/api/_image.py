@@ -31,6 +31,9 @@ class Image(Maple):
         self._user  = os.popen('id -u').read().split()[0]
         self._group = os.popen('id -g').read().split()[0]
 
+        # Set container name for environment variables
+        self._image = self._name
+
     @property
     def name(self):
         return self._name
@@ -40,27 +43,18 @@ class Image(Maple):
         Builds a local image from base image
         """
         self.setenv()
-        Backend().image.build(self._name,self._base)
+        Backend().image.build()
 
     def squash(self):
         """
         Squash an the image
         """
         self.setenv()
-        Backend().image.squash(self._name)
-
-    def tag(self,target):
-        """
-        Tag an image
- 
-        target: target image for tagging
-        """
-        self.setenv()
-        Backend().image.tag(self._name,target)
+        Backend().image.squash()
 
     def delete(self):
         """
         Delete the image
         """
         self.setenv()
-        Backend().image.delete(self._name)
+        Backend().image.delete()
