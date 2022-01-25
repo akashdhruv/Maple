@@ -3,6 +3,7 @@ Command Line Interface (CLI) for container management.
 """
 
 import click
+import toml
 import os
 
 from ..backend import Backend
@@ -51,21 +52,31 @@ def notebook(image,port):
 # Run a command inside a container and commit changes
 @container.command('run')
 @click.option('--image', required=True)
-@click.argument('command', required=True)
+@click.argument('command', default='None')
 def run(image,command):
     """
     Pour a container to a run a command and then rinse it
     """
+    Maplefile = os.path.exists('Maplefile')
+    if Maplefile and command == 'None':
+        if 'run' in toml.load('Maplefile'): command = toml.load('Maplefile')['run']
+
     Backend().container.run(image,command)
 
 # Execute a command in a container
 @container.command('execute')
-@click.argument('command',default='echo Hello World!')
+@click.argument('command', default='None')
 def execute(command):
     """
     Execute command in a poured container
     """
-    result = Backend().container.execute(command)
+    cmd_list = [command]
+
+    Maplefile = os.path.exists('Maplefile')
+    if Maplefile and command == 'None':
+        if 'execute' in toml.load('Maplefile'): cmd_list = toml.load('Maplefile')['execute']
+
+    result = Backend().container.execute(cmd_list)
     if result != 0: raise Exception("[maple] Error inside container")
 
 # Pour an image in a local container to access interactive shell
