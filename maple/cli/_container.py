@@ -51,6 +51,30 @@ def notebook(image,port):
     if image != 'None': os.environ['maple_image'] = str(image)
     Backend().container.notebook(port)
 
+# Publish a container to an image
+#
+@container.command('publish')
+@click.option('--image', default='None', help='image to pour and publish')
+def publish(image):
+    """
+    Launch ipython notebook inside a container using an image
+    """
+    if image != 'None': os.environ['maple_image'] = str(image)
+
+    Backend().container.pour()
+
+    cmd_list = ['None']
+
+    Maplefile = os.path.exists('Maplefile')
+    if Maplefile and 'execute' in toml.load('Maplefile'): cmd_list = toml.load('Maplefile')['execute']
+
+    result = Backend().container.execute(cmd_list)
+
+    Backend().container.commit()
+    Backend().container.rinse()
+
+    if result != 0: raise Exception("[maple] Error inside container")
+
 # Run a command inside a container and commit changes
 @container.command('run')
 @click.option('--image', default='None', help='image to run')

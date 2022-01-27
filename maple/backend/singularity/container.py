@@ -11,6 +11,8 @@ def commit():
 
     print("[maple.container.commit] not available for singularity backend")
 
+    raise NotImplementedError
+
 def pour(options='--no-home'):
     """
     Pour local image in a container, opposite of maple rinse
