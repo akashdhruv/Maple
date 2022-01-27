@@ -57,7 +57,7 @@ def notebook(image,port):
 @click.option('--image', default='None', help='image to pour and publish')
 def publish(image):
     """
-    Launch ipython notebook inside a container using an image
+    Publish a container to an image using default execute statements
     """
     if image != 'None': os.environ['maple_image'] = str(image)
 
