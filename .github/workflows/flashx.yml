@@ -24,7 +24,7 @@ jobs:
       run: |
           cd examples/flashx/boiling
           maple image build boiling
-          maple container pour --image=boiling
+          maple container pour -I boiling
           maple container execute "mpirun -n 1 /home/run/flashx"
           maple container rinse
           maple image delete boiling
@@ -53,4 +53,4 @@ jobs:
           sudo apt-get install -y libopenmpi-dev openmpi-bin
           cd examples/flashx/lidcav
           maple image build lidcav
-          mpirun -n 1 maple container run --image=lidcav
+          mpirun -n 1 maple container run -I lidcav
