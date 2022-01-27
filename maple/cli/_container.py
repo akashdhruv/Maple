@@ -22,7 +22,7 @@ def container():
 # Saves changes to local container as an image, currently uses docker
 #
 @container.command(name='commit')
-@click.option('--image', default='None', help='image to commit changes')
+@click.option('--image', '-I', default='None', help='image to commit changes')
 def commit(image):
     """
     Commit changes from a poured container to an image
@@ -42,8 +42,8 @@ def shell():
 # Launch a notebook inside the container
 #
 @container.command('notebook')
-@click.option('--image', default='None', help='image to launch notebook')
-@click.option('--port', default='8888', help='port for notebook server')
+@click.option('--image', '-I', default='None', help='image to launch notebook')
+@click.option('--port', '-p', default='8888', help='port for notebook server')
 def notebook(image,port):
     """
     Launch ipython notebook inside a container using an image
@@ -54,7 +54,7 @@ def notebook(image,port):
 # Publish a container to an image
 #
 @container.command('publish')
-@click.option('--image', default='None', help='image to pour and publish')
+@click.option('--image', '-I', default='None', help='image to pour and publish')
 def publish(image):
     """
     Publish a container to an image using default execute statements
@@ -77,8 +77,8 @@ def publish(image):
 
 # Run a command inside a container and commit changes
 @container.command('run')
-@click.option('--image', default='None', help='image to run')
-@click.option('--options', default='', help='run options')
+@click.option('--image', '-I', default='None', help='image to run')
+@click.option('--options', '-o', default='', help='run options')
 @click.argument('command', default='None')
 def run(image,options,command):
     """
@@ -113,7 +113,7 @@ def execute(command):
 # This is useful for mounting maple_source for development
 #
 @container.command('pour')
-@click.option('--image', default='None', help='image to pour inside container')
+@click.option('--image', '-I', default='None', help='image to pour inside container')
 def pour(image):
     """
     Pour an image into a container
