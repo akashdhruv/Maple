@@ -3,6 +3,7 @@ Command Line Interface (CLI) for image management.
 """
 
 import click
+import toml
 import os
 
 from ..backend import Backend
@@ -30,7 +31,13 @@ def build(image,base,as_root):
     if base  != 'None': os.environ['maple_base'] = str(base) 
     if image != 'None': os.environ['maple_image'] = str(image)
 
-    Backend().image.build(as_root)
+    Maplefile = os.path.exists('Maplefile')
+
+    cmd_list = []
+    if Maplefile:
+        if 'build' in toml.load('Maplefile'): cmd_list = toml.load('Maplefile')['build']
+
+    Backend().image.build(as_root,cmd_list)
 
 # Pull base image from a remote registry
 @maple.command(name='pull')

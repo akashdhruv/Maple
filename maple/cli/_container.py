@@ -43,7 +43,7 @@ def shell():
 #
 @container.command('notebook')
 @click.option('--image', '-I', default='None', help='image to launch notebook')
-@click.option('--port', '-p', default='8888', help='port for notebook server')
+@click.option('--port', '-p', default='4321', help='port for notebook server')
 def notebook(image,port):
     """
     Launch ipython notebook inside a container using an image
@@ -61,51 +61,34 @@ def publish(image):
     """
     if image != 'None': os.environ['maple_image'] = str(image)
 
-    Backend().container.pour()
-
-    cmd_list = ['None']
-
     Maplefile = os.path.exists('Maplefile')
-    if Maplefile and 'execute' in toml.load('Maplefile'): cmd_list = toml.load('Maplefile')['execute']
 
-    result = Backend().container.execute(cmd_list)
+    cmd_list = []
+    if Maplefile:
+        if 'publish' in toml.load('Maplefile'): cmd_list = toml.load('Maplefile')['publish']
 
-    Backend().container.commit()
-    Backend().container.rinse()
-
-    if result != 0: raise Exception("[maple] Error inside container")
+    Backend().container.publish(cmd_list)
 
 # Run a command inside a container and commit changes
 @container.command('run')
 @click.option('--image', '-I', default='None', help='image to run')
 @click.option('--options', '-o', default='', help='run options')
-@click.argument('command', default='None')
+@click.argument('command', default='echo Hello World!')
 def run(image,options,command):
     """
     Pour a container to a run a command and then rinse it
     """
     if image != 'None': os.environ['maple_image'] = str(image)
-
-    Maplefile = os.path.exists('Maplefile')
-    if Maplefile and command == 'None':
-        if 'run' in toml.load('Maplefile'): command = toml.load('Maplefile')['run']
-
     Backend().container.run(command,options)
 
 # Execute a command in a container
 @container.command('execute')
-@click.argument('command', default='None')
+@click.argument('command', default='echo Hello World!')
 def execute(command):
     """
     Execute command in a poured container
     """
-    cmd_list = [command]
-
-    Maplefile = os.path.exists('Maplefile')
-    if Maplefile and command == 'None':
-        if 'execute' in toml.load('Maplefile'): cmd_list = toml.load('Maplefile')['execute']
-
-    result = Backend().container.execute(cmd_list)
+    result = Backend().container.execute(command)
     if result != 0: raise Exception("[maple] Error inside container")
 
 # Pour an image in a local container to access interactive shell

@@ -7,11 +7,7 @@ def commit():
     """
     Commit changes from local container to local image
     """
-    if image != 'None': os.environ['maple_image'] = str(image)
-
     print("[maple.container.commit] not available for singularity backend")
-
-    raise NotImplementedError
 
 def pour(options='--no-home'):
     """
@@ -47,7 +43,7 @@ def shell():
     """
     os.system('singularity shell --pwd $maple_target instance://$maple_container')
 
-def run(command='None',options=''):
+def run(command,options=''):
     """
     Run and rinse the local container
 
@@ -62,32 +58,41 @@ def run(command='None',options=''):
     result = os.system('singularity exec {0} --no-home \
                                              --bind $maple_source:$maple_target \
                                              --pwd  $maple_target \
-                                             $maple_home/images/$maple_image.sif bash -c {1}'.format(options,str(command)))
+                               $maple_home/images/$maple_image.sif bash -c {1}'.format(options,str(command)))
 
     if result != 0: raise Exception("[maple] Error inside container")
 
-def execute(cmd_list):
+def execute(command):
     """
     Run local image in a container
 
     Arguments
     ---------
-    cmd_list : list of command strings
+    command : command string
     """
-    for command in cmd_list:
+    command = '"{0}"'.format(command)
+    result = os.system('singularity exec --pwd $maple_target \
+                                         instance://$maple_container bash -c {0}'.format(str(command)))
 
-        command = '"{0}"'.format(command)
-        result = os.system('singularity exec --pwd $maple_target \
-                                             instance://$maple_container bash -c {0}'.format(str(command)))
     return result
 
-def notebook(port='8888'):
+def publish(cmd_list=[]):
+    """
+    Publish container to an image 
+
+    Arguments
+    ---------
+    cmd_list: list of commands to publish
+    """
+    print("[maple.container.publish] not available for singularity backend")
+
+def notebook(port='4321'):
     """
     Launch ipython notebook inside the container
 
     Arguments
     ---------
-    port  : port id ('8888')
+    port  : port id ('4321')
     """
     os.environ['maple_container'] = os.getenv('maple_container')+'_'+str(random.randint(1111,9999))
 

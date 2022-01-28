@@ -1,6 +1,7 @@
 """Python API for docker interface in maple"""
 
 import os
+import toml
 import random
 
 def commit():
@@ -44,7 +45,7 @@ def shell():
     """
     os.system('docker exec -it --workdir $maple_target $maple_container bash')
 
-def run(command='None',options=''):
+def run(command,options=''):
     """
     Run and rinse the local container
 
@@ -65,29 +66,47 @@ def run(command='None',options=''):
 
     if result != 0: raise Exception("[maple] Error inside container")
 
-def execute(cmd_list=['None']):
+def execute(command):
     """
     Run local image in a container
 
     Arguments
     ---------
-    cmd_list : list of command strings
+    command: string of command to execute
     """
-    for command in cmd_list:
-
-        command = '"{0}"'.format(command)
-        result = os.system('docker exec --workdir $maple_target $maple_container bash -c {0}'.format(str(command)))
+    command = '"{0}"'.format(command)
+    result = os.system('docker exec --workdir $maple_target $maple_container bash -c {0}'.format(str(command)))
 
     return result 
- 
-def notebook(port='8888'):
+
+def publish(cmd_list=[]):
+    """
+    Publish container to an image 
+
+    Arguments
+    ---------
+    cmd_list: list of commands to publish
+    """
+    pour()
+
+    result_list = []
+
+    if cmd_list:
+        for command in cmd_list: result_list.append(execute(command))
+
+    commit()
+    rinse()
+
+    if not all(result == 0 for result in result_list): raise Exception("[maple] Error inside container")
+
+def notebook(port='4321'):
     """
     Launch ipython notebook inside the container
 
     Arguments
     ---------
     image : image name
-    port  : port id ('8888')
+    port  : port id ('4321')
 
     """
     os.environ['maple_container'] = os.getenv('maple_container')+'_'+str(random.randint(1111,9999))

@@ -2,13 +2,14 @@
 
 import os
 
-def build(as_root=False):
+def build(as_root=False,cmd_list=[]):
     """
     Builds a local image from remote image
  
     Arguments
     ---------
     as_root    : Build image as root (True/False)
+    cmd_list   : List of build commands
     """
     os.system('singularity build $maple_image.sif $maple_base')
     os.system('mv $maple_image.sif $maple_home/images/$maple_image.sif')

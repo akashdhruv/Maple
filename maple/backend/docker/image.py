@@ -4,14 +4,18 @@ import os
 
 from . import container
 
-def build(as_root=False):
+def build(as_root=False,cmd_list=[]):
     """
     Builds a local image from remote image
  
     Arguments
     ---------
     as_root    : Build image as root (True/False)
+    cmd_list   : Command list for build
     """
+    # Set Dockerfile for the build
+    dockerfile_build = os.getenv('maple_home')+'/context/Dockerfile.'+os.getenv('maple_image')
+
     # Select the base and user Dockerfile
     dockerfile_base  = os.getenv('maple_dir')+'/resources/Dockerfile.base'
 
@@ -20,25 +24,28 @@ def build(as_root=False):
     else:
         dockerfile_user = os.getenv('maple_dir')+'/resources/Dockerfile.user'
 
-    # Check if Dockerfile is present else use default
-    if os.path.exists('Dockerfile'):
-        dockerfile_app = 'Dockerfile'
-    else:
-        dockerfile_app = ''
 
-    os.system('cat {0} {1} {2} > $maple_home/context/Dockerfile.build'.format(dockerfile_base,
-                                                                              dockerfile_app,
-                                                                              dockerfile_user))
+    # Populate Dockerfile for the build
+    os.system('cat {0} > {1}'.format(dockerfile_base,dockerfile_build))
+
+    dockerfile = open('{0}'.format(dockerfile_build), 'a')  # append mode
+
+    if cmd_list:
+        for command in cmd_list: dockerfile.write('\n RUN {0} \n'.format(command))
+
+    dockerfile.close()
+
+    os.system('cat {0} >> {1}'.format(dockerfile_user,dockerfile_build))
 
     # execute docker build
     os.system('docker build -t $maple_image --no-cache \
                                    --build-arg maple_base=$maple_base \
                                    --build-arg maple_user=$maple_user \
                                    --build-arg maple_group=$maple_group \
-                                   --file=$maple_home/context/Dockerfile.build \
-                                   $maple_home/context')
+                                   --file={0} \
+                                   $maple_home/context'.format(dockerfile_build))
 
-    os.system('rm $maple_home/context/Dockerfile.build')
+    #os.system('rm $maple_home/context/Dockerfile.build')
 
 def pull(target,base):
     """
