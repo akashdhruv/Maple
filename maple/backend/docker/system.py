@@ -12,4 +12,5 @@ def prune():
     """
     Prune system
     """
+    os.system('rm -f -v $maple_home/context/Dockerfile*')
     os.system('docker system prune -a')
