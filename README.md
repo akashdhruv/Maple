@@ -1,9 +1,9 @@
 ## Maple
 
-![BubbleBox](https://github.com/akashdhruv/Maple/workflows/bubblebox/badge.svg)
-![FlashX](https://github.com/akashdhruv/Maple/workflows/flashx/badge.svg)
-![FlowX](https://github.com/akashdhruv/Maple/workflows/flowx/badge.svg)
-![Minimal](https://github.com/akashdhruv/Maple/workflows/minimal/badge.svg)
+![BubbleBox](https://github.com/akashdhruv/Maple/workflows/BubbleBox/badge.svg)
+![FlashX](https://github.com/akashdhruv/Maple/workflows/FlashX/badge.svg)
+![FlowX](https://github.com/akashdhruv/Maple/workflows/FlowX/badge.svg)
+![Minimal](https://github.com/akashdhruv/Maple/workflows/Minimal/badge.svg)
 
 
 ### Introduction
