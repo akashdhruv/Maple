@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Development mode (required before install)
 if [ $1 = "develop" ]; then
     python3 setup.py develop --user
