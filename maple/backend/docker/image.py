@@ -31,7 +31,7 @@ def build(as_root=False,cmd_list=[]):
     dockerfile = open('{0}'.format(dockerfile_build), 'a')  # append mode
 
     if cmd_list:
-        for command in cmd_list: dockerfile.write('\n RUN {0} \n'.format(command))
+        for command in cmd_list: dockerfile.write('\nRUN {0}\n'.format(command))
 
     dockerfile.close()
 
