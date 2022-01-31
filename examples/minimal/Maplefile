@@ -9,10 +9,3 @@ target="/home/mount"
 
 # Container backend
 backend="singularity"
-
-# Default run command
-run="echo Run!"
-
-# Default execute commands
-execute=["echo Hello World!",
-         "echo Second line."]

@@ -1,6 +1,7 @@
 """Python API for maple"""
 
 import os
+import pwd
 
 from .  import Maple
 from ..backend import Backend
@@ -28,8 +29,9 @@ class Image(Maple):
         super().__init__(default_attributes,attributes)
 
         # Set values for user and group
-        self._user  = os.popen('id -u').read().split()[0]
-        self._group = os.popen('id -g').read().split()[0]
+        self._uid = str(os.getuid())
+        self._gid = str(os.getgid())
+        self._user = pwd.getpwuid(os.getuid())[0]
 
         # Set container name for environment variables
         self._image = self._name
