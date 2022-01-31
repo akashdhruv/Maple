@@ -41,7 +41,8 @@ def build(as_root=False,cmd_list=[]):
     os.system('docker build -t $maple_image --no-cache \
                                    --build-arg maple_base=$maple_base \
                                    --build-arg maple_user=$maple_user \
-                                   --build-arg maple_group=$maple_group \
+                                   --build-arg maple_uid=$maple_uid \
+                                   --build-arg maple_gid=$maple_gid \
                                    --file={0} \
                                    $maple_home/context'.format(dockerfile_build))
 

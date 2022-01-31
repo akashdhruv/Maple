@@ -8,7 +8,7 @@ container="create"
 target="/home/mount"
 
 # Container backend
-backend="singularity"
+backend="docker"
 
 # Default run command
 run="echo Run!"
