@@ -8,11 +8,4 @@ container="create"
 target="/home/mount"
 
 # Container backend
-backend="docker"
-
-# Default run command
-run="echo Run!"
-
-# Default execute commands
-execute=["echo Hello World!",
-         "echo Second line."]
+backend="singularity"
