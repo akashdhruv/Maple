@@ -13,6 +13,9 @@ def build(as_root=False,cmd_list=[]):
     as_root    : Build image as root (True/False)
     cmd_list   : Command list for build
     """
+    # Create a context directory
+    os.system('mkdir -pv {0}'.format(os.getenv('maple_home')+'/context'))
+
     # Set Dockerfile for the build
     dockerfile_build = os.getenv('maple_home')+'/context/Dockerfile.'+os.getenv('maple_image')
 

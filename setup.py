@@ -28,6 +28,7 @@ setup(
     package_data         = {'': ['resources/Dockerfile.base',
                                  'resources/Dockerfile.root',
                                  'resources/Dockerfile.user']},
+    scripts              = ['maple/maple'],
     include_package_data = True,
     long_description     = long_description,
     classifiers          = ['Programming Language :: Python :: 3.8',
