@@ -11,6 +11,10 @@ def build(as_root=False,cmd_list=[]):
     as_root    : Build image as root (True/False)
     cmd_list   : List of build commands
     """
+    # Create image directory
+    os.system('mkdir -pv {0}'.format(os.getenv('maple_home')+'/images'))
+   
+    # Build image
     os.system('singularity build $maple_image.sif $maple_base')
     os.system('mv $maple_image.sif $maple_home/images/$maple_image.sif')
 

@@ -6,5 +6,5 @@ runs:
   steps:
     - run: mkdir -p $HOME/.local/bin && export PATH="PATH:$HOME/.local/bin"
       shell: bash
-    - run: ./setup develop && ./setup install
+    - run: ./setup develop && ./setup install && ./setup clean
       shell: bash
