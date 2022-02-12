@@ -1,6 +1,6 @@
-"""Metadata for Maple package"""
+"""Metadata for PyMaple package"""
 
-__pkgname__     = 'maple'
+__pkgname__     = 'PyMaple'
 __version__     = '0.0.1'
 __authors__     = 'Akash Dhruv'
 __license__     = 'MIT License'
