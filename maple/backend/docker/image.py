@@ -1,6 +1,7 @@
 """Python API for docker interface in maple"""
 
 import os
+import subprocess
 
 from . import container
 
@@ -15,7 +16,9 @@ def build(as_root=False, cmd_list=[]):
     cmd_list   : Command list for build
     """
     # Create a context directory
-    os.system("mkdir -pv {0}".format(os.getenv("maple_home") + "/context"))
+    subprocess.run(
+        "mkdir -pv {0}".format(os.getenv("maple_home") + "/context"), shell=True
+    )
 
     # Set Dockerfile for the build
     dockerfile_build = (
@@ -31,7 +34,9 @@ def build(as_root=False, cmd_list=[]):
         dockerfile_user = os.getenv("maple_dir") + "/resources/Dockerfile.user"
 
     # Populate Dockerfile for the build
-    os.system("cat {0} > {1}".format(dockerfile_base, dockerfile_build))
+    subprocess.run(
+        "cat {0} > {1}".format(dockerfile_base, dockerfile_build), shell=True
+    )
 
     dockerfile = open("{0}".format(dockerfile_build), "a")  # append mode
 
@@ -41,10 +46,12 @@ def build(as_root=False, cmd_list=[]):
 
     dockerfile.close()
 
-    os.system("cat {0} >> {1}".format(dockerfile_user, dockerfile_build))
+    subprocess.run(
+        "cat {0} >> {1}".format(dockerfile_user, dockerfile_build), shell=True
+    )
 
     # execute docker build
-    os.system(
+    subprocess.run(
         "docker build -t $maple_image --no-cache \
                                    --build-arg maple_base=$maple_base \
                                    --build-arg maple_user=$maple_user \
@@ -53,10 +60,11 @@ def build(as_root=False, cmd_list=[]):
                                    --file={0} \
                                    $maple_home/context".format(
             dockerfile_build
-        )
+        ),
+        shell=True,
     )
 
-    # os.system('rm $maple_home/context/Dockerfile.build')
+    # subprocess.run('rm $maple_home/context/Dockerfile.build', shell=True)
 
 
 def pull(target, base):
@@ -68,8 +76,8 @@ def pull(target, base):
     target : target image to pull into
     base   : base image in remote registry
     """
-    os.system("docker pull {0}".format(base))
-    os.system("docker tag {0} {1}".format(base, target))
+    subprocess.run("docker pull {0}".format(base), shell=True)
+    subprocess.run("docker tag {0} {1}".format(base, target), shell=True)
 
 
 def push(base, target):
@@ -81,8 +89,8 @@ def push(base, target):
     base   : base image
     target : target image to push
     """
-    os.system("docker tag {0} {1}".format(base, target))
-    os.system("docker push {0}".format(target))
+    subprocess.run("docker tag {0} {1}".format(base, target), shell=True)
+    subprocess.run("docker push {0}".format(target), shell=True)
 
 
 def tag(base, target):
@@ -94,14 +102,14 @@ def tag(base, target):
     base   : base image
     target : target image to push
     """
-    os.system("docker tag {0} {1}".format(base, target))
+    subprocess.run("docker tag {0} {1}".format(base, target), shell=True)
 
 
 def list():
     """
     List all images on system
     """
-    os.system("docker images")
+    subprocess.run("docker images", shell=True)
 
 
 def squash():
@@ -111,9 +119,9 @@ def squash():
     os.environ["maple_container"] = os.environ["maple_image"] + "_container"
 
     container.pour()
-    os.system("docker export $maple_container > $maple_image.tar")
-    os.system("cat $maple_image.tar | docker import - $maple_image")
-    os.system("rm $maple_image.tar")
+    subprocess.run("docker export $maple_container > $maple_image.tar", shell=True)
+    subprocess.run("cat $maple_image.tar | docker import - $maple_image", shell=True)
+    subprocess.run("rm $maple_image.tar", shell=True)
     container.rinse()
 
 
@@ -126,13 +134,14 @@ def scan(image):
     image : image name
 
     """
-    os.system("docker scan {0}".format(image))
+    subprocess.run("docker scan {0}".format(image), shell=True)
 
 
 def delete():
     """
     Delete an image
     """
-    os.system(
-        "docker rmi $maple_image $(docker images --filter dangling=true -q --no-trunc)"
+    subprocess.run(
+        "docker rmi $maple_image $(docker images --filter dangling=true -q --no-trunc)",
+        shell=True,
     )

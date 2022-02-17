@@ -2,6 +2,7 @@
 
 import os
 import random
+import subprocess
 
 
 def commit():
@@ -19,16 +20,17 @@ def pour(options="--no-home"):
     ---------
     options : string of options
     """
-    result = os.system(
+    process = subprocess.run(
         "singularity instance start {0} \
                                                    --bind $maple_source:$maple_target \
                                                    $maple_home/images/$maple_image.sif \
                                                    $maple_container".format(
             options
-        )
+        ),
+        shell=True,
     )
 
-    if result != 0:
+    if process.returncode != 0:
         raise Exception("[maple] Error inside container")
 
 
@@ -41,16 +43,18 @@ def rinse(rinse_all=False):
     rinse_all : (True/False) flag to rinse all container
     """
     if rinse_all:
-        os.system("singularity instance stop --all")
+        subprocess.run("singularity instance stop --all", shell=True)
     else:
-        os.system("singularity instance stop $maple_container")
+        subprocess.run("singularity instance stop $maple_container", shell=True)
 
 
 def shell():
     """
     Get shell access to the local container
     """
-    os.system("singularity shell --pwd $maple_target instance://$maple_container")
+    subprocess.run(
+        "singularity shell --pwd $maple_target instance://$maple_container", shell=True
+    )
 
 
 def run(command, options=""):
@@ -67,16 +71,17 @@ def run(command, options=""):
     )
 
     command = '"{0}"'.format(command)
-    result = os.system(
+    process = subprocess.run(
         "singularity exec {0} --no-home \
                                              --bind $maple_source:$maple_target \
                                              --pwd  $maple_target \
                                $maple_home/images/$maple_image.sif bash -c {1}".format(
             options, str(command)
-        )
+        ),
+        shell=True,
     )
 
-    if result != 0:
+    if process.returncode != 0:
         raise Exception("[maple] Error inside container")
 
 
@@ -89,14 +94,15 @@ def execute(command):
     command : command string
     """
     command = '"{0}"'.format(command)
-    result = os.system(
+    process = subprocess.run(
         "singularity exec --pwd $maple_target \
                                          instance://$maple_container bash -c {0}".format(
             str(command)
-        )
+        ),
+        shell=True,
     )
 
-    return result
+    return process.returncode
 
 
 def publish(cmd_list=[]):
@@ -136,4 +142,4 @@ def list():
     """
     List all containers on system
     """
-    os.system("singularity instance list")
+    subprocess.run("singularity instance list", shell=True)
