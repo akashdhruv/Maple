@@ -3,8 +3,9 @@
 import os
 import pwd
 
-from .  import Maple
+from . import Maple
 from ..backend import Backend
+
 
 class Image(Maple):
     """
@@ -17,16 +18,17 @@ class Image(Maple):
                       'name'      : name of the image,
                       'backend'   : container backend - docker/singularity
 
-   """
+    """
 
-    def __init__(self,**attributes):
-        """
-        """
-        default_attributes = { 'name'      : 'ubuntu',
-                               'base'      : 'ubuntu:latest',
-                               'backend'   : 'docker' }
- 
-        super().__init__(default_attributes,attributes)
+    def __init__(self, **attributes):
+        """ """
+        default_attributes = {
+            "name": "ubuntu",
+            "base": "ubuntu:latest",
+            "backend": "docker",
+        }
+
+        super().__init__(default_attributes, attributes)
 
         # Set values for user and group
         self._uid = str(os.getuid())

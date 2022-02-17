@@ -3,14 +3,16 @@
 import os
 import random
 
-from .  import Maple
+from . import Maple
 from ..backend import Backend
+
 
 class Container(Maple):
     """
     Class to manage containers
     """
-    def __init__(self,**attributes):
+
+    def __init__(self, **attributes):
         """
         Parameters
         ----------
@@ -18,18 +20,18 @@ class Container(Maple):
                      { 'name'      : container name,
                        'source'    : source directory,
                        'target'    : target directory,
-        """ 
+        """
 
-        default_attributes = {  'name'      : 'ubuntu',
-                                'source'    : None,
-                                'target'    : None } 
+        default_attributes = {"name": "ubuntu", "source": None, "target": None}
 
-        super().__init__(default_attributes,attributes)
+        super().__init__(default_attributes, attributes)
 
         # Condition to check if target and source directories are defined in the Maplefile
         # assign default if they are not, and deal with exceptions
-        if not self._target: self._target = '/home/mount'
-        if not self._source: self._source = os.getenv('PWD')
+        if not self._target:
+            self._target = "/home/mount"
+        if not self._source:
+            self._source = os.getenv("PWD")
 
         # Set container name for environment variables
         self._container = self._name
@@ -38,10 +40,10 @@ class Container(Maple):
     def name(self):
         return self._name
 
-    def run(self,image,command,options=''):
+    def run(self, image, command, options=""):
         """
         Run a container and commit to image
         """
         image.setenv()
         self.setenv()
-        Backend().container.run(command,options)
+        Backend().container.run(command, options)

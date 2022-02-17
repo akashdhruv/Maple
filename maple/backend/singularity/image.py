@@ -1,24 +1,31 @@
 """Python API for singularity interface in maple"""
 
 import os
+import subprocess
 
-def build(as_root=False,cmd_list=[]):
+
+def build(as_root=False, cmd_list=[]):
     """
     Builds a local image from remote image
- 
+
     Arguments
     ---------
     as_root    : Build image as root (True/False)
     cmd_list   : List of build commands
     """
     # Create image directory
-    os.system('mkdir -pv {0}'.format(os.getenv('maple_home')+'/images'))
-   
-    # Build image
-    os.system('singularity build $maple_image.sif $maple_base')
-    os.system('mv $maple_image.sif $maple_home/images/$maple_image.sif')
+    subprocess.run(
+        "mkdir -pv {0}".format(os.getenv("maple_home") + "/images"), shell=True
+    )
 
-def pull(target,base):
+    # Build image
+    subprocess.run("singularity build $maple_image.sif $maple_base", shell=True)
+    subprocess.run(
+        "mv $maple_image.sif $maple_home/images/$maple_image.sif", shell=True
+    )
+
+
+def pull(target, base):
     """
     Pull remote image
 
@@ -27,41 +34,55 @@ def pull(target,base):
     target : target image to pull into
     base   : base image in remote registry
     """
-    os.system('singularity pull $maple_home/images/{0}.sif {1}'.format(target,base))
+    subprocess.run(
+        "singularity pull $maple_home/images/{0}.sif {1}".format(target, base),
+        shell=True,
+    )
 
-def push(base,target):
+
+def push(base, target):
     """
     Push local image to remote tag/image
-    
+
     Arguments
     ---------
     base   : base image
     target : target image to push
     """
-    os.system('singularity pull $maple_home/images/{0}.sif {1}'.format(base,target))
+    subprocess.run(
+        "singularity pull $maple_home/images/{0}.sif {1}".format(base, target),
+        shell=True,
+    )
 
-def tag(base,target):
+
+def tag(base, target):
     """
     Tag a target image from base image
-   
+
     Arguments
     ---------
     base   : base image
     target : target image to push
     """
-    os.system('cp $maple_home/images/{0}.sif $maple_home/images/{1}.sif'.format(base,target))
+    subprocess.run(
+        "cp $maple_home/images/{0}.sif $maple_home/images/{1}.sif".format(base, target),
+        shell=True,
+    )
+
 
 def list():
     """
     List all images on system
     """
-    os.system('ls $maple_home/images/*.sif 2> /dev/null')
+    subprocess.run("ls $maple_home/images/*.sif 2> /dev/null", shell=True)
+
 
 def squash():
     """
     Squash an image and remove layers
     """
     print("[maple.image.squash] not available for singularity backend")
+
 
 def scan(image):
     """
@@ -73,8 +94,9 @@ def scan(image):
     """
     print("[maple.image.scan] not available for singularity backend")
 
+
 def delete():
     """
     Delete an image
     """
-    os.system('rm -f -v $maple_home/images/$maple_image.sif')
+    subprocess.run("rm -f -v $maple_home/images/$maple_image.sif", shell=True)

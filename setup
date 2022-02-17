@@ -6,6 +6,7 @@ if [ $1 = "develop" ]; then
     cp maple/maple $HOME/.local/bin
 fi
 
+
 # Install mode 
 if [ $1 = "install" ]; then
     python3 setup.py build
@@ -13,14 +14,16 @@ if [ $1 = "install" ]; then
     cp maple/maple $HOME/.local/bin
 fi
 
+
 # Publish mode
 if [ $1 = "publish" ]; then
     python3 setup.py sdist
     twine upload dist/*
 fi
 
+
 # Clean after installation
 if [ $1 = "clean" ]; then
-   rm -rf *.egg-info
-   rm -rf build dist
+    rm -rf *.egg-info
+    rm -rf build dist
 fi

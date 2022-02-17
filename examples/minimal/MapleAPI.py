@@ -10,6 +10,6 @@ container = maple.Container()
 
 # Check basic functionality
 image.build()
-container.run(image,"pwd")
+container.run(image, "pwd")
 image.squash()
 image.delete()

@@ -9,20 +9,22 @@ if __name__ == "__main__":
     # name: name of the image
     # base: remote image of flashx environment
     # backend: docker/singularity
-    image = maple.Image(name='flowx',base='akashdhruv/flowx:archive-spring-2022',backend='docker')
-    
+    image = maple.Image(
+        name="flowx", base="akashdhruv/flowx:archive-spring-2022", backend="docker"
+    )
+
     # create a container object
     # name: name of the local container
     # source: basedir (Flash-X directory)
     # target: path of mount directory inside the container (mount source to target)
-    container = maple.Container(name='flowx')
+    container = maple.Container(name="flowx")
 
     # build local image
     image.build()
 
     # execute commands inside the container
     # build and run paramesh simulation
-    container.run(image,"python3 example.py")
+    container.run(image, "python3 example.py")
 
     # delete image
     image.delete()

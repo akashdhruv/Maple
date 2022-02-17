@@ -1,6 +1,8 @@
 """Python API for singularity interface in maple"""
 
 import os
+import subprocess
+
 
 def login():
     """
@@ -8,8 +10,9 @@ def login():
     """
     print("[maple.system.login] command not available for singularity backend")
 
+
 def prune():
     """
     Prune system
     """
-    os.system('singularity cache clean')
+    subprocess.run("singularity cache clean", shell=True)
