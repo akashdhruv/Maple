@@ -3,3 +3,4 @@ __pycache__
 build
 *.rst
 !.sphinx/source/index.rst
+!README.rst
