@@ -6,7 +6,7 @@ import subprocess
 from . import container
 
 
-def build(as_root=False, cmd_list=[]):
+def build(as_root=False, cmd_list=None):
     """
     Builds a local image from remote image
 
@@ -17,7 +17,7 @@ def build(as_root=False, cmd_list=[]):
     """
     # Create a context directory
     subprocess.run(
-        "mkdir -pv {0}".format(os.getenv("maple_home") + "/context"), shell=True
+        f'mkdir -pv {os.getenv("maple_home")}/context', shell=True, check=True
     )
 
     # Set Dockerfile for the build
@@ -34,37 +34,31 @@ def build(as_root=False, cmd_list=[]):
         dockerfile_user = os.getenv("maple_dir") + "/resources/Dockerfile.user"
 
     # Populate Dockerfile for the build
-    subprocess.run(
-        "cat {0} > {1}".format(dockerfile_base, dockerfile_build), shell=True
-    )
+    subprocess.run(f"cat {dockerfile_base} > {dockerfile_base}", shell=True, check=True)
 
-    dockerfile = open("{0}".format(dockerfile_build), "a")  # append mode
-
-    if cmd_list:
-        for command in cmd_list:
-            dockerfile.write("\nRUN {0}\n".format(command))
-
-    dockerfile.close()
+    with open(f"{dockerfile_build}", "a") as dockerfile:  # append mode
+        if cmd_list:
+            for command in cmd_list:
+                dockerfile.write(f"\nRUN {command}\n")
 
     subprocess.run(
-        "cat {0} >> {1}".format(dockerfile_user, dockerfile_build), shell=True
+        f"cat {dockerfile_user} >> {dockerfile_build}", shell=True, check=True
     )
 
     # execute docker build
     subprocess.run(
-        "docker build -t $maple_image --no-cache \
+        f"docker build -t $maple_image --no-cache \
                                    --build-arg maple_base=$maple_base \
                                    --build-arg maple_user=$maple_user \
                                    --build-arg maple_uid=$maple_uid \
                                    --build-arg maple_gid=$maple_gid \
-                                   --file={0} \
-                                   $maple_home/context".format(
-            dockerfile_build
-        ),
+                                   --file={dockerfile_build} \
+                                   $maple_home/context",
         shell=True,
+        check=True,
     )
 
-    # subprocess.run('rm $maple_home/context/Dockerfile.build', shell=True)
+    # subprocess.run('rm $maple_home/context/Dockerfile.build', shell=True, check=True)
 
 
 def pull(target, base):
@@ -76,8 +70,8 @@ def pull(target, base):
     target : target image to pull into
     base   : base image in remote registry
     """
-    subprocess.run("docker pull {0}".format(base), shell=True)
-    subprocess.run("docker tag {0} {1}".format(base, target), shell=True)
+    subprocess.run(f"docker pull {base}", shell=True, check=True)
+    subprocess.run(f"docker tag {base} {target}", shell=True, check=True)
 
 
 def push(base, target):
@@ -89,8 +83,8 @@ def push(base, target):
     base   : base image
     target : target image to push
     """
-    subprocess.run("docker tag {0} {1}".format(base, target), shell=True)
-    subprocess.run("docker push {0}".format(target), shell=True)
+    subprocess.run(f"docker tag {base} {target}", shell=True, check=True)
+    subprocess.run(f"docker push {target}", shell=True, check=True)
 
 
 def tag(base, target):
@@ -102,14 +96,14 @@ def tag(base, target):
     base   : base image
     target : target image to push
     """
-    subprocess.run("docker tag {0} {1}".format(base, target), shell=True)
+    subprocess.run(f"docker tag {base} {target}", shell=True, check=True)
 
 
 def list():
     """
     List all images on system
     """
-    subprocess.run("docker images", shell=True)
+    subprocess.run("docker images", shell=True, check=True)
 
 
 def squash():
@@ -119,9 +113,13 @@ def squash():
     os.environ["maple_container"] = os.environ["maple_image"] + "_container"
 
     container.pour()
-    subprocess.run("docker export $maple_container > $maple_image.tar", shell=True)
-    subprocess.run("cat $maple_image.tar | docker import - $maple_image", shell=True)
-    subprocess.run("rm $maple_image.tar", shell=True)
+    subprocess.run(
+        "docker export $maple_container > $maple_image.tar", shell=True, check=True
+    )
+    subprocess.run(
+        "cat $maple_image.tar | docker import - $maple_image", shell=True, check=True
+    )
+    subprocess.run("rm $maple_image.tar", shell=True, check=True)
     container.rinse()
 
 
@@ -134,7 +132,7 @@ def scan(image):
     image : image name
 
     """
-    subprocess.run("docker scan {0}".format(image), shell=True)
+    subprocess.run(f"docker scan {image}", shell=True, check=True)
 
 
 def delete():
@@ -144,4 +142,5 @@ def delete():
     subprocess.run(
         "docker rmi $maple_image $(docker images --filter dangling=true -q --no-trunc)",
         shell=True,
+        check=True,
     )

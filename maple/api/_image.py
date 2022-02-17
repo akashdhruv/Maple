@@ -22,13 +22,11 @@ class Image(Maple):
 
     def __init__(self, **attributes):
         """ """
-        default_attributes = {
-            "name": "ubuntu",
-            "base": "ubuntu:latest",
-            "backend": "docker",
-        }
+        self._name = "ubuntu"
+        self._base = "ubuntu:latest"
+        self._backend = "docker"
 
-        super().__init__(default_attributes, attributes)
+        super().__init__(self.__dict__, attributes)
 
         # Set values for user and group
         self._uid = str(os.getuid())
@@ -40,6 +38,9 @@ class Image(Maple):
 
     @property
     def name(self):
+        """
+        Getter for image name
+        """
         return self._name
 
     def build(self):

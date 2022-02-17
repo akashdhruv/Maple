@@ -2,12 +2,13 @@
 Command Line Interface (CLI) for container management.
 """
 
+import os
 import click
 import toml
-import os
 
 from ..backend import Backend
 from . import maple
+
 
 # CLI group
 #

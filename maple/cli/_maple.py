@@ -3,10 +3,10 @@ Command Line Interface (CLI) for Maple. Reads Maplefile
 and sets environment variables
 """
 
-import click
-import toml
 import os
 import pwd
+import click
+import toml
 
 # CLI group
 #

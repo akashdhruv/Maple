@@ -21,13 +21,11 @@ def pour(options="--no-home"):
     options : string of options
     """
     process = subprocess.run(
-        "singularity instance start {0} \
-                                                   --bind $maple_source:$maple_target \
-                                                   $maple_home/images/$maple_image.sif \
-                                                   $maple_container".format(
-            options
-        ),
+        f"singularity instance start {options} --bind $maple_source:$maple_target \
+                                              $maple_home/images/$maple_image.sif \
+                                              $maple_container",
         shell=True,
+        check=True,
     )
 
     if process.returncode != 0:
@@ -43,9 +41,11 @@ def rinse(rinse_all=False):
     rinse_all : (True/False) flag to rinse all container
     """
     if rinse_all:
-        subprocess.run("singularity instance stop --all", shell=True)
+        subprocess.run("singularity instance stop --all", shell=True, check=True)
     else:
-        subprocess.run("singularity instance stop $maple_container", shell=True)
+        subprocess.run(
+            "singularity instance stop $maple_container", shell=True, check=True
+        )
 
 
 def shell():
@@ -53,7 +53,9 @@ def shell():
     Get shell access to the local container
     """
     subprocess.run(
-        "singularity shell --pwd $maple_target instance://$maple_container", shell=True
+        "singularity shell --pwd $maple_target instance://$maple_container",
+        shell=True,
+        check=True,
     )
 
 
@@ -70,15 +72,13 @@ def run(command, options=""):
         os.getenv("maple_container") + "_" + str(random.randint(1111, 9999))
     )
 
-    command = '"{0}"'.format(command)
+    command = f'"{command}"'
     process = subprocess.run(
-        "singularity exec {0} --no-home \
-                                             --bind $maple_source:$maple_target \
-                                             --pwd  $maple_target \
-                               $maple_home/images/$maple_image.sif bash -c {1}".format(
-            options, str(command)
-        ),
+        f"singularity exec {options} --no-home --bind $maple_source:$maple_target \
+                                              --pwd  $maple_target \
+                               $maple_home/images/$maple_image.sif bash -c {command}",
         shell=True,
+        check=True,
     )
 
     if process.returncode != 0:
@@ -93,19 +93,18 @@ def execute(command):
     ---------
     command : command string
     """
-    command = '"{0}"'.format(command)
+    command = f'"{command}"'
     process = subprocess.run(
-        "singularity exec --pwd $maple_target \
-                                         instance://$maple_container bash -c {0}".format(
-            str(command)
-        ),
+        f"singularity exec --pwd $maple_target \
+                          instance://$maple_container bash -c {command}",
         shell=True,
+        check=True,
     )
 
     return process.returncode
 
 
-def publish(cmd_list=[]):
+def publish(cmd_list=None):
     """
     Publish container to an image
 
@@ -129,9 +128,7 @@ def notebook(port="4321"):
     )
 
     pour(options="--cleanenv")
-    result = execute(
-        "jupyter notebook --port={0} --no-browser --ip=0.0.0.0".format(port)
-    )
+    result = execute(f"jupyter notebook --port={port} --no-browser --ip=0.0.0.0")
     rinse()
 
     if result != 0:
@@ -142,4 +139,4 @@ def list():
     """
     List all containers on system
     """
-    subprocess.run("singularity instance list", shell=True)
+    subprocess.run("singularity instance list", shell=True, check=True)

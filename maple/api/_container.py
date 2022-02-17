@@ -1,7 +1,6 @@
 """Python API for maple"""
 
 import os
-import random
 
 from . import Maple
 from ..backend import Backend
@@ -21,10 +20,11 @@ class Container(Maple):
                        'source'    : source directory,
                        'target'    : target directory,
         """
+        self._name = "ubuntu"
+        self._source = None
+        self._target = None
 
-        default_attributes = {"name": "ubuntu", "source": None, "target": None}
-
-        super().__init__(default_attributes, attributes)
+        super().__init__(self.__dict__, attributes)
 
         # Condition to check if target and source directories are defined in the Maplefile
         # assign default if they are not, and deal with exceptions
@@ -38,6 +38,9 @@ class Container(Maple):
 
     @property
     def name(self):
+        """
+        Getter for container name
+        """
         return self._name
 
     def run(self, image, command, options=""):
