@@ -34,7 +34,7 @@ def build(as_root=False, cmd_list=None):
         dockerfile_user = os.getenv("maple_dir") + "/resources/Dockerfile.user"
 
     # Populate Dockerfile for the build
-    subprocess.run(f"cat {dockerfile_base} > {dockerfile_base}", shell=True, check=True)
+    subprocess.run(f"cat {dockerfile_base} > {dockerfile_build}", shell=True, check=True)
 
     with open(f"{dockerfile_build}", "a") as dockerfile:  # append mode
         if cmd_list:
