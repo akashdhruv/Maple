@@ -27,9 +27,3 @@ if [ $1 = "clean" ]; then
     rm -rf *.egg-info
     rm -rf build dist
 fi
-
-
-# Setup README
-if [ $1 = "readme" ]; then
-    pandoc README.md --from markdown --to rst -s -o README.rst
-fi
