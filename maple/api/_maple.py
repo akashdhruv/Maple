@@ -22,7 +22,7 @@ class Maple:
         Set environment variables
         """
         for key, value in self.__dict__.items():
-            if value and key != "name":
+            if value and key != "_name":
                 os.environ["maple" + key] = str(value)
 
     def _set_attributes(self, default_attributes, attributes):
@@ -36,8 +36,8 @@ class Maple:
         """
 
         for key in attributes:
-            if key in default_attributes:
-                default_attributes[key] = attributes[key]
+            if "_" + key in default_attributes:
+                default_attributes["_" + key] = attributes[key]
             else:
                 raise ValueError(f'[maple]: attribute "{key}" not present')
 
