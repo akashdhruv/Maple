@@ -1,5 +1,7 @@
 ## Maple
 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 ![BubbleBox](https://github.com/akashdhruv/Maple/workflows/BubbleBox/badge.svg)
 ![FlashX](https://github.com/akashdhruv/Maple/workflows/FlashX/badge.svg)
 ![FlowX](https://github.com/akashdhruv/Maple/workflows/FlowX/badge.svg)

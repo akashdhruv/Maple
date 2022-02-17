@@ -6,20 +6,21 @@ import click
 import os
 
 from ..backend import Backend
-from .  import maple
+from . import maple
 
 # Login to remote registry
 #
-@maple.command(name='login')
+@maple.command(name="login")
 def login():
     """
     Login to container backend
     """
     Backend().system.login()
 
+
 # Prune system
 #
-@maple.command('prune')
+@maple.command("prune")
 def prune():
     """
     Clear backend cache

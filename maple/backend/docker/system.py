@@ -2,15 +2,17 @@
 
 import os
 
+
 def login():
     """
     Login to docker account
     """
-    os.system('docker login')
+    os.system("docker login")
+
 
 def prune():
     """
     Prune system
     """
-    os.system('rm -f -v $maple_home/context/Dockerfile*')
-    os.system('docker system prune -a')
+    os.system("rm -f -v $maple_home/context/Dockerfile*")
+    os.system("docker system prune -a")
