@@ -4,7 +4,7 @@ import os
 import subprocess
 
 
-def build(as_root=False, cmd_list=[]):
+def build(as_root=False, cmd_list=None):
     """
     Builds a local image from remote image
 
@@ -15,13 +15,17 @@ def build(as_root=False, cmd_list=[]):
     """
     # Create image directory
     subprocess.run(
-        "mkdir -pv {0}".format(os.getenv("maple_home") + "/images"), shell=True
+        f'mkdir -pv {os.getenv("maple_home")}/images', shell=True, check=True
     )
 
     # Build image
-    subprocess.run("singularity build $maple_image.sif $maple_base", shell=True)
     subprocess.run(
-        "mv $maple_image.sif $maple_home/images/$maple_image.sif", shell=True
+        "singularity build $maple_image.sif $maple_base", shell=True, check=True
+    )
+    subprocess.run(
+        "mv $maple_image.sif $maple_home/images/$maple_image.sif",
+        shell=True,
+        check=True,
     )
 
 
@@ -35,8 +39,9 @@ def pull(target, base):
     base   : base image in remote registry
     """
     subprocess.run(
-        "singularity pull $maple_home/images/{0}.sif {1}".format(target, base),
+        f"singularity pull $maple_home/images/{target}.sif {base}",
         shell=True,
+        check=True,
     )
 
 
@@ -50,8 +55,9 @@ def push(base, target):
     target : target image to push
     """
     subprocess.run(
-        "singularity pull $maple_home/images/{0}.sif {1}".format(base, target),
+        f"singularity pull $maple_home/images/{base}.sif {target}",
         shell=True,
+        check=True,
     )
 
 
@@ -65,8 +71,9 @@ def tag(base, target):
     target : target image to push
     """
     subprocess.run(
-        "cp $maple_home/images/{0}.sif $maple_home/images/{1}.sif".format(base, target),
+        f"cp $maple_home/images/{base}.sif $maple_home/images/{target}.sif",
         shell=True,
+        check=True,
     )
 
 
@@ -74,7 +81,7 @@ def list():
     """
     List all images on system
     """
-    subprocess.run("ls $maple_home/images/*.sif 2> /dev/null", shell=True)
+    subprocess.run("ls $maple_home/images/*.sif 2> /dev/null", shell=True, check=True)
 
 
 def squash():
@@ -99,4 +106,6 @@ def delete():
     """
     Delete an image
     """
-    subprocess.run("rm -f -v $maple_home/images/$maple_image.sif", shell=True)
+    subprocess.run(
+        "rm -f -v $maple_home/images/$maple_image.sif", shell=True, check=True
+    )

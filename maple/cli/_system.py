@@ -2,11 +2,9 @@
 Command Line Interface (CLI) for system configuration management.
 """
 
-import click
-import os
-
 from ..backend import Backend
 from . import maple
+
 
 # Login to remote registry
 #

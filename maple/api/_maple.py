@@ -1,10 +1,9 @@
 """Python API for maple"""
 
 import os
-import random
 
 
-class Maple(object):
+class Maple:
     """
     Base class for defining maple environment
 
@@ -23,7 +22,7 @@ class Maple(object):
         Set environment variables
         """
         for key, value in self.__dict__.items():
-            if value and key != "name":
+            if value and key != "_name":
                 os.environ["maple" + key] = str(value)
 
     def _set_attributes(self, default_attributes, attributes):
@@ -37,10 +36,10 @@ class Maple(object):
         """
 
         for key in attributes:
-            if key in default_attributes:
-                default_attributes[key] = attributes[key]
+            if "_" + key in default_attributes:
+                default_attributes["_" + key] = attributes[key]
             else:
-                raise ValueError('[maple]: attribute "{}" not present'.format(key))
+                raise ValueError(f'[maple]: attribute "{key}" not present')
 
         for key, value in default_attributes.items():
-            setattr(self, "_" + key, value)
+            setattr(self, key, value)

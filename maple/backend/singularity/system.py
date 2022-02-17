@@ -1,6 +1,5 @@
 """Python API for singularity interface in maple"""
 
-import os
 import subprocess
 
 
@@ -15,4 +14,4 @@ def prune():
     """
     Prune system
     """
-    subprocess.run("singularity cache clean", shell=True)
+    subprocess.run("singularity cache clean", shell=True, check=True)

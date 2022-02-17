@@ -1,16 +1,17 @@
 """Python API for docker interface in maple"""
 
 import os
-import toml
-import random
 import subprocess
+import random
 
 
 def commit():
     """
     Commit changes from local container to local image
     """
-    subprocess.run("docker commit $maple_container $maple_image", shell=True)
+    subprocess.run(
+        "docker commit $maple_container $maple_image", shell=True, check=True
+    )
 
 
 def pour(options=""):
@@ -22,12 +23,11 @@ def pour(options=""):
     options : string of options
     """
     process = subprocess.run(
-        "docker run {0} -dit --name $maple_container \
+        f"docker run {options} -dit --name $maple_container \
                              --mount type=bind,source=$maple_source,target=$maple_target \
-                            $maple_image bash".format(
-            options
-        ),
+                            $maple_image bash",
         shell=True,
+        check=True,
     )
 
     if process.returncode != 0:
@@ -43,11 +43,11 @@ def rinse(rinse_all=False):
     rinse_all : (True/False) flag to rinse all container
     """
     if rinse_all:
-        subprocess.run("docker stop $(docker ps -aq)", shell=True)
-        subprocess.run("docker rm $(docker ps -aq)", shell=True)
+        subprocess.run("docker stop $(docker ps -aq)", shell=True, check=True)
+        subprocess.run("docker rm $(docker ps -aq)", shell=True, check=True)
     else:
-        subprocess.run("docker stop $maple_container", shell=True)
-        subprocess.run("docker rm $maple_container", shell=True)
+        subprocess.run("docker stop $maple_container", shell=True, check=True)
+        subprocess.run("docker rm $maple_container", shell=True, check=True)
 
 
 def shell():
@@ -55,7 +55,9 @@ def shell():
     Get shell access to the local container
     """
     subprocess.run(
-        "docker exec -it --workdir $maple_target $maple_container bash", shell=True
+        "docker exec -it --workdir $maple_target $maple_container bash",
+        shell=True,
+        check=True,
     )
 
 
@@ -72,15 +74,14 @@ def run(command, options=""):
         os.getenv("maple_container") + "_" + str(random.randint(1111, 9999))
     )
 
-    command = '"{0}"'.format(command)
+    command = f'"{command}"'
     process = subprocess.run(
-        "docker run {0} --name $maple_container \
+        f"docker run {options} --name $maple_container \
                                        --mount type=bind,source=$maple_source,target=$maple_target \
                                        --workdir $maple_target \
-                                       $maple_image bash -c {1}".format(
-            options, str(command)
-        ),
+                                       $maple_image bash -c {command}",
         shell=True,
+        check=True,
     )
 
     rinse()
@@ -97,18 +98,17 @@ def execute(command):
     ---------
     command: string of command to execute
     """
-    command = '"{0}"'.format(command)
+    command = f'"{command}"'
     process = subprocess.run(
-        "docker exec --workdir $maple_target $maple_container bash -c {0}".format(
-            str(command)
-        ),
+        f"docker exec --workdir $maple_target $maple_container bash -c {command}",
         shell=True,
+        check=True,
     )
 
     return process.returncode
 
 
-def publish(cmd_list=[]):
+def publish(cmd_list=None):
     """
     Publish container to an image
 
@@ -145,10 +145,8 @@ def notebook(port="4321"):
         os.getenv("maple_container") + "_" + str(random.randint(1111, 9999))
     )
 
-    pour(options="-p {0}:{0}".format(port))
-    result = execute(
-        "jupyter notebook --port={0} --no-browser --ip=0.0.0.0".format(port)
-    )
+    pour(options=f"-p {port}:{port}")
+    result = execute(f"jupyter notebook --port={port} --no-browser --ip=0.0.0.0")
     rinse()
 
     if result != 0:
@@ -159,4 +157,4 @@ def list():
     """
     List all containers on system
     """
-    subprocess.run("docker container ls -a", shell=True)
+    subprocess.run("docker container ls -a", shell=True, check=True)
