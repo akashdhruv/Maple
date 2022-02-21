@@ -11,24 +11,3 @@ Subpackages
    maple.backend
    maple.cli
    maple.resources
-
-Submodules
-----------
-
-maple.\_\_meta\_\_ module
--------------------------
-
-.. automodule:: maple.__meta__
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :private-members:
-
-Module contents
----------------
-
-.. automodule:: maple
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :private-members:

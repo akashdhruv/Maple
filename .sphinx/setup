@@ -1,1 +1,1 @@
-sphinx-apidoc -f -P -o source ../../Maple
+sphinx-apidoc -f -P -o source ../../Maple/maple
