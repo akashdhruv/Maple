@@ -4,7 +4,9 @@ name: install
 runs:
   using: "composite"
   steps:
+    - run: pip3 install click
+      shell: bash
     - run: mkdir -p $HOME/.local/bin && export PATH="PATH:$HOME/.local/bin"
       shell: bash
-    - run: ./setup develop && ./setup install && ./setup clean
+    - run: ./setup install && ./setup clean
       shell: bash
