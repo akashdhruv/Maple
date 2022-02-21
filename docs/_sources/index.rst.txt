@@ -10,7 +10,7 @@ Welcome to Maple's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   maple
+   modules
 
 Indices and tables
 ==================

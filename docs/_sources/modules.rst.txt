@@ -1,8 +1,7 @@
-Maple
+maple
 =====
 
 .. toctree::
    :maxdepth: 4
 
    maple
-   setup
