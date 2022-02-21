@@ -50,7 +50,7 @@ jobs:
     - uses: eWaterCycle/setup-singularity@v7
     - name: Run examples/flashx
       run: |
-          sudo apt-get install -y libopenmpi-dev openmpi-bin
+          sudo apt-get install -y libopenmpi-dev openmpi-bin --fix-mising
           cd examples/flashx/lidcav
           maple image build lidcav
           mpirun -n 1 maple container run -I lidcav
