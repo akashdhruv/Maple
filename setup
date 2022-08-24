@@ -39,6 +39,5 @@ def clean():
     """Clean installation artifacts"""
     subprocess.run("rm -rf *.egg-info build dist", shell=True, check=True)
 
-
 if __name__ == "__main__":
     setup()
