@@ -23,7 +23,7 @@ def pour(options=""):
     options : string of options
     """
     process = subprocess.run(
-        f"docker run {options} -dit --name $maple_container \
+        f"docker run {options} -dit --platform $maple_platform --name $maple_container \
                              --mount type=bind,source=$maple_source,target=$maple_target \
                             $maple_image bash",
         shell=True,

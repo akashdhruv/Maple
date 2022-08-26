@@ -20,7 +20,7 @@ def build(as_root=False, cmd_list=None):
 
     # Build image
     subprocess.run(
-        "singularity build $maple_image.sif $maple_base", shell=True, check=True
+        "singularity build --sandbox $maple_image.sif $maple_base", shell=True, check=True
     )
     subprocess.run(
         "mv $maple_image.sif $maple_home/images/$maple_image.sif",

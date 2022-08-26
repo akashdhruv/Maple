@@ -47,9 +47,11 @@ def build(as_root=False, cmd_list=None):
         f"cat {dockerfile_user} >> {dockerfile_build}", shell=True, check=True
     )
 
+    print(f"Building on platform: {str(os.getenv('maple_platform'))}")
+
     # execute docker build
     subprocess.run(
-        f"docker build -t $maple_image --no-cache \
+        f"docker build --platform $maple_platform -t $maple_image --no-cache \
                                    --build-arg maple_base=$maple_base \
                                    --build-arg maple_user=$maple_user \
                                    --build-arg maple_uid=$maple_uid \

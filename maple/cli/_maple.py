@@ -34,6 +34,9 @@ def maple(docker, singularity):
     if not os.getenv("maple_backend"):
         os.environ["maple_backend"] = "docker"
 
+    if not os.getenv("maple_platform"):
+        os.environ["maple_platform"] = "linux/amd64"
+
     if docker:
         os.environ["maple_backend"] = "docker"
     if singularity:
