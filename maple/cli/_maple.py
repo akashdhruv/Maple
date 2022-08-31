@@ -13,9 +13,10 @@ import toml
 @click.group(name="maple")
 @click.option("--docker", is_flag=True, help="option for docker backend (default) ")
 @click.option("--singularity", is_flag=True, help="option for singularity backend")
-def maple(docker, singularity):
+@click.option("--podman", is_flag=True, help="option for podman backend")
+def maple(docker, singularity, podman):
     """
-    CLI for using docker/singularity containers for HPC applications
+    CLI for using docker/singularity/podman containers for HPC applications
     """
     # Check if required environment variables are defined in the Maplefile
     # If not then assign default values
@@ -41,6 +42,8 @@ def maple(docker, singularity):
         os.environ["maple_backend"] = "docker"
     if singularity:
         os.environ["maple_backend"] = "singularity"
+    if podman:
+        os.environ["maple_backend"] = "podman"
 
     # Condition to check if target and source directories are defined in the Maplefile
     # assign default if they are not, and deal with execptions
