@@ -23,11 +23,11 @@ def setup(file):
 
         if overwrite == "y" or overwrite == "Y":
             print("OVERWRITING")
-            subprocess.run(f"cp {file} Maplefile", shell=True, check=True)
+            subprocess.run(f"rm Maplefile && ln -s {file} Maplefile", shell=True, check=True)
         else:
             print("SKIPPING")
     else:
-        subprocess.run(f"cp {file} Maplefile", shell=True, check=True)
+        subprocess.run(f"ln -s {file} Maplefile", shell=True, check=True)
 
 # Login to remote registry
 #
