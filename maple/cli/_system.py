@@ -17,17 +17,24 @@ def setup(file):
     """
     Setup a Maplefile from user provided path to file
     """
+    if file == "Maplefile":
+        print("Cannot link a file to itself. Operation not permitted. ABORTING")
+        raise ValueError()
+
     if os.path.exists("Maplefile"):
         print(f"Maplefile already exists in current directory")
         overwrite = input("Overwrite? Y/n ")
 
         if overwrite == "y" or overwrite == "Y":
             print("OVERWRITING")
-            subprocess.run(f"rm Maplefile && ln -s {file} Maplefile", shell=True, check=True)
+            subprocess.run(
+                f"rm Maplefile && ln -s {file} Maplefile", shell=True, check=True
+            )
         else:
             print("SKIPPING")
     else:
         subprocess.run(f"ln -s {file} Maplefile", shell=True, check=True)
+
 
 # Login to remote registry
 #
