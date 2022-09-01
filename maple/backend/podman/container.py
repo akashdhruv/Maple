@@ -23,8 +23,9 @@ def pour(options=""):
     options : string of options
     """
     process = subprocess.run(
-        f"podman run {options} -dit --name $maple_container \
-                             --mount type=bind,source=$maple_source,target=$maple_target \
+        f"podman run {options} -dit --platform $maple_platform --name $maple_container \
+                                   --group-add keep-groups \
+                            --mount type=bind,source=$maple_source,target=$maple_target \
                             localhost/$maple_image bash",
         shell=True,
         check=True,
@@ -46,8 +47,8 @@ def rinse(rinse_all=False):
         subprocess.run("podman stop $(podman ps -aq)", shell=True, check=True)
         subprocess.run("podman rm $(podman ps -aq)", shell=True, check=True)
     else:
-        subprocess.run("podman stop localhost/$maple_container", shell=True, check=True)
-        subprocess.run("podman rm localhost/$maple_container", shell=True, check=True)
+        subprocess.run("podman stop $maple_container", shell=True, check=True)
+        subprocess.run("podman rm $maple_container", shell=True, check=True)
 
 
 def shell():
@@ -55,7 +56,7 @@ def shell():
     Get shell access to the local container
     """
     subprocess.run(
-        "podman exec -it --workdir $maple_target localhost/$maple_container bash",
+        "podman exec -it --workdir $maple_target $maple_container bash",
         shell=True,
         check=True,
     )
@@ -79,7 +80,7 @@ def run(command, options=""):
         f"podman run {options} --name $maple_container \
                                        --mount type=bind,source=$maple_source,target=$maple_target \
                                        --workdir $maple_target \
-                                       $maple_image bash -c {command}",
+                                       localhost/$maple_image bash -c {command}",
         shell=True,
         check=True,
     )

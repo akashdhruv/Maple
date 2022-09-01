@@ -11,11 +11,11 @@ from . import maple
 
 # Setup environment
 #
-@maple.command(name="setup")
+@maple.command(name="config")
 @click.argument("file")
-def setup(file):
+def config(file):
     """
-    Setup a Maplefile from user provided path to file
+    Setup a configuration file from user provided path
     """
     if file == "Maplefile":
         print("Cannot link a file to itself. Operation not permitted. ABORTING")

@@ -13,6 +13,10 @@ def build(as_root=False, cmd_list=None):
     as_root    : Build image as root (True/False)
     cmd_list   : List of build commands
     """
+    if as_root:
+        print("Rootless mode only with singularity backend. ABORTING")
+        raise ValueError()
+
     # Create image directory
     subprocess.run(
         f'mkdir -pv {os.getenv("maple_home")}/images', shell=True, check=True

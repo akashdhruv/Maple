@@ -15,6 +15,10 @@ def build(as_root=False, cmd_list=None):
     as_root    : Build image as root (True/False)
     cmd_list   : Command list for build
     """
+    if as_root:
+        print("Rootless mode only with podman backend. ABORTING")
+        raise ValueError()
+
     # Create a context directory
     subprocess.run(
         f'mkdir -pv {os.getenv("maple_home")}/context', shell=True, check=True
@@ -38,9 +42,11 @@ def build(as_root=False, cmd_list=None):
             for command in cmd_list:
                 podmanfile.write(f"\nRUN {command}\n")
 
+    print(f"Building on platform: {str(os.getenv('maple_platform'))}")
+
     # execute podman build
     subprocess.run(
-        f"podman build -t $maple_image --no-cache \
+        f"podman build --platform $maple_platform -t $maple_image --no-cache \
                                    --build-arg maple_base=$maple_base \
                                    --build-arg maple_user=$maple_user \
                                    --build-arg maple_uid=$maple_uid \
@@ -125,7 +131,7 @@ def scan(image):
     image : image name
 
     """
-    print("[maple.image.scan] not available for podman backend")
+    subprocess.run(f"podman scan {image}", shell=True, check=True)
 
 
 def delete():
