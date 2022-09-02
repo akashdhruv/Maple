@@ -4,7 +4,7 @@ import os
 import subprocess
 
 
-def build(as_root=False, cmd_list=None):
+def build(as_root=False, cmd_list=None, env_list=None):
     """
     Builds a local image from remote image
 
@@ -12,6 +12,7 @@ def build(as_root=False, cmd_list=None):
     ---------
     as_root    : Build image as root (True/False)
     cmd_list   : List of build commands
+    env_list   : List of persistent environment variables
     """
     if as_root:
         print("Rootless mode only with singularity backend. ABORTING")

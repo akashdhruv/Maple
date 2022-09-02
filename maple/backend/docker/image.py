@@ -6,7 +6,7 @@ import subprocess
 from . import container
 
 
-def build(as_root=False, cmd_list=None):
+def build(as_root=False, cmd_list=None, env_list=None):
     """
     Builds a local image from remote image
 
@@ -14,6 +14,7 @@ def build(as_root=False, cmd_list=None):
     ---------
     as_root    : Build image as root (True/False)
     cmd_list   : Command list for build
+    env_list   : List of persistent environment variables
     """
     # Create a context directory
     subprocess.run(
@@ -39,6 +40,9 @@ def build(as_root=False, cmd_list=None):
     )
 
     with open(f"{dockerfile_build}", "a") as dockerfile:  # append mode
+        if env_list:
+            for variable in env_list:
+                dockerfile.write(f"\nENV {variable}\n")
         if cmd_list:
             for command in cmd_list:
                 dockerfile.write(f"\nRUN {command}\n")

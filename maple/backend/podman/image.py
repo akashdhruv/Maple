@@ -6,7 +6,7 @@ import subprocess
 from . import container
 
 
-def build(as_root=False, cmd_list=None):
+def build(as_root=False, cmd_list=None, env_list=None):
     """
     Builds a local image from remote image
 
@@ -14,6 +14,7 @@ def build(as_root=False, cmd_list=None):
     ---------
     as_root    : Build image as root (True/False)
     cmd_list   : Command list for build
+    env_list   : List of persistent environment variables
     """
     if as_root:
         print("Rootless mode only with podman backend. ABORTING")
@@ -25,22 +26,25 @@ def build(as_root=False, cmd_list=None):
     )
 
     # Set Dockerfile for the build
-    podmanfile_build = (
+    dockerfile_build = (
         os.getenv("maple_home") + "/context/Dockerfile." + os.getenv("maple_image")
     )
 
     # Select the base and user Dockerfile
-    podmanfile_base = os.getenv("maple_dir") + "/resources/Dockerfile.base"
+    dockerfile_base = os.getenv("maple_dir") + "/resources/Dockerfile.base"
 
     # Populate Dockerfile for the build
     subprocess.run(
-        f"cat {podmanfile_base} > {podmanfile_build}", shell=True, check=True
+        f"cat {dockerfile_base} > {dockerfile_build}", shell=True, check=True
     )
 
-    with open(f"{podmanfile_build}", "a") as podmanfile:  # append mode
+    with open(f"{dockerfile_build}", "a") as dockerfile:  # append mode
+        if env_list:
+            for variable in env_list:
+                dockerfile.write(f"\nENV {variable}\n")
         if cmd_list:
             for command in cmd_list:
-                podmanfile.write(f"\nRUN {command}\n")
+                dockerfile.write(f"\nRUN {command}\n")
 
     print(f"Building on platform: {str(os.getenv('maple_platform'))}")
 
@@ -51,7 +55,7 @@ def build(as_root=False, cmd_list=None):
                                    --build-arg maple_user=$maple_user \
                                    --build-arg maple_uid=$maple_uid \
                                    --build-arg maple_gid=$maple_gid \
-                                   --file={podmanfile_build} \
+                                   --file={dockerfile_build} \
                                    $maple_home/context",
         shell=True,
         check=True,

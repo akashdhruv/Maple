@@ -38,11 +38,14 @@ def build(image, base, as_root):
     Maplefile = os.path.exists("Maplefile")
 
     cmd_list = []
+    env_list = []
     if Maplefile:
         if "build" in toml.load("Maplefile"):
             cmd_list = toml.load("Maplefile")["build"]
+        if "environ" in toml.load("Maplefile"):
+            env_list = toml.load("Maplefile")["environ"]
 
-    Backend().image.build(as_root, cmd_list)
+    Backend().image.build(as_root, cmd_list, env_list)
 
 
 # Pull base image from a remote registry

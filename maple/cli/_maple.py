@@ -29,7 +29,7 @@ def maple(docker, singularity, podman):
 
     if Maplefile:
         for key, value in toml.load("Maplefile").items():
-            if key not in ["build", "publish"]:
+            if key not in ["build", "publish", "environ"]:
                 os.environ["maple_" + key] = str(value)
 
     if not os.getenv("maple_backend"):
