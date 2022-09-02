@@ -12,12 +12,12 @@ from . import maple
 # Setup environment
 #
 @maple.command(name="config")
-@click.argument("file")
-def config(file):
+@click.argument("maplefile")
+def config(maplefile):
     """
     Setup a configuration file from user provided path
     """
-    if file == "Maplefile":
+    if maplefile == "Maplefile":
         print("Cannot link a file to itself. Operation not permitted. ABORTING")
         raise ValueError()
 
@@ -28,12 +28,12 @@ def config(file):
         if overwrite == "y" or overwrite == "Y":
             print("OVERWRITING")
             subprocess.run(
-                f"rm Maplefile && ln -s {file} Maplefile", shell=True, check=True
+                f"rm Maplefile && ln -s {maplefile} Maplefile", shell=True, check=True
             )
         else:
             print("SKIPPING")
     else:
-        subprocess.run(f"ln -s {file} Maplefile", shell=True, check=True)
+        subprocess.run(f"ln -s {maplefile} Maplefile", shell=True, check=True)
 
 
 # Login to remote registry
