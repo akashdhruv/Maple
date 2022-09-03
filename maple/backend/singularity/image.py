@@ -4,7 +4,7 @@ import os
 import subprocess
 
 
-def build(as_root=False, cmd_list=None, env_list=None):
+def build(as_root=False, cmd_list=None, env_list=None, options=""):
     """
     Builds a local image from remote image
 

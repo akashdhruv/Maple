@@ -2,3 +2,5 @@
 ARG maple_base
 FROM ${maple_base}
 
+ARG maple_target
+WORKDIR ${maple_target}

@@ -6,7 +6,7 @@ import subprocess
 from . import container
 
 
-def build(as_root=False, cmd_list=None, env_list=None):
+def build(as_root=False, cmd_list=None, env_list=None, options=""):
     """
     Builds a local image from remote image
 
@@ -55,13 +55,15 @@ def build(as_root=False, cmd_list=None, env_list=None):
 
     # execute docker build
     subprocess.run(
-        f"docker build --platform $maple_platform -t $maple_image --no-cache \
-                                   --build-arg maple_base=$maple_base \
-                                   --build-arg maple_user=$maple_user \
-                                   --build-arg maple_uid=$maple_uid \
-                                   --build-arg maple_gid=$maple_gid \
-                                   --file={dockerfile_build} \
-                                   $maple_home/context",
+        f"docker build {options} --platform $maple_platform -t $maple_image --no-cache \
+                                 --volume $maple_source:$maple_target \
+                                 --build-arg maple_target=$maple_target \
+                                 --build-arg maple_base=$maple_base \
+                                 --build-arg maple_user=$maple_user \
+                                 --build-arg maple_uid=$maple_uid \
+                                 --build-arg maple_gid=$maple_gid \
+                                 --file={dockerfile_build} \
+                                 $maple_home/context",
         shell=True,
         check=True,
     )

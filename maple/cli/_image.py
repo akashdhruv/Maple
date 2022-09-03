@@ -26,7 +26,8 @@ def image():
 @click.argument("image", default="None")
 @click.option("--base", "-B", default="None", help="base image name")
 @click.option("--as-root", is_flag=True, help="flag to build image as root")
-def build(image, base, as_root):
+@click.option("--options", "-o", default="", help="run options")
+def build(image, base, as_root, options):
     """
     Builds a local image from a base image
     """
@@ -45,7 +46,7 @@ def build(image, base, as_root):
         if "environ" in toml.load("Maplefile"):
             env_list = toml.load("Maplefile")["environ"]
 
-    Backend().image.build(as_root, cmd_list, env_list)
+    Backend().image.build(as_root, cmd_list, env_list, options)
 
 
 # Pull base image from a remote registry

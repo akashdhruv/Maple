@@ -23,9 +23,10 @@ def pour(options=""):
     options : string of options
     """
     process = subprocess.run(
-        f"docker run --entrypoint '/bin/bash' {options} -dit --platform $maple_platform --name $maple_container \
-                             --mount type=bind,source=$maple_source,target=$maple_target \
-                            $maple_image",
+        f"docker run --entrypoint '/bin/bash' {options} -dit \
+                     --platform $maple_platform --name $maple_container \
+                     --mount type=bind,source=$maple_source,target=$maple_target \
+                     $maple_image",
         shell=True,
         check=True,
     )
@@ -76,10 +77,11 @@ def run(command, options=""):
 
     command = f'"{command}"'
     process = subprocess.run(
-        f"docker run --entrypoint '/bin/bash' {options} --name $maple_container \
-                                       --mount type=bind,source=$maple_source,target=$maple_target \
-                                       --workdir $maple_target \
-                                       $maple_image -c {command}",
+        f"docker run --entrypoint '/bin/bash' {options} \
+                     --name $maple_container \
+                     --mount type=bind,source=$maple_source,target=$maple_target \
+                     --workdir $maple_target \
+                     $maple_image -c {command}",
         shell=True,
         check=True,
     )
