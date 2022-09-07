@@ -56,8 +56,7 @@ def build(as_root=False, cmd_list=None, env_list=None, options=""):
     # execute docker build
     subprocess.run(
         f"docker build {options} --platform $maple_platform -t $maple_image --no-cache \
-                                 --volume $maple_source:$maple_target \
-                                 --build-arg maple_target=$maple_target \
+                                 --build-arg maple_workdir=/ \
                                  --build-arg maple_base=$maple_base \
                                  --build-arg maple_user=$maple_user \
                                  --build-arg maple_uid=$maple_uid \
