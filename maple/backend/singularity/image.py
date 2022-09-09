@@ -112,5 +112,5 @@ def delete():
     Delete an image
     """
     subprocess.run(
-        "rm -f -v $maple_home/images/$maple_image.sif", shell=True, check=True
+        "rm -r -f -v $maple_home/images/$maple_image.sif", shell=True, check=True
     )

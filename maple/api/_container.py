@@ -50,3 +50,11 @@ class Container(Maple):
         image.setenv()
         self.setenv()
         Backend().container.run(command, options)
+
+
+def Run(name, image, command, options=""):
+    """
+    Standalone run command
+    """
+    container = Container(name=name)
+    container.run(image, command, options)

@@ -102,7 +102,7 @@ def execute(command):
     """
     command = f'"{command}"'
     process = subprocess.run(
-        f"docker exec ---entrypoint '/bin/bash' -workdir $maple_target $maple_container -c {command}",
+        f"docker exec --workdir $maple_target $maple_container bash -c {command}",
         shell=True,
         check=True,
     )

@@ -32,6 +32,9 @@ def maple(docker, singularity, podman):
             if key not in ["build", "publish", "environ"]:
                 os.environ["maple_" + key] = str(value)
 
+    if not os.getenv("maple_image"):
+        os.environ["maple_image"] = str(os.getenv("maple_container"))
+
     if not os.getenv("maple_backend"):
         os.environ["maple_backend"] = "docker"
 

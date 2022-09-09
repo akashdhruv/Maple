@@ -25,6 +25,7 @@ class Image(Maple):
         self._name = "ubuntu"
         self._base = "ubuntu:latest"
         self._backend = "docker"
+        self._platform = "linux/amd64"
 
         super().__init__(self.__dict__, attributes)
 
