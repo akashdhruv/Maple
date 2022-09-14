@@ -6,7 +6,14 @@ import subprocess
 from . import container
 
 
-def build(as_root=False, cmd_list=None, env_list=None, options=""):
+def build(
+    as_root=False,
+    options="",
+    cmd_list=None,
+    env_list=None,
+    *args,
+    **kwargs,
+):
     """
     Builds a local image from remote image
 

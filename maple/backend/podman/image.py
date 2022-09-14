@@ -6,7 +6,15 @@ import subprocess
 from . import container
 
 
-def build(as_root=False, cmd_list=None, env_list=None, options=""):
+def build(
+    as_root=False,
+    options="",
+    cmd_list=None,
+    env_list=None,
+    create_tar=False,
+    *args,
+    **kwargs,
+):
     """
     Builds a local image from remote image
 
@@ -62,6 +70,13 @@ def build(as_root=False, cmd_list=None, env_list=None, options=""):
         shell=True,
         check=True,
     )
+
+    if create_tar:
+        subprocess.run(
+            "podman save -o $maple_image.tar localhost/$maple_image",
+            shell=True,
+            check=True,
+        )
 
     # subprocess.run('rm $maple_home/context/Dockerfile.build', shell=True, check=True)
 

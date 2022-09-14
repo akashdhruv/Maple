@@ -4,7 +4,7 @@ import os
 import subprocess
 
 
-def build(as_root=False, cmd_list=None, env_list=None, options=""):
+def build(as_root=False, *args, **kwargs):
     """
     Builds a local image from remote image
 
@@ -25,10 +25,12 @@ def build(as_root=False, cmd_list=None, env_list=None, options=""):
 
     # Build image
     subprocess.run(
-        "singularity build --sandbox $maple_image.sif $maple_base", shell=True, check=True
+        "singularity build --sandbox --fix-perms $maple_image.sif $maple_base",
+        shell=True,
+        check=True,
     )
     subprocess.run(
-        "mv $maple_image.sif $maple_home/images/$maple_image.sif",
+        "rm -rf $maple_home/images/$maple_image.sif && mv $maple_image.sif $maple_home/images/$maple_image.sif",
         shell=True,
         check=True,
     )
