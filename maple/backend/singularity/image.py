@@ -4,7 +4,7 @@ import os
 import subprocess
 
 
-def build(as_root=False, *args, **kwargs):
+def build(as_root=False, options="", cmd_list=None, env_list=None, create_tar=False):
     """
     Builds a local image from remote image
 
@@ -15,8 +15,17 @@ def build(as_root=False, *args, **kwargs):
     env_list   : List of persistent environment variables
     """
     if as_root:
-        print("Rootless mode only with singularity backend. ABORTING")
+        print("[MAPLE ERROR]: Rootless mode only with singularity backend. ABORTING")
         raise ValueError()
+
+    if options:
+        print("[MAPLE WARNING]: options will not be honored")
+    if cmd_list:
+        print("[MAPLE WARNING]: build commands from Maplefile will not be honored")
+    if env_list:
+        print("[MAPLE WARNING]: environment vars from Maplefile will not be honored")
+    if create_tar:
+        print("[MAPLE WARNING]: tar file for image will not be created")
 
     # Create image directory
     subprocess.run(

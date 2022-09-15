@@ -9,7 +9,8 @@ def commit():
     """
     Commit changes from local container to local image
     """
-    print("[maple.container.commit] not available for singularity backend")
+    print("[MAPLE ERROR]: container commit not available for singularity backend")
+    raise NotImplementedError()
 
 
 def pour(options="--no-home"):
@@ -112,7 +113,8 @@ def publish(cmd_list=None):
     ---------
     cmd_list: list of commands to publish
     """
-    print("[maple.container.publish] not available for singularity backend")
+    print("[MAPLE ERROR]: container publish not available for singularity backend")
+    raise NotImplementedError()
 
 
 def notebook(port="4321"):

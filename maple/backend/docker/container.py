@@ -22,6 +22,9 @@ def pour(options=""):
     ---------
     options : string of options
     """
+    if os.getenv("maple_mpi"):
+        options = options + "--mount type=bind,source=$maple_mpi,target=$maple_mpi"
+
     process = subprocess.run(
         f"docker run --entrypoint '/bin/bash' {options} -dit \
                      --platform $maple_platform --name $maple_container \
@@ -74,6 +77,9 @@ def run(command, options=""):
     os.environ["maple_container"] = (
         os.getenv("maple_container") + "_" + str(random.randint(1111, 9999))
     )
+
+    if os.getenv("maple_mpi"):
+        options = options + "--mount type=bind,source=$maple_mpi,target=$maple_mpi"
 
     command = f'"{command}"'
     process = subprocess.run(

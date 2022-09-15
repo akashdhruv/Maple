@@ -6,14 +6,7 @@ import subprocess
 from . import container
 
 
-def build(
-    as_root=False,
-    options="",
-    cmd_list=None,
-    env_list=None,
-    *args,
-    **kwargs,
-):
+def build(as_root=False, options="", cmd_list=None, env_list=None, create_tar=False):
     """
     Builds a local image from remote image
 
@@ -60,6 +53,10 @@ def build(
 
     print(f"Building on platform: {str(os.getenv('maple_platform'))}")
 
+    print(
+        "[MAPLE WARNING]: source cannot be mounted inside container target during docker build"
+    )
+
     # execute docker build
     subprocess.run(
         f"docker build {options} --platform $maple_platform -t $maple_image --no-cache \
@@ -68,11 +65,19 @@ def build(
                                  --build-arg maple_user=$maple_user \
                                  --build-arg maple_uid=$maple_uid \
                                  --build-arg maple_gid=$maple_gid \
+                                 --build-arg maple_mpi=$maple_mpi \
                                  --file={dockerfile_build} \
                                  $maple_home/context",
         shell=True,
         check=True,
     )
+
+    if create_tar:
+        subprocess.run(
+            "docker save -o $maple_image.tar $maple_image",
+            shell=True,
+            check=True,
+        )
 
     # subprocess.run('rm $maple_home/context/Dockerfile.build', shell=True, check=True)
 

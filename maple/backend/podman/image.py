@@ -6,15 +6,7 @@ import subprocess
 from . import container
 
 
-def build(
-    as_root=False,
-    options="",
-    cmd_list=None,
-    env_list=None,
-    create_tar=False,
-    *args,
-    **kwargs,
-):
+def build(as_root=False, options="", cmd_list=None, env_list=None, create_tar=False):
     """
     Builds a local image from remote image
 
@@ -25,7 +17,7 @@ def build(
     env_list   : List of persistent environment variables
     """
     if as_root:
-        print("Rootless mode only with podman backend. ABORTING")
+        print("[MAPLE ERROR]: Rootless mode only with podman backend. ABORTING")
         raise ValueError()
 
     # Create a context directory
@@ -56,6 +48,9 @@ def build(
 
     print(f"Building on platform: {str(os.getenv('maple_platform'))}")
 
+    if os.getenv("maple_mpi"):
+        options = options + "--volume $maple_mpi:$maple_mpi"
+
     # execute podman build
     subprocess.run(
         f"podman build {options} --platform $maple_platform -t $maple_image --no-cache \
@@ -65,6 +60,7 @@ def build(
                                  --build-arg maple_user=$maple_user \
                                  --build-arg maple_uid=$maple_uid \
                                  --build-arg maple_gid=$maple_gid \
+                                 --build-arg maple_mpi=$maple_mpi \
                                  --file={dockerfile_build} \
                                  $maple_home/context",
         shell=True,

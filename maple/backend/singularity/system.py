@@ -7,7 +7,8 @@ def login():
     """
     Login to container account
     """
-    print("[maple.system.login] command not available for singularity backend")
+    print("[MAPLE ERROR]: system login not available for singularity backend")
+    raise NotImplementedError()
 
 
 def prune():
