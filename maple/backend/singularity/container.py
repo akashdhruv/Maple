@@ -21,6 +21,9 @@ def pour(options="--no-home"):
     ---------
     options : string of options
     """
+    if os.getenv("maple_mpi"):
+        options = options + "--bind $maple_mpi:$maple_mpi"
+
     process = subprocess.run(
         f"singularity instance start {options} --bind $maple_source:$maple_target \
                                               $maple_home/images/$maple_image.sif \
@@ -72,6 +75,9 @@ def run(command, options=""):
     os.environ["maple_container"] = (
         os.getenv("maple_container") + "_" + str(random.randint(1111, 9999))
     )
+
+    if os.getenv("maple_mpi"):
+        options = options + "--bind $maple_mpi:$maple_mpi"
 
     command = f'"{command}"'
     process = subprocess.run(
