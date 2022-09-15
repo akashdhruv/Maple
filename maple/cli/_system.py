@@ -23,57 +23,41 @@ def config(maplefile):
     \b
     base      : Name of the base image either local or remote.
                 Include proper prefix when using images from 
-                different registries
-                \b
-                base = "ubuntu:latest"
+                different registries - base = "ubuntu:latest"
     \b
     platform  : Hardware platform (amd64, ppc64le, etc.). 
-                Default is amd64 
-                \b
-                platform = "linux/ppc64le"
+                Default is amd64 - platform = "linux/ppc64le"
     \b
-    container : Name of the local container
-                \b
+    container : Name of the local container - 
                 container = "local_container"
     \b
     image     : Name of the local image.
-                Default is taken from 'container' name
-                \b
+                Default is taken from 'container' name - 
                 image = "local_image"
     \b
     source    : Source directory to mount inside container.
-                Default is $PWD
-                \b
-                source = "/path/to/source"
+                Default is $PWD - source = "/path/to/source"
     \b
     target    : Name of the target directory inside container
-                to mount 'source'. Default is '/home/mount'
-                \b
+                to mount 'source'. Default is '/home/mount' - 
                 target = "/path/to/target"
     \b
     mpi       : Path to host MPI directory. If this is not
                 defined, MPI installed inside the container 
-                will be used
-                \b
-                mpi = "/path/to/mpi"
+                will be used -  mpi = "/path/to/mpi"
     \b
     environ   : A list of enivronment varibles to be defined
-                inside the container.
-                \b 
+                inside the container - 
                 environ = ["VAR1=<definition>","VAR2=<definition>"]                
     \b
-    build     : A list of commands to be executed during build
-                \b
+    build     : A list of commands to be executed during build - 
                 build = ["echo Add a list of build commands"]
     \b
     publish   : A list of commands to be executed to update
-                an image invoked during 'maple container publish'
-                \b
+                an image invoked during 'maple container publish' - 
                 publish = ["echo Add a list of publish commands"]
     \b
-    backend   : Backend. Default is docker
-                \b
-                backend = "docker"
+    backend   : Backend. Default is docker - backend = "docker"
     """
     if maplefile == "Maplefile":
         print("Cannot link a file to itself. Operation not permitted. ABORTING")
