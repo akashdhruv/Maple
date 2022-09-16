@@ -1,6 +1,7 @@
 """Python API for maple"""
 
 import os
+import toml
 
 
 class Maple:
@@ -14,7 +15,16 @@ class Maple:
     """
 
     def __init__(self, default_attributes, attributes):
+
         super().__init__()
+
+        Maplefile = os.path.exists("Maplefile")
+
+        if Maplefile:
+            for key, value in toml.load("Maplefile").items():
+                if key in ["mpi", "platform", "backend"]:
+                    default_attributes["_" + key] = str(value)
+
         self._set_attributes(default_attributes, attributes)
 
     def setenv(self):

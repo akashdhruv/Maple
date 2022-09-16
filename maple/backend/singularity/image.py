@@ -4,7 +4,7 @@ import os
 import subprocess
 
 
-def build(as_root=False, cmd_list=None):
+def build(as_root=False, options="", cmd_list=None, env_list=None, create_tar=False):
     """
     Builds a local image from remote image
 
@@ -12,7 +12,21 @@ def build(as_root=False, cmd_list=None):
     ---------
     as_root    : Build image as root (True/False)
     cmd_list   : List of build commands
+    env_list   : List of persistent environment variables
     """
+    if as_root:
+        print("[MAPLE ERROR]: Rootless mode only with singularity backend. ABORTING")
+        raise ValueError()
+
+    if options:
+        print("[MAPLE WARNING]: options will not be honored")
+    if cmd_list:
+        print("[MAPLE WARNING]: build commands from Maplefile will not be honored")
+    if env_list:
+        print("[MAPLE WARNING]: environment vars from Maplefile will not be honored")
+    if create_tar:
+        print("[MAPLE WARNING]: tar file for image will not be created")
+
     # Create image directory
     subprocess.run(
         f'mkdir -pv {os.getenv("maple_home")}/images', shell=True, check=True
@@ -20,10 +34,12 @@ def build(as_root=False, cmd_list=None):
 
     # Build image
     subprocess.run(
-        "singularity build $maple_image.sif $maple_base", shell=True, check=True
+        "singularity build --sandbox --fix-perms $maple_image.sif $maple_base",
+        shell=True,
+        check=True,
     )
     subprocess.run(
-        "mv $maple_image.sif $maple_home/images/$maple_image.sif",
+        "rm -rf $maple_home/images/$maple_image.sif && mv $maple_image.sif $maple_home/images/$maple_image.sif",
         shell=True,
         check=True,
     )
@@ -107,5 +123,5 @@ def delete():
     Delete an image
     """
     subprocess.run(
-        "rm -f -v $maple_home/images/$maple_image.sif", shell=True, check=True
+        "rm -r -f -v $maple_home/images/$maple_image.sif", shell=True, check=True
     )

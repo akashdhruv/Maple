@@ -25,8 +25,17 @@ class Image(Maple):
         self._name = "ubuntu"
         self._base = "ubuntu:latest"
         self._backend = "docker"
+        self._target = None
+        self._source = None
 
         super().__init__(self.__dict__, attributes)
+
+        # Condition to check if target and source directories are defined in the Maplefile
+        # assign default if they are not, and deal with exceptions
+        if not self._target:
+            self._target = "/home/mount"
+        if not self._source:
+            self._source = os.getenv("PWD")
 
         # Set values for user and group
         self._uid = str(os.getuid())
@@ -43,12 +52,16 @@ class Image(Maple):
         """
         return self._name
 
-    def build(self):
+    def build(self, command=None, options=""):
         """
         Builds a local image from base image
         """
+        cmd_list = None
+        if command:
+            cmd_list = [command]
+
         self.setenv()
-        Backend().image.build()
+        Backend().image.build(options=options, cmd_list=cmd_list)
 
     def squash(self):
         """

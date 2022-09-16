@@ -47,6 +47,14 @@ class Container(Maple):
         """
         Run a container and commit to image
         """
-        image.setenv()
         self.setenv()
+        image.setenv()
         Backend().container.run(command, options)
+
+
+def Run(name, image, command, options=""):
+    """
+    Standalone run command
+    """
+    container = Container(name=name)
+    container.run(image, command, options)

@@ -25,8 +25,10 @@ def image():
 @image.command(name="build")
 @click.argument("image", default="None")
 @click.option("--base", "-B", default="None", help="base image name")
+@click.option("--options", "-o", default="", help="run options")
 @click.option("--as-root", is_flag=True, help="flag to build image as root")
-def build(image, base, as_root):
+@click.option("--create-tar", is_flag=True, help="flag to save image in tar ball")
+def build(image, base, options, as_root, create_tar):
     """
     Builds a local image from a base image
     """
@@ -38,11 +40,14 @@ def build(image, base, as_root):
     Maplefile = os.path.exists("Maplefile")
 
     cmd_list = []
+    env_list = []
     if Maplefile:
         if "build" in toml.load("Maplefile"):
             cmd_list = toml.load("Maplefile")["build"]
+        if "environ" in toml.load("Maplefile"):
+            env_list = toml.load("Maplefile")["environ"]
 
-    Backend().image.build(as_root, cmd_list)
+    Backend().image.build(as_root, options, cmd_list, env_list, create_tar)
 
 
 # Pull base image from a remote registry

@@ -1,19 +1,20 @@
-"""Python API for singularity interface in maple"""
+"""Python API for podman interface in maple"""
 
 import os
-import random
 import subprocess
+import random
 
 
 def commit():
     """
     Commit changes from local container to local image
     """
-    print("[MAPLE ERROR]: container commit not available for singularity backend")
-    raise NotImplementedError()
+    subprocess.run(
+        "podman commit $maple_container $maple_image", shell=True, check=True
+    )
 
 
-def pour(options="--no-home"):
+def pour(options=""):
     """
     Pour local image in a container, opposite of maple rinse
 
@@ -22,12 +23,16 @@ def pour(options="--no-home"):
     options : string of options
     """
     if os.getenv("maple_mpi"):
-        options = options + "--bind $maple_mpi:$maple_mpi"
+        options = options + " --mount type=bind,source=$maple_mpi,target=$maple_mpi"
+
+    if os.getenv("maple_platform"):
+        options = options + " --platform $maple_platform"
 
     process = subprocess.run(
-        f"singularity instance start {options} --bind $maple_source:$maple_target \
-                                              $maple_home/images/$maple_image.sif \
-                                              $maple_container",
+        f"podman run --entrypoint '/bin/bash' {options} -dit \
+                     --name $maple_container \
+                     --mount type=bind,source=$maple_source,target=$maple_target \
+                     localhost/$maple_image",
         shell=True,
         check=True,
     )
@@ -45,11 +50,11 @@ def rinse(rinse_all=False):
     rinse_all : (True/False) flag to rinse all container
     """
     if rinse_all:
-        subprocess.run("singularity instance stop --all", shell=True, check=True)
+        subprocess.run("podman stop $(podman ps -aq)", shell=True, check=True)
+        subprocess.run("podman rm $(podman ps -aq)", shell=True, check=True)
     else:
-        subprocess.run(
-            "singularity instance stop $maple_container", shell=True, check=True
-        )
+        subprocess.run("podman stop $maple_container", shell=True, check=True)
+        subprocess.run("podman rm $maple_container", shell=True, check=True)
 
 
 def shell():
@@ -57,7 +62,7 @@ def shell():
     Get shell access to the local container
     """
     subprocess.run(
-        "singularity shell --pwd $maple_target instance://$maple_container",
+        "podman exec -it --workdir $maple_target $maple_container bash",
         shell=True,
         check=True,
     )
@@ -77,16 +82,23 @@ def run(command, options=""):
     )
 
     if os.getenv("maple_mpi"):
-        options = options + "--bind $maple_mpi:$maple_mpi"
+        options = options + " --mount type=bind,source=$maple_mpi,target=$maple_mpi"
+
+    if os.getenv("maple_platform"):
+        options = options + " --platform $maple_platform"
 
     command = f'"{command}"'
     process = subprocess.run(
-        f"singularity exec {options} --no-home --bind $maple_source:$maple_target \
-                                              --pwd  $maple_target \
-                               $maple_home/images/$maple_image.sif bash -c {command}",
+        f"podman run --entrypoint '/bin/bash' {options} \
+                     --name $maple_container \
+                     --mount type=bind,source=$maple_source,target=$maple_target \
+                     --workdir $maple_target \
+                     localhost/$maple_image -c {command}",
         shell=True,
         check=True,
     )
+
+    rinse()
 
     if process.returncode != 0:
         raise Exception("[maple] Error inside container")
@@ -98,12 +110,11 @@ def execute(command):
 
     Arguments
     ---------
-    command : command string
+    command: string of command to execute
     """
     command = f'"{command}"'
     process = subprocess.run(
-        f"singularity exec --pwd $maple_target \
-                          instance://$maple_container bash -c {command}",
+        f"podman exec --workdir $maple_target $maple_container bash -c {command}",
         shell=True,
         check=True,
     )
@@ -119,8 +130,19 @@ def publish(cmd_list=None):
     ---------
     cmd_list: list of commands to publish
     """
-    print("[MAPLE ERROR]: container publish not available for singularity backend")
-    raise NotImplementedError()
+    pour()
+
+    result_list = []
+
+    if cmd_list:
+        for command in cmd_list:
+            result_list.append(execute(command))
+
+    commit()
+    rinse()
+
+    if not all(result == 0 for result in result_list):
+        raise Exception("[maple] Error inside container")
 
 
 def notebook(port="4321"):
@@ -129,13 +151,15 @@ def notebook(port="4321"):
 
     Arguments
     ---------
+    image : image name
     port  : port id ('4321')
+
     """
     os.environ["maple_container"] = (
         os.getenv("maple_container") + "_" + str(random.randint(1111, 9999))
     )
 
-    pour(options="--cleanenv")
+    pour(options=f"-p {port}:{port}")
     result = execute(f"jupyter notebook --port={port} --no-browser --ip=0.0.0.0")
     rinse()
 
@@ -147,4 +171,4 @@ def list():
     """
     List all containers on system
     """
-    subprocess.run("singularity instance list", shell=True, check=True)
+    subprocess.run("podman container ls -a", shell=True, check=True)

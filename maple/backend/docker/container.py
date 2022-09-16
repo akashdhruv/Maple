@@ -22,10 +22,17 @@ def pour(options=""):
     ---------
     options : string of options
     """
+    if os.getenv("maple_mpi"):
+        options = options + " --mount type=bind,source=$maple_mpi,target=$maple_mpi"
+
+    if os.getenv("maple_platform"):
+        options = options + " --platform $maple_platform"
+
     process = subprocess.run(
-        f"docker run {options} -dit --name $maple_container \
-                             --mount type=bind,source=$maple_source,target=$maple_target \
-                            $maple_image bash",
+        f"docker run --entrypoint '/bin/bash' {options} -dit \
+                     --name $maple_container \
+                     --mount type=bind,source=$maple_source,target=$maple_target \
+                     $maple_image",
         shell=True,
         check=True,
     )
@@ -74,12 +81,19 @@ def run(command, options=""):
         os.getenv("maple_container") + "_" + str(random.randint(1111, 9999))
     )
 
+    if os.getenv("maple_mpi"):
+        options = options + " --mount type=bind,source=$maple_mpi,target=$maple_mpi"
+
+    if os.getenv("maple_platform"):
+        options = options + " --platform $maple_platform"
+
     command = f'"{command}"'
     process = subprocess.run(
-        f"docker run {options} --name $maple_container \
-                                       --mount type=bind,source=$maple_source,target=$maple_target \
-                                       --workdir $maple_target \
-                                       $maple_image bash -c {command}",
+        f"docker run --entrypoint '/bin/bash' {options} \
+                     --name $maple_container \
+                     --mount type=bind,source=$maple_source,target=$maple_target \
+                     --workdir $maple_target \
+                     $maple_image -c {command}",
         shell=True,
         check=True,
     )

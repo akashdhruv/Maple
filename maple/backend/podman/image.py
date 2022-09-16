@@ -1,4 +1,4 @@
-"""Python API for docker interface in maple"""
+"""Python API for podman interface in maple"""
 
 import os
 import subprocess
@@ -16,6 +16,10 @@ def build(as_root=False, options="", cmd_list=None, env_list=None, create_tar=Fa
     cmd_list   : Command list for build
     env_list   : List of persistent environment variables
     """
+    if as_root:
+        print("[MAPLE ERROR]: Rootless mode only with podman backend. ABORTING")
+        raise ValueError()
+
     # Create a context directory
     subprocess.run(
         f'mkdir -pv {os.getenv("maple_home")}/context', shell=True, check=True
@@ -30,18 +34,17 @@ def build(as_root=False, options="", cmd_list=None, env_list=None, create_tar=Fa
     dockerfile_base = os.getenv("maple_dir") + "/resources/Dockerfile.base"
     dockerfile_mpi = os.getenv("maple_dir") + "/resources/Dockerfile.mpi"
 
-    if as_root:
-        dockerfile_user = os.getenv("maple_dir") + "/resources/Dockerfile.root"
-    else:
-        dockerfile_user = os.getenv("maple_dir") + "/resources/Dockerfile.user"
-
     # Populate Dockerfile for the build
     subprocess.run(
         f"cat {dockerfile_base} > {dockerfile_build}", shell=True, check=True
     )
 
     if os.getenv("maple_mpi"):
-        options = options + " --build-arg maple_mpi=$maple_mpi"
+        options = (
+            options
+            + " --volume $maple_mpi:$maple_mpi"
+            + " --build-arg maple_mpi=$maple_mpi"
+        )
         subprocess.run(
             f"cat {dockerfile_mpi} >> {dockerfile_build}", shell=True, check=True
         )
@@ -58,22 +61,16 @@ def build(as_root=False, options="", cmd_list=None, env_list=None, create_tar=Fa
             for command in cmd_list:
                 dockerfile.write(f"\nRUN {command}\n")
 
+    # execute podman build
     subprocess.run(
-        f"cat {dockerfile_user} >> {dockerfile_build}", shell=True, check=True
-    )
-
-    print(
-        "[MAPLE WARNING]: source cannot be mounted inside container target during docker build"
-    )
-
-    # execute docker build
-    subprocess.run(
-        f"docker build {options} -t $maple_image --no-cache \
-                                 --build-arg maple_workdir=/ \
+        f"podman build {options} -t $maple_image --no-cache \
+                                 --volume $maple_source:$maple_target \
+                                 --build-arg maple_workdir=$maple_target \
                                  --build-arg maple_base=$maple_base \
                                  --build-arg maple_user=$maple_user \
                                  --build-arg maple_uid=$maple_uid \
                                  --build-arg maple_gid=$maple_gid \
+                                 --build-arg maple_mpi=$maple_mpi \
                                  --file={dockerfile_build} \
                                  $maple_home/context",
         shell=True,
@@ -82,7 +79,7 @@ def build(as_root=False, options="", cmd_list=None, env_list=None, create_tar=Fa
 
     if create_tar:
         subprocess.run(
-            "docker save -o $maple_image.tar $maple_image",
+            "podman save -o $maple_image.tar localhost/$maple_image",
             shell=True,
             check=True,
         )
@@ -99,8 +96,8 @@ def pull(target, base):
     target : target image to pull into
     base   : base image in remote registry
     """
-    subprocess.run(f"docker pull {base}", shell=True, check=True)
-    subprocess.run(f"docker tag {base} {target}", shell=True, check=True)
+    subprocess.run(f"podman pull {base}", shell=True, check=True)
+    subprocess.run(f"podman tag {base} {target}", shell=True, check=True)
 
 
 def push(base, target):
@@ -112,8 +109,8 @@ def push(base, target):
     base   : base image
     target : target image to push
     """
-    subprocess.run(f"docker tag {base} {target}", shell=True, check=True)
-    subprocess.run(f"docker push {target}", shell=True, check=True)
+    subprocess.run(f"podman tag {base} {target}", shell=True, check=True)
+    subprocess.run(f"podman push {target}", shell=True, check=True)
 
 
 def tag(base, target):
@@ -125,14 +122,14 @@ def tag(base, target):
     base   : base image
     target : target image to push
     """
-    subprocess.run(f"docker tag {base} {target}", shell=True, check=True)
+    subprocess.run(f"podman tag {base} {target}", shell=True, check=True)
 
 
 def list():
     """
     List all images on system
     """
-    subprocess.run("docker images", shell=True, check=True)
+    subprocess.run("podman images", shell=True, check=True)
 
 
 def squash():
@@ -143,10 +140,10 @@ def squash():
 
     container.pour()
     subprocess.run(
-        "docker export $maple_container > $maple_image.tar", shell=True, check=True
+        "podman export $maple_container > $maple_image.tar", shell=True, check=True
     )
     subprocess.run(
-        "cat $maple_image.tar | docker import - $maple_image", shell=True, check=True
+        "cat $maple_image.tar | podman import - $maple_image", shell=True, check=True
     )
     subprocess.run("rm $maple_image.tar", shell=True, check=True)
     container.rinse()
@@ -161,7 +158,7 @@ def scan(image):
     image : image name
 
     """
-    subprocess.run(f"docker scan {image}", shell=True, check=True)
+    subprocess.run(f"podman scan {image}", shell=True, check=True)
 
 
 def delete():
@@ -169,7 +166,7 @@ def delete():
     Delete an image
     """
     subprocess.run(
-        "docker rmi $maple_image $(docker images --filter dangling=true -q --no-trunc)",
+        "podman rmi $maple_image $(podman images --filter dangling=true -q --no-trunc)",
         shell=True,
         check=True,
     )

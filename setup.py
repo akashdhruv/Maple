@@ -1,4 +1,4 @@
-"""Build and installation script for MapleUtil."""
+"""Build and installation script for PyMaple."""
 
 # standard libraries
 import re
