@@ -23,7 +23,7 @@ class Maple:
         if Maplefile:
             for key, value in toml.load("Maplefile").items():
                 if key in ["mpi", "platform", "backend"]:
-                    default_attributes["_" + key] = attributes[key]
+                    default_attributes["_" + key] = str(value)
 
         self._set_attributes(default_attributes, attributes)
 
