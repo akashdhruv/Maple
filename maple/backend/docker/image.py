@@ -41,13 +41,13 @@ def build(as_root=False, options="", cmd_list=None, env_list=None, create_tar=Fa
     )
 
     if os.getenv("maple_mpi"):
-        options = options + "--build-arg maple_mpi=$maple_mpi"
+        options = options + " --build-arg maple_mpi=$maple_mpi"
         subprocess.run(
             f"cat {dockerfile_mpi} >> {dockerfile_build}", shell=True, check=True
         )
 
     if os.getenv("maple_platform"):
-        options = options + "--platform $maple_platform"
+        options = options + " --platform $maple_platform"
         print(f"Building on platform: {str(os.getenv('maple_platform'))}")
 
     with open(f"{dockerfile_build}", "a") as dockerfile:  # append mode

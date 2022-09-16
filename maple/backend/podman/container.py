@@ -23,10 +23,10 @@ def pour(options=""):
     options : string of options
     """
     if os.getenv("maple_mpi"):
-        options = options + "--mount type=bind,source=$maple_mpi,target=$maple_mpi"
+        options = options + " --mount type=bind,source=$maple_mpi,target=$maple_mpi"
 
     if os.getenv("maple_platform"):
-        options = options + "--platform $maple_platform"
+        options = options + " --platform $maple_platform"
 
     process = subprocess.run(
         f"podman run --entrypoint '/bin/bash' {options} -dit \
@@ -82,10 +82,10 @@ def run(command, options=""):
     )
 
     if os.getenv("maple_mpi"):
-        options = options + "--mount type=bind,source=$maple_mpi,target=$maple_mpi"
+        options = options + " --mount type=bind,source=$maple_mpi,target=$maple_mpi"
 
     if os.getenv("maple_platform"):
-        options = options + "--platform $maple_platform"
+        options = options + " --platform $maple_platform"
 
     command = f'"{command}"'
     process = subprocess.run(
