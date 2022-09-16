@@ -26,6 +26,8 @@ class Image(Maple):
         self._base = "ubuntu:latest"
         self._backend = "docker"
         self._platform = "linux/amd64"
+        self._target = "/home/mount"
+        self._source = os.getenv("PWD")
 
         super().__init__(self.__dict__, attributes)
 
@@ -44,12 +46,16 @@ class Image(Maple):
         """
         return self._name
 
-    def build(self):
+    def build(self, command=None, options=""):
         """
         Builds a local image from base image
         """
+        cmd_list = None
+        if command:
+            cmd_list = [command]
+
         self.setenv()
-        Backend().image.build()
+        Backend().image.build(options=options, cmd_list=cmd_list)
 
     def squash(self):
         """

@@ -25,9 +25,12 @@ def pour(options=""):
     if os.getenv("maple_mpi"):
         options = options + "--mount type=bind,source=$maple_mpi,target=$maple_mpi"
 
+    if os.getenv("maple_platform"):
+        options = options + "--platform $maple_platform"
+
     process = subprocess.run(
         f"podman run --entrypoint '/bin/bash' {options} -dit \
-                     --platform $maple_platform --name $maple_container \
+                     --name $maple_container \
                      --mount type=bind,source=$maple_source,target=$maple_target \
                      localhost/$maple_image",
         shell=True,
@@ -80,6 +83,9 @@ def run(command, options=""):
 
     if os.getenv("maple_mpi"):
         options = options + "--mount type=bind,source=$maple_mpi,target=$maple_mpi"
+
+    if os.getenv("maple_platform"):
+        options = options + "--platform $maple_platform"
 
     command = f'"{command}"'
     process = subprocess.run(

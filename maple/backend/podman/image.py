@@ -38,6 +38,20 @@ def build(as_root=False, options="", cmd_list=None, env_list=None, create_tar=Fa
         f"cat {dockerfile_base} > {dockerfile_build}", shell=True, check=True
     )
 
+    if os.getenv("maple_mpi"):
+        options = (
+            options
+            + "--volume $maple_mpi:$maple_mpi"
+            + "--build-arg maple_mpi=$maple_mpi"
+        )
+        subprocess.run(
+            f"cat {dockerfile_mpi} >> {dockerfile_build}", shell=True, check=True
+        )
+
+    if os.getenv("maple_platform"):
+        options = options + "--platform $maple_platform"
+        print(f"Building on platform: {str(os.getenv('maple_platform'))}")
+
     with open(f"{dockerfile_build}", "a") as dockerfile:  # append mode
         if env_list:
             for variable in env_list:
@@ -46,14 +60,9 @@ def build(as_root=False, options="", cmd_list=None, env_list=None, create_tar=Fa
             for command in cmd_list:
                 dockerfile.write(f"\nRUN {command}\n")
 
-    print(f"Building on platform: {str(os.getenv('maple_platform'))}")
-
-    if os.getenv("maple_mpi"):
-        options = options + "--volume $maple_mpi:$maple_mpi"
-
     # execute podman build
     subprocess.run(
-        f"podman build {options} --platform $maple_platform -t $maple_image --no-cache \
+        f"podman build {options} -t $maple_image --no-cache \
                                  --volume $maple_source:$maple_target \
                                  --build-arg maple_workdir=$maple_target \
                                  --build-arg maple_base=$maple_base \

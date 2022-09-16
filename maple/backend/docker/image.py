@@ -28,6 +28,7 @@ def build(as_root=False, options="", cmd_list=None, env_list=None, create_tar=Fa
 
     # Select the base and user Dockerfile
     dockerfile_base = os.getenv("maple_dir") + "/resources/Dockerfile.base"
+    dockerfile_mpi = os.getenv("maple_dir") + "/resources/Dockerfile.mpi"
 
     if as_root:
         dockerfile_user = os.getenv("maple_dir") + "/resources/Dockerfile.root"
@@ -38,6 +39,16 @@ def build(as_root=False, options="", cmd_list=None, env_list=None, create_tar=Fa
     subprocess.run(
         f"cat {dockerfile_base} > {dockerfile_build}", shell=True, check=True
     )
+
+    if os.getenv("maple_mpi"):
+        options = options + "--build-arg maple_mpi=$maple_mpi"
+        subprocess.run(
+            f"cat {dockerfile_mpi} >> {dockerfile_build}", shell=True, check=True
+        )
+
+    if os.getenv("maple_platform"):
+        options = options + "--platform $maple_platform"
+        print(f"Building on platform: {str(os.getenv('maple_platform'))}")
 
     with open(f"{dockerfile_build}", "a") as dockerfile:  # append mode
         if env_list:
@@ -51,21 +62,18 @@ def build(as_root=False, options="", cmd_list=None, env_list=None, create_tar=Fa
         f"cat {dockerfile_user} >> {dockerfile_build}", shell=True, check=True
     )
 
-    print(f"Building on platform: {str(os.getenv('maple_platform'))}")
-
     print(
         "[MAPLE WARNING]: source cannot be mounted inside container target during docker build"
     )
 
     # execute docker build
     subprocess.run(
-        f"docker build {options} --platform $maple_platform -t $maple_image --no-cache \
+        f"docker build {options} -t $maple_image --no-cache \
                                  --build-arg maple_workdir=/ \
                                  --build-arg maple_base=$maple_base \
                                  --build-arg maple_user=$maple_user \
                                  --build-arg maple_uid=$maple_uid \
                                  --build-arg maple_gid=$maple_gid \
-                                 --build-arg maple_mpi=$maple_mpi \
                                  --file={dockerfile_build} \
                                  $maple_home/context",
         shell=True,
