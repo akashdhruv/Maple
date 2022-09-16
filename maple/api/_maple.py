@@ -15,7 +15,16 @@ class Maple:
     """
 
     def __init__(self, default_attributes, attributes):
+
         super().__init__()
+
+        Maplefile = os.path.exists("Maplefile")
+
+        if Maplefile:
+            for key, value in toml.load("Maplefile").items():
+                if key in ["mpi", "platform", "backend"]:
+                    default_attributes["_" + key] = attributes[key]
+
         self._set_attributes(default_attributes, attributes)
 
     def setenv(self):
@@ -25,13 +34,6 @@ class Maple:
         for key, value in self.__dict__.items():
             if value and key != "_name":
                 os.environ["maple" + key] = str(value)
-
-        Maplefile = os.path.exists("Maplefile")
-
-        if Maplefile:
-            for key, value in toml.load("Maplefile").items():
-                if key in ["mpi", "platform", "backend"]:
-                    os.environ["maple_" + key] = str(value)
 
     def _set_attributes(self, default_attributes, attributes):
         """
