@@ -9,7 +9,7 @@ image = maple.Image()
 container = maple.Container()
 
 # Check basic functionality
-image.build()
+image.build(backend="docker")
 container.run(image, "pwd")
 image.squash()
 image.delete()
