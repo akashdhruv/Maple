@@ -27,6 +27,8 @@ class Image(Maple):
         self._backend = "docker"
         self._target = None
         self._source = None
+        self._backend = "docker"
+        self._platform = "linux/amd64"
 
         super().__init__(self.__dict__, attributes)
 
@@ -51,6 +53,13 @@ class Image(Maple):
         Getter for image name
         """
         return self._name
+
+    @property
+    def platform(self):
+        """
+        Getter for image platform
+        """
+        return self._platform
 
     def build(self, command=None, options=""):
         """
