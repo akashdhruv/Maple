@@ -1,6 +1,7 @@
 """Python API for maple"""
 
 import os
+import toml
 
 
 class Maple:
@@ -24,6 +25,13 @@ class Maple:
         for key, value in self.__dict__.items():
             if value and key != "_name":
                 os.environ["maple" + key] = str(value)
+
+        Maplefile = os.path.exists("Maplefile")
+
+        if Maplefile:
+            for key, value in toml.load("Maplefile").items():
+                if key in ["mpi", "platform", "backend"]:
+                    os.environ["maple_" + key] = str(value)
 
     def _set_attributes(self, default_attributes, attributes):
         """

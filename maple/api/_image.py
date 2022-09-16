@@ -25,7 +25,6 @@ class Image(Maple):
         self._name = "ubuntu"
         self._base = "ubuntu:latest"
         self._backend = "docker"
-        self._platform = "linux/amd64"
         self._target = "/home/mount"
         self._source = os.getenv("PWD")
 
