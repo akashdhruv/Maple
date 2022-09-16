@@ -32,6 +32,7 @@ def build(as_root=False, options="", cmd_list=None, env_list=None, create_tar=Fa
 
     # Select the base and user Dockerfile
     dockerfile_base = os.getenv("maple_dir") + "/resources/Dockerfile.base"
+    dockerfile_mpi = os.getenv("maple_dir") + "/resources/Dockerfile.mpi"
 
     # Populate Dockerfile for the build
     subprocess.run(
