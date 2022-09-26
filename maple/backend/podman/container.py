@@ -130,6 +130,16 @@ def publish(cmd_list=None):
     ---------
     cmd_list: list of commands to publish
     """
+
+    # TODO: This should be available as an option
+    #       see issue #125
+    #
+    # image.build(
+    #    options="--volume $maple_source:$maple_target \
+    #             --build-arg maple_workdir=$maple_target",
+    #    cmd_list=cmd_list,
+    # )
+
     pour()
 
     result_list = []
