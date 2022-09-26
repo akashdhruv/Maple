@@ -64,8 +64,6 @@ def build(as_root=False, options="", cmd_list=None, env_list=None, create_tar=Fa
     # execute podman build
     subprocess.run(
         f"podman build {options} -t $maple_image --no-cache \
-                                 --volume $maple_source:$maple_target \
-                                 --build-arg maple_workdir=$maple_target \
                                  --build-arg maple_base=$maple_base \
                                  --build-arg maple_user=$maple_user \
                                  --build-arg maple_uid=$maple_uid \

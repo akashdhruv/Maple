@@ -4,6 +4,7 @@ import os
 import subprocess
 import random
 
+from . import image
 
 def commit():
     """
@@ -131,28 +132,30 @@ def publish(cmd_list=None):
     cmd_list: list of commands to publish
     """
 
+    os.environ["maple_base"] = "localhost" + "/" + os.getenv("maple_image")
+
+    image.build(
+        options="--volume $maple_source:$maple_target \
+                 --build-arg maple_workdir=$maple_target",
+        cmd_list=cmd_list,
+    )
+
     # TODO: This should be available as an option
     #       see issue #125
     #
-    # image.build(
-    #    options="--volume $maple_source:$maple_target \
-    #             --build-arg maple_workdir=$maple_target",
-    #    cmd_list=cmd_list,
-    # )
-
-    pour()
-
-    result_list = []
-
-    if cmd_list:
-        for command in cmd_list:
-            result_list.append(execute(command))
-
-    commit()
-    rinse()
-
-    if not all(result == 0 for result in result_list):
-        raise Exception("[maple] Error inside container")
+    # pour()
+    #
+    # result_list = []
+    #
+    # if cmd_list:
+    #    for command in cmd_list:
+    #        result_list.append(execute(command))
+    #
+    # commit()
+    # rinse()
+    #
+    # if not all(result == 0 for result in result_list):
+    #    raise Exception("[maple] Error inside container")
 
 
 def notebook(port="4321"):

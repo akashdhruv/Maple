@@ -51,6 +51,17 @@ class Container(Maple):
         image.setenv()
         Backend().container.run(command, options)
 
+    def publish(self, image, command):
+        """
+        Publish a container to an image
+        """
+        cmd_list = None
+        if command:
+            cmd_list = [command]
+
+        self.setenv()
+        image.setenv()
+        Backend().container.publish(cmd_list)
 
 def Run(name, image, command, options=""):
     """
@@ -58,3 +69,11 @@ def Run(name, image, command, options=""):
     """
     container = Container(name=name)
     container.run(image, command, options)
+
+
+def Publish(name, image, command):
+    """
+    Standalone publish command
+    """
+    container = Container(name=name)
+    container.publish(image, command)

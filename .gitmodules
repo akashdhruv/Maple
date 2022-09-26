@@ -1,0 +1,3 @@
+[submodule "projects/summit"]
+	path = projects/summit
+	url = git@github.com:akashdhruv/summit-container-tests.git
