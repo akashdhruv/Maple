@@ -111,13 +111,14 @@ def execute(command):
 #
 @container.command("pour")
 @click.option("--image", "-I", default="None", help="image to pour inside container")
-def pour(image):
+@click.option("--options", "-o", default="", help="run options")
+def pour(image, options):
     """
     Pour an image into a container
     """
     if image != "None":
         os.environ["maple_image"] = str(image)
-    Backend().container.pour()
+    Backend().container.pour(options)
 
 
 # Rinse a local container

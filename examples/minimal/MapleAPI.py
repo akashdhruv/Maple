@@ -3,7 +3,7 @@
 import maple.api as maple
 
 # Image object
-image = maple.Image()
+image = maple.Image(backend="docker")
 
 # Container object
 container = maple.Container()

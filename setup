@@ -31,7 +31,7 @@ def install():
 def publish():
     """Publish PyPi package"""
     subprocess.run("python3 setup.py sdist", shell=True, check=True)
-    subprocess.run("twine upload dist/*", shell=True, check=True)
+    subprocess.run("twine upload --verbose dist/*", shell=True, check=True)
 
 
 @setup.command(name="clean")
