@@ -69,7 +69,6 @@ def build(as_root=False, options="", cmd_list=None, env_list=None, create_tar=Fa
     # execute docker build
     subprocess.run(
         f"docker build {options} -t $maple_image --no-cache \
-                                 --build-arg maple_workdir=/ \
                                  --build-arg maple_base=$maple_base \
                                  --build-arg maple_user=$maple_user \
                                  --build-arg maple_uid=$maple_uid \

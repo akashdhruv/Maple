@@ -136,7 +136,9 @@ def notebook(port="4321"):
     )
 
     pour(options="--cleanenv")
-    result = execute(f"jupyter notebook --port={port} --no-browser --ip=0.0.0.0")
+    result = execute(
+        f"jupyter notebook --port={port} --no-browser --ip=0.0.0.0 --allow-root"
+    )
     rinse()
 
     if result != 0:
