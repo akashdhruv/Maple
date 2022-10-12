@@ -8,9 +8,7 @@ Maple
 Introduction
 ------------
 
-Maple is a Python API and CLI that acts as a wrapper around
-docker/singularity to implement containerization of HPC applications and
-their dependencies.
+Maple is a Python API and CLI that acts as a wrapper around docker/singularity to implement containerization of HPC applications and their dependencies.
 
 Tutorial
 --------
@@ -20,28 +18,15 @@ Tutorial
 Installation
 ------------
 
+Using Python Package Index (PyPI)
 ::
+   pip3 install PyMaple
 
-   mkdir -p $HOME/.local/bin
-   export PATH="$PATH:$HOME/.local/bin"
-   ./setup develop && ./setup install
+Development mode
+::
+   pip3 install click && ./setup develop
 
-Writing a Maplefile
--------------------
-
-``Maplefile`` is used to define environment variables required by
-``maple``. Following is a list of variables:
-
-``base``: Name of the base image
-
-``container``: Name of the local container
-
-``target``: Name of the target dir to mount source dir
-
-``backend``: Backend (docker/singularity)
-
-``maple`` passes these variables to its internal ``Dockerfile`` to build
-the images and containers.
+The command line script, ``maple``, will be stored in ``~/.local/bin``
 
 CLI use:
 --------
@@ -86,11 +71,6 @@ CLI use:
    ``maple image delete <image1> <image2> <image3>``: deletes images
 
 -  Remote interface ``maple pull <image>`` and ``maple push <image>``
-
-Examples
---------
-
-See ``examples/create`` ``examples/bubblebox`` ``examples/flashsim``
 
 .. |Code style: black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/psf/black
