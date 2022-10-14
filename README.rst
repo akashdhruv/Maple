@@ -1,5 +1,8 @@
-Maple
-=====
+.. |icon| image:: ./icon.svg
+  :width: 30 
+  
+|icon| Maple
+============
 
 |Code style: black|
 
