@@ -53,49 +53,111 @@ The ``maple`` script is installed in ``$HOME/.local/bin`` directory and therfore
 Writing a Maplefile
 ===================
 
+Maplefile is a TOML configuration file that is placed in a project root directory. Location of the Maplefile marks the directory which will be mounted inside container
+
+::
+
+  $ tree Flash-X
+  
+  ├── bin 
+  ├── docs  
+  ├── LICENSE
+  ├── NOTICE
+  ├── RELEASE
+  ├── sites
+  ├── tools
+  ├── container
+  ├── lib
+  ├── Maplefile
+  ├── README.md
+  ├── setup
+  ├── source
+
+
+The corresponding Maplefile for Flash-X looks like
+
+.. code-block:: python
+  
+  # Maplefile for Flash-X
+
+  # Base Image
+  base = "akashdhruv/amrex:ppc64le"
+
+  # Platform
+  platform = "linux/ppc64le"
+
+  # Name of the container/image
+  container = "flashx"
+
+  # MPI path from host
+  mpi = "/path/to/host/mpi"
+
+
+  # Commands for building local image
+  # from base image, and installing dependencies
+  build = [
+    "dnf install <packages>", 
+    "pip install <python-packages>", 
+  ]
+
+  # Commands to execute inside the container
+  # using the current mount directory and
+  # update the local image
+  publish = [
+    "./setup <simulation> <options>", 
+    "make && cp <app> </path/inside/image>", 
+  ]
+
+  # Backend for service
+  # docker/singularity/podman
+  backend = "podman"
+
 Usage
 =====
 
--  Building an image
+- Build a local image from base image
 
-   ``maple image build <image>``: Build local image from remote image
+    ``maple image build --base=<image-name>``
+- Activate local container from an image
 
--  Getting shell access:
+    ``maple container pour --image=<image-name>``
+- Step inside container shell
 
-   ``maple container pour --image=<image>``: Pour local image into a
-   container
+    ``maple container shell``
+    
+- Save changes from a local container to an image
 
-   ``maple container shell``: Provides shell access to the container
+    ``maple container commit --image=<image-name>`` 
 
-   ``maple container commit --image=<image>``: Save changes from local
-   container to local image (only available with docker backend)
+- Stop and delete local container
 
-   ``maple container rinse``: This commands stops and deletes the local
-   container (only available with docker backend)
+    ``maple container rinse``
 
-   ``maple image squash --image=<image>``: Prune redundant layers from a
-   local image (do this to reduce size of an image after
-   ``maple container commit``, only available with docker backend)
+- Prune redundant layers from a local image (reduce size)
 
--  Launch an ipython notebook inside the
+    ``maple image squash --image=<image-name>``
 
-   ``maple container notebook --image=<image> --port=<port>``: launches
-   the notebook server
+- Launch an ipython notebook inside the container
 
--  Run commands inside the container
+    ``maple container notebook --image=<image-name> --port=<port-id>``
 
-   ``maple container run --image=<image> "echo Hello World!"``: example
-   to launch specific command inside the container, use –comit to save
-   changes to the image
+- Run commands inside the container
 
--  Cleanup
+    ``maple container run --image=<image-name> "echo Hello World!"``
 
-   ``maple container rinse <container1> <container2> <container3>``:
-   deletes containers
+- Delete containers
 
-   ``maple image delete <image1> <image2> <image3>``: deletes images
+    ``maple container rinse <container1> <container2> <container3>``
 
--  Remote interface ``maple pull <image>`` and ``maple push <image>``
+- Delete images
+
+    ``maple image delete <image1> <image2> <image3>``
+
+-  Remote interface 
+
+    ``maple pull <image-name>``
+    
+    ``maple push <image-name>``
 
 .. |Code style: black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/psf/black
