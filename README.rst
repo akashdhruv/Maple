@@ -36,7 +36,7 @@ Upgrading and uninstallation is easily managed through this interface using,
    pip install --upgrade PyMaple
    pip uninstall PyMaple
 
-There maybe situations where users may want to install Jobrunner in development mode $\\textemdash$ to design new features, debug, or customize options/commands to their needs. This can be easily accomplished using the ``setup`` script located in the project root directory and executing,
+There maybe situations where users may want to install Maple in development mode $\\textemdash$ to design new features, debug, or customize options/commands to their needs. This can be easily accomplished using the ``setup`` script located in the project root directory and executing,
 
 ::
 
