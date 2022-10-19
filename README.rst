@@ -1,5 +1,5 @@
 .. |icon| image:: ./media/icon.svg
-  :width: 30 
+  :width: 30
   
 ============  
 |icon| Maple
@@ -9,8 +9,12 @@
 
 |BubbleBox| |FlashX| |FlowX| |Minimal|
 
-Maple is a productivity tool that acts a wrapper around docker, podman, and singularity containerization services to provide a seamless interface to deploy High Performance Computing (HPC) applications on cloud and supercomputing platforms. It provides a python based library and command line interface to manage developer and production environment for running complex multiphysics simulations 
+Maple is a productivity tool that acts a wrapper around docker, podman, and singularity containerization services to provide a seamless interface to deploy High Performance Computing (HPC) applications on cloud and supercomputing platforms. It provides a python based library and command line interface to manage developer and production environment for running complex multiphysics simulations.
 
+.. image:: ./media/maple-use-1.png
+    :width: 450px
+    :align: center
+    
 Tutorial
 ========
 
