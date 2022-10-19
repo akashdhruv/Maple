@@ -61,7 +61,7 @@ The ``maple`` script is installed in ``$HOME/.local/bin`` directory and therfore
 Dependencies
 ============
 
-``toml`` ``docker`` ``singularity`` ``podman``
+``click`` ``toml`` ``docker`` ``singularity`` ``podman``
 
 Writing a Maplefile
 ===================
