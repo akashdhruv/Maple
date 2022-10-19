@@ -14,7 +14,7 @@ Maple is a productivity tool that acts a wrapper around docker, podman, and sing
 Tutorial
 ========
 
-The link below provides an overiew of Maple within the context of Flash-X (https://flash-x.org), a multiphysics scientific software instrument. Some of the details maybe be outdated, but we are working on updating the tutorial.
+The link below provides an overiew of Maple within the context of Flash-X (https://flash-x.org), a multiphysics simulation software instrument. Some of the details maybe be outdated, but we are working on updating the tutorial.
 
 |Tutorial|
 
