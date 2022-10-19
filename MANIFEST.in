@@ -2,3 +2,4 @@ include README.rst
 include LICENSE
 include CITATION
 include maple/resources/*
+include media/*
