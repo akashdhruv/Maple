@@ -11,9 +11,13 @@
 
 Maple is a productivity tool that acts a wrapper around docker, podman, and singularity containerization services to provide a seamless interface to deploy High Performance Computing (HPC) applications on cloud and supercomputing platforms. It provides a python based library and command line interface to manage developer and production environment for running complex multiphysics simulations.
 
-.. image:: ./media/maple-use-1.png
-    :width: 450px
-    :align: center
+Open-source tools for numerical simulation of partical engineering problems provide state-of-art methods and techniques, and undergo continous development for accuracy and performance on modern computing architectures. Accessibility of these tools for core industry users has been a challenge due to the presence of complexities associated with setting up desired problems with external dependencies. Consider the problem illustrated below where a backend developer for an open-source simulation tool manages/creates images for application users, who in turn can customize it for their specific use case. Maple can be used to manage/deploy this workflow.
+
+|fig1|
+
+Another important aspect that Maple aims to address is the reproducibility in research and development. As illustrated below, a scientist can publish software images using Maple to allow their peers to: (1) Reproduce their research datasets (2) Work with existing datasets to gain more insight. Maple aims to make the process of publishing/use of images organized and systematic.
+
+|fig2|
     
 Tutorial
 ========
@@ -54,10 +58,15 @@ Development mode enables testing of features/updates directly from the source co
 
 The ``maple`` script is installed in ``$HOME/.local/bin`` directory and therfore the environment variable, ``PATH``, should be updated to include this location for command line use.
 
+Dependencies
+============
+
+``toml`` ``docker`` ``singularity`` ``podman``
+
 Writing a Maplefile
 ===================
 
-Maplefile is a TOML configuration file that is placed in a project root directory. Location of the Maplefile marks the directory which will be mounted inside container
+Maplefile is a TOML configuration file that is placed in a project root directory. Location of the Maplefile marks the directory which will be mounted inside container,
 
 ::
 
@@ -77,8 +86,7 @@ Maplefile is a TOML configuration file that is placed in a project root director
   ├── setup
   ├── source
 
-
-The corresponding Maplefile for Flash-X looks like
+The example above shows the directory tree for Flash-X, which contains a Maplefile along with files/folders that comprise the project. The corresponding Maplefile looks like,
 
 .. code-block:: python
   
@@ -115,6 +123,26 @@ The corresponding Maplefile for Flash-X looks like
   # Backend for service
   # docker/singularity/podman
   backend = "podman"
+  
+Image versus Container
+======================
+
+Following is how Maple differentiates between an Image and a Container:
+
+- Image
+
+    Blueprint for running containers, provides environment to work with code/data in working directory
+
+- Container
+
+    Instance of an image
+
+    Interacts with an image by mounting data/code from working directory
+
+    Writes data to working directory when running applications from an image
+
+    Updates an image using data/code from working directory
+
 
 Usage
 =====
@@ -173,3 +201,11 @@ Usage
 
 .. |Tutorial| image:: http://img.youtube.com/vi/gNmVtj7-RBY/0.jpg
    :target: http://www.youtube.com/watch?v=gNmVtj7-RBY
+   
+.. |fig1| image:: ./media/maple-use-1.png
+    :width: 450px
+    
+.. |fig2| image:: ./media/maple-use-2.png
+    :width: 450px
+
+.. |nbsp|   unicode:: U+00A0 .. NO-BREAK SPACE
