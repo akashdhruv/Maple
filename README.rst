@@ -9,7 +9,7 @@
 
 |BubbleBox| |FlashX| |FlowX| |Minimal|
 
-Maple is a productivity tool that acts a wrapper around docker, podman, and singularity containerization services to provide a seamless interface to deploy High Performance Computing (HPC) applications on cloud and supercomputing platforms. It provides a python based library and command line interface to manage developer and production environment for running complex multiphysics simulations.
+Maple is a productivity tool that acts a wrapper around docker, podman, and singularity containerization services to provide a seamless interface to deploy High Performance Computing (HPC) applications on cloud and supercomputing platforms. It comprises a python based library and command line interface to manage developer and production environment for running complex multiphysics simulations.
 
 Open-source tools for numerical simulation of partical engineering problems provide state-of-art methods and techniques, and undergo continous development for accuracy and performance on modern computing architectures. Accessibility of these tools for core industry users has been a challenge due to the presence of complexities associated with setting up desired problems with external dependencies. Consider the problem illustrated below where a backend developer for an open-source simulation tool manages/creates images for application users, who in turn can customize it for their specific use case. Maple can be used to manage/deploy this workflow.
 
