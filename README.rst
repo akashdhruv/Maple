@@ -104,7 +104,6 @@ The example above shows the directory tree for Flash-X, which contains a Maplefi
   # MPI path from host
   mpi = "/path/to/host/mpi"
 
-
   # Commands for building local image
   # from base image, and installing dependencies
   build = [
