@@ -190,6 +190,22 @@ Usage
     
     ``maple push <image-name>``
 
+Citation
+========
+
+::
+
+  @software{akash_dhruv_2022_7255622,
+    author       = {Akash Dhruv},
+    title        = {akashdhruv/Maple: October 2022},
+    month        = oct,
+    year         = 2022,
+    publisher    = {Zenodo},
+    version      = {22.10},
+    doi          = {10.5281/zenodo.7255622},
+    url          = {https://doi.org/10.5281/zenodo.7255622}
+  }
+
 .. |Code style: black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/psf/black
    
