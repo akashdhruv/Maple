@@ -7,8 +7,11 @@ ENV maple_gid=${maple_gid}
 ENV maple_uid=${maple_uid}
 ENV maple_user=${maple_user}
 
-RUN if [[ ${OSTYPE} == linux-gnu ]] ; then addgroup --gid ${maple_gid} ${maple_user} ; fi
-RUN adduser --force-badname --disabled-password --gecos ',,,,' --uid ${maple_uid} --gid ${maple_gid} ${maple_user}
+#RUN if [[ ${OSTYPE} == linux-gnu ]] ; then addgroup --gid ${maple_gid} ${maple_user} ; fi
+#RUN adduser --force-badname --disabled-password --gecos ',,,,' --uid ${maple_uid} --gid ${maple_gid} ${maple_user}
+
+RUN bash -c 'if [[ ${OSTYPE} == linux-gnu ]] ; then addgroup --gid ${maple_gid} ${maple_user} ; fi'
+RUN bash -c 'adduser --disabled-password --gecos ',,,,' --uid ${maple_uid} --gid ${maple_gid} ${maple_user}'
 
 USER ${maple_user}
 
