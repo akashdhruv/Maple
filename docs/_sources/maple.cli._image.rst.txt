@@ -1,0 +1,8 @@
+maple.cli.\_image module
+========================
+
+.. automodule:: maple.cli._image
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

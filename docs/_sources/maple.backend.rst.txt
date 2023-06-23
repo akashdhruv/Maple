@@ -1,6 +1,12 @@
 maple.backend package
 =====================
 
+.. automodule:: maple.backend
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
 Subpackages
 -----------
 
@@ -8,25 +14,13 @@ Subpackages
    :maxdepth: 4
 
    maple.backend.docker
+   maple.backend.podman
    maple.backend.singularity
 
 Submodules
 ----------
 
-maple.backend.\_backend module
-------------------------------
+.. toctree::
+   :maxdepth: 4
 
-.. automodule:: maple.backend._backend
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :private-members:
-
-Module contents
----------------
-
-.. automodule:: maple.backend
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :private-members:
+   maple.backend._backend

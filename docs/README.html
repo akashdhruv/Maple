@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maple &mdash; Maple  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="maple package" href="maple.html" />
+    <link rel="prev" title="Welcome to Maple’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Maple
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#"> Maple</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tutorial">Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#writing-a-maplefile">Writing a Maplefile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#image-versus-container">Image versus Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#citation">Citation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="maple.html">maple package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Maple</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li> Maple</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/README.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="icon-maple">
+<h1><a class="reference internal" href="_images/icon.svg"><img alt="icon" src="_images/icon.svg" width="30" /></a> Maple<a class="headerlink" href="#icon-maple" title="Permalink to this headline"></a></h1>
+<p><a class="reference external" href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a></p>
+<p><img alt="BubbleBox" src="https://github.com/akashdhruv/Maple/workflows/BubbleBox/badge.svg" /> <img alt="FlashX" src="https://github.com/akashdhruv/Maple/workflows/FlashX/badge.svg" /> <img alt="FlowX" src="https://github.com/akashdhruv/Maple/workflows/FlowX/badge.svg" /> <img alt="Minimal" src="https://github.com/akashdhruv/Maple/workflows/Minimal/badge.svg" /></p>
+<p>Maple is a productivity tool that acts a wrapper around docker, podman, and singularity containerization services to provide a seamless interface to deploy High Performance Computing (HPC) applications on cloud and supercomputing platforms. It comprises a python based library and command line interface to manage developer and production environment for running complex multiphysics simulations.</p>
+<p>Open-source tools for numerical simulation of partical engineering problems provide state-of-art methods and techniques, and undergo continous development for accuracy and performance on modern computing architectures. Accessibility of these tools for core industry users has been a challenge due to the presence of complexities associated with setting up desired problems with external dependencies. Consider the problem illustrated below where a backend developer for an open-source simulation tool manages/creates images for application users, who in turn can customize it for their specific use case. Maple can be used to manage/deploy this workflow.</p>
+<p><a class="reference internal" href="_images/maple-use-1.png"><img alt="fig1" src="_images/maple-use-1.png" style="width: 450px;" /></a></p>
+<p>Another important aspect that Maple aims to address is the reproducibility in research and development. As illustrated below, a scientist can publish software images using Maple to allow their peers to: (1) Reproduce their research datasets (2) Work with existing datasets to gain more insight. Maple aims to make the process of publishing/use of images organized and systematic.</p>
+<p><a class="reference internal" href="_images/maple-use-2.png"><img alt="fig2" src="_images/maple-use-2.png" style="width: 450px;" /></a></p>
+<div class="section" id="tutorial">
+<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline"></a></h2>
+<p>The link below provides an overiew of Maple within the context of Flash-X (<a class="reference external" href="https://flash-x.org">https://flash-x.org</a>), a multiphysics simulation software instrument. Some of the details maybe be outdated, but we are working on updating the tutorial.</p>
+<p><a class="reference external" href="http://www.youtube.com/watch?v=gNmVtj7-RBY"><img alt="Tutorial" src="http://img.youtube.com/vi/gNmVtj7-RBY/0.jpg" /></a></p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
+<p>Stable releases of Maple are hosted on Python Package Index website (<a class="reference external" href="https://pypi.org/project/PyMaple/">https://pypi.org/project/PyMaple/</a>) and can be installed by executing,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">PyMaple</span>
+</pre></div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">pip</span></code> should point to <code class="docutils literal notranslate"><span class="pre">python3+</span></code> installation package <code class="docutils literal notranslate"><span class="pre">pip3</span></code>.</p>
+<p>Upgrading and uninstallation is easily managed through this interface using,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">PyMaple</span>
+<span class="n">pip</span> <span class="n">uninstall</span> <span class="n">PyMaple</span>
+</pre></div>
+</div>
+<p>There maybe situations where users may want to install Maple in development mode $\textemdash$ to design new features, debug, or customize options/commands to their needs. This can be easily accomplished using the <code class="docutils literal notranslate"><span class="pre">setup</span></code> script located in the project root directory and executing,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">setup</span> <span class="n">develop</span>
+</pre></div>
+</div>
+<p>Development mode enables testing of features/updates directly from the source code and is an effective method for debugging. Note that the <code class="docutils literal notranslate"><span class="pre">setup</span></code> script relies on <code class="docutils literal notranslate"><span class="pre">click</span></code>, which can be installed using,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">click</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">maple</span></code> script is installed in <code class="docutils literal notranslate"><span class="pre">$HOME/.local/bin</span></code> directory and therfore the environment variable, <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, should be updated to include this location for command line use.</p>
+</div>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">click</span></code> <code class="docutils literal notranslate"><span class="pre">toml</span></code> <code class="docutils literal notranslate"><span class="pre">docker</span></code> <code class="docutils literal notranslate"><span class="pre">singularity</span></code> <code class="docutils literal notranslate"><span class="pre">podman</span></code></p>
+</div>
+<div class="section" id="writing-a-maplefile">
+<h2>Writing a Maplefile<a class="headerlink" href="#writing-a-maplefile" title="Permalink to this headline"></a></h2>
+<p>Maplefile is a TOML configuration file that is placed in a project root directory. Location of the Maplefile marks the directory which will be mounted inside container,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tree Flash-X
+
+├── bin
+├── docs
+├── LICENSE
+├── NOTICE
+├── RELEASE
+├── sites
+├── tools
+├── container
+├── lib
+├── Maplefile
+├── README.md
+├── setup
+├── source
+</pre></div>
+</div>
+<p>The example above shows the directory tree for Flash-X, which contains a Maplefile along with files/folders that comprise the project. The corresponding Maplefile looks like,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Maplefile for Flash-X</span>
+
+<span class="c1"># Base Image</span>
+<span class="n">base</span> <span class="o">=</span> <span class="s2">&quot;akashdhruv/amrex:ppc64le&quot;</span>
+
+<span class="c1"># Platform</span>
+<span class="n">platform</span> <span class="o">=</span> <span class="s2">&quot;linux/ppc64le&quot;</span>
+
+<span class="c1"># Name of the container/image</span>
+<span class="n">container</span> <span class="o">=</span> <span class="s2">&quot;flashx&quot;</span>
+
+<span class="c1"># MPI path from host</span>
+<span class="n">mpi</span> <span class="o">=</span> <span class="s2">&quot;/path/to/host/mpi&quot;</span>
+
+<span class="c1"># Commands for building local image</span>
+<span class="c1"># from base image, and installing dependencies</span>
+<span class="n">build</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s2">&quot;dnf install &lt;packages&gt;&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;pip install &lt;python-packages&gt;&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># Commands to execute inside the container</span>
+<span class="c1"># using the current mount directory and</span>
+<span class="c1"># update the local image</span>
+<span class="n">publish</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s2">&quot;./setup &lt;simulation&gt; &lt;options&gt;&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;make &amp;&amp; cp &lt;app&gt; &lt;/path/inside/image&gt;&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># Backend for service</span>
+<span class="c1"># docker/singularity/podman</span>
+<span class="n">backend</span> <span class="o">=</span> <span class="s2">&quot;podman&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="image-versus-container">
+<h2>Image versus Container<a class="headerlink" href="#image-versus-container" title="Permalink to this headline"></a></h2>
+<p>Following is how Maple differentiates between an Image and a Container:</p>
+<ul>
+<li><p>Image</p>
+<blockquote>
+<div><p>Blueprint for running containers, provides environment to work with code/data in working directory</p>
+</div></blockquote>
+</li>
+<li><p>Container</p>
+<blockquote>
+<div><p>Instance of an image</p>
+<p>Interacts with an image by mounting data/code from working directory</p>
+<p>Writes data to working directory when running applications from an image</p>
+<p>Updates an image using data/code from working directory</p>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
+<ul>
+<li><p>Build a local image from base image</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">maple</span> <span class="pre">image</span> <span class="pre">build</span> <span class="pre">--base=&lt;image-name&gt;</span></code></p>
+</div></blockquote>
+</li>
+<li><p>Activate local container from an image</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">maple</span> <span class="pre">container</span> <span class="pre">pour</span> <span class="pre">--image=&lt;image-name&gt;</span></code></p>
+</div></blockquote>
+</li>
+<li><p>Step inside container shell</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">maple</span> <span class="pre">container</span> <span class="pre">shell</span></code></p>
+</div></blockquote>
+</li>
+<li><p>Save changes from a local container to an image</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">maple</span> <span class="pre">container</span> <span class="pre">commit</span> <span class="pre">--image=&lt;image-name&gt;</span></code></p>
+</div></blockquote>
+</li>
+<li><p>Stop and delete local container</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">maple</span> <span class="pre">container</span> <span class="pre">rinse</span></code></p>
+</div></blockquote>
+</li>
+<li><p>Prune redundant layers from a local image (reduce size)</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">maple</span> <span class="pre">image</span> <span class="pre">squash</span> <span class="pre">--image=&lt;image-name&gt;</span></code></p>
+</div></blockquote>
+</li>
+<li><p>Launch an ipython notebook inside the container</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">maple</span> <span class="pre">container</span> <span class="pre">notebook</span> <span class="pre">--image=&lt;image-name&gt;</span> <span class="pre">--port=&lt;port-id&gt;</span></code></p>
+</div></blockquote>
+</li>
+<li><p>Run commands inside the container</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">maple</span> <span class="pre">container</span> <span class="pre">run</span> <span class="pre">--image=&lt;image-name&gt;</span> <span class="pre">&quot;echo</span> <span class="pre">Hello</span> <span class="pre">World!&quot;</span></code></p>
+</div></blockquote>
+</li>
+<li><p>Delete containers</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">maple</span> <span class="pre">container</span> <span class="pre">rinse</span> <span class="pre">&lt;container1&gt;</span> <span class="pre">&lt;container2&gt;</span> <span class="pre">&lt;container3&gt;</span></code></p>
+</div></blockquote>
+</li>
+<li><p>Delete images</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">maple</span> <span class="pre">image</span> <span class="pre">delete</span> <span class="pre">&lt;image1&gt;</span> <span class="pre">&lt;image2&gt;</span> <span class="pre">&lt;image3&gt;</span></code></p>
+</div></blockquote>
+</li>
+<li><p>Remote interface</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">maple</span> <span class="pre">pull</span> <span class="pre">&lt;image-name&gt;</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">maple</span> <span class="pre">push</span> <span class="pre">&lt;image-name&gt;</span></code></p>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Permalink to this headline"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@software</span><span class="p">{</span><span class="n">akash_dhruv_2022_7255622</span><span class="p">,</span>
+  <span class="n">author</span>       <span class="o">=</span> <span class="p">{</span><span class="n">Akash</span> <span class="n">Dhruv</span><span class="p">},</span>
+  <span class="n">title</span>        <span class="o">=</span> <span class="p">{</span><span class="n">akashdhruv</span><span class="o">/</span><span class="n">Maple</span><span class="p">:</span> <span class="n">October</span> <span class="mi">2022</span><span class="p">},</span>
+  <span class="n">month</span>        <span class="o">=</span> <span class="nb">oct</span><span class="p">,</span>
+  <span class="n">year</span>         <span class="o">=</span> <span class="mi">2022</span><span class="p">,</span>
+  <span class="n">publisher</span>    <span class="o">=</span> <span class="p">{</span><span class="n">Zenodo</span><span class="p">},</span>
+  <span class="n">version</span>      <span class="o">=</span> <span class="p">{</span><span class="mf">22.10</span><span class="p">},</span>
+  <span class="n">doi</span>          <span class="o">=</span> <span class="p">{</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.7255622</span><span class="p">},</span>
+  <span class="n">url</span>          <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.7255622</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Maple’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="maple.html" class="btn btn-neutral float-right" title="maple package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Akash Dhruv.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,7 +1,0 @@
-maple
-=====
-
-.. toctree::
-   :maxdepth: 4
-
-   maple

@@ -1,1 +1,16 @@
-sphinx-apidoc -f -P -o source ../../Maple/maple
+# Excluding __meta__.py, resources
+# from current documentation. If the need arises
+# to include them in future releases, please
+# remove them from excluded paths in sphinx-apidoc
+# command
+
+echo Removing artifacts
+rm -rf source/README.rst source/media module.rst maple.*
+
+sphinx-apidoc -fPeM --implicit-namespaces -o source ../../Maple/maple \
+	../../Maple/maple/__meta__.py \
+	../../Maple/maple/resources
+
+echo Copying README.rst
+cp ../../Maple/README.rst source/.
+cp -r ../../Maple/media source/.

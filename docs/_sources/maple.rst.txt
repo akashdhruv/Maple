@@ -1,6 +1,12 @@
 maple package
 =============
 
+.. automodule:: maple
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
 Subpackages
 -----------
 
@@ -10,4 +16,3 @@ Subpackages
    maple.api
    maple.backend
    maple.cli
-   maple.resources

@@ -1,0 +1,8 @@
+maple.backend.singularity.system module
+=======================================
+
+.. automodule:: maple.backend.singularity.system
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
