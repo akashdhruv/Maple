@@ -1,0 +1,8 @@
+maple.backend.podman.container module
+=====================================
+
+.. automodule:: maple.backend.podman.container
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

@@ -1,0 +1,8 @@
+maple.api.\_image module
+========================
+
+.. automodule:: maple.api._image
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

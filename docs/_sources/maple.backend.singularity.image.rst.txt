@@ -1,0 +1,8 @@
+maple.backend.singularity.image module
+======================================
+
+.. automodule:: maple.backend.singularity.image
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

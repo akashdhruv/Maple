@@ -1,0 +1,8 @@
+maple.cli.\_maple module
+========================
+
+.. automodule:: maple.cli._maple
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

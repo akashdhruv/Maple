@@ -1,41 +1,18 @@
 maple.api package
 =================
 
-Submodules
-----------
-
-maple.api.\_container module
-----------------------------
-
-.. automodule:: maple.api._container
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :private-members:
-
-maple.api.\_image module
-------------------------
-
-.. automodule:: maple.api._image
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :private-members:
-
-maple.api.\_maple module
-------------------------
-
-.. automodule:: maple.api._maple
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :private-members:
-
-Module contents
----------------
-
 .. automodule:: maple.api
    :members:
    :undoc-members:
    :show-inheritance:
    :private-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   maple.api._container
+   maple.api._image
+   maple.api._maple

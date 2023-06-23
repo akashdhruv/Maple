@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>maple.backend.singularity package &mdash; Maple  documentation</title>
+  <title>maple.backend.podman.system module &mdash; Maple  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -17,8 +17,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="maple.backend.singularity.container module" href="maple.backend.singularity.container.html" />
-    <link rel="prev" title="maple.backend.podman.system module" href="maple.backend.podman.system.html" /> 
+    <link rel="next" title="maple.backend.singularity package" href="maple.backend.singularity.html" />
+    <link rel="prev" title="maple.backend.podman.image module" href="maple.backend.podman.image.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -70,9 +70,10 @@
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="maple.html">maple package</a> &raquo;</li>
           <li><a href="maple.backend.html">maple.backend package</a> &raquo;</li>
-      <li>maple.backend.singularity package</li>
+          <li><a href="maple.backend.podman.html">maple.backend.podman package</a> &raquo;</li>
+      <li>maple.backend.podman.system module</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/maple.backend.singularity.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/maple.backend.podman.system.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -80,26 +81,29 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="module-maple.backend.singularity">
-<span id="maple-backend-singularity-package"></span><h1>maple.backend.singularity package<a class="headerlink" href="#module-maple.backend.singularity" title="Permalink to this headline"></a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="maple.backend.singularity.container.html">maple.backend.singularity.container module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="maple.backend.singularity.image.html">maple.backend.singularity.image module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="maple.backend.singularity.system.html">maple.backend.singularity.system module</a></li>
-</ul>
-</div>
-</div>
+  <div class="section" id="module-maple.backend.podman.system">
+<span id="maple-backend-podman-system-module"></span><h1>maple.backend.podman.system module<a class="headerlink" href="#module-maple.backend.podman.system" title="Permalink to this headline"></a></h1>
+<p>Python API for podman interface in maple</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="maple.backend.podman.system.login">
+<span class="sig-prename descclassname"><span class="pre">maple.backend.podman.system.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.podman.system.login" title="Permalink to this definition"></a></dt>
+<dd><p>Login to podman account</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="maple.backend.podman.system.prune">
+<span class="sig-prename descclassname"><span class="pre">maple.backend.podman.system.</span></span><span class="sig-name descname"><span class="pre">prune</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.podman.system.prune" title="Permalink to this definition"></a></dt>
+<dd><p>Prune system</p>
+</dd></dl>
+
 </div>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="maple.backend.podman.system.html" class="btn btn-neutral float-left" title="maple.backend.podman.system module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="maple.backend.singularity.container.html" class="btn btn-neutral float-right" title="maple.backend.singularity.container module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="maple.backend.podman.image.html" class="btn btn-neutral float-left" title="maple.backend.podman.image module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="maple.backend.singularity.html" class="btn btn-neutral float-right" title="maple.backend.singularity package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

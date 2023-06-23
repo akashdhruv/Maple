@@ -17,7 +17,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="maple.backend.singularity package" href="maple.backend.singularity.html" />
+    <link rel="next" title="maple.backend.docker.container module" href="maple.backend.docker.container.html" />
     <link rel="prev" title="maple.backend package" href="maple.backend.html" /> 
 </head>
 
@@ -38,15 +38,16 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">maple</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="maple.html">maple package</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="maple.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="maple.api.html">maple.api package</a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="maple.backend.html">maple.backend package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="maple.cli.html">maple.cli package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="maple.resources.html">maple.resources package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html"> Maple</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="maple.html">maple package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="maple.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="maple.api.html">maple.api package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="maple.backend.html">maple.backend package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="maple.backend.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="maple.backend.html#submodules">Submodules</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="maple.cli.html">maple.cli package</a></li>
 </ul>
 </li>
 </ul>
@@ -67,7 +68,6 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="modules.html">maple</a> &raquo;</li>
           <li><a href="maple.html">maple package</a> &raquo;</li>
           <li><a href="maple.backend.html">maple.backend package</a> &raquo;</li>
       <li>maple.backend.docker package</li>
@@ -80,212 +80,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="maple-backend-docker-package">
-<h1>maple.backend.docker package<a class="headerlink" href="#maple-backend-docker-package" title="Permalink to this headline"></a></h1>
+  <div class="section" id="module-maple.backend.docker">
+<span id="maple-backend-docker-package"></span><h1>maple.backend.docker package<a class="headerlink" href="#module-maple.backend.docker" title="Permalink to this headline"></a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="maple.backend.docker.container.html">maple.backend.docker.container module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="maple.backend.docker.image.html">maple.backend.docker.image module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="maple.backend.docker.system.html">maple.backend.docker.system module</a></li>
+</ul>
 </div>
-<div class="section" id="module-maple.backend.docker.container">
-<span id="maple-backend-docker-container-module"></span><h2>maple.backend.docker.container module<a class="headerlink" href="#module-maple.backend.docker.container" title="Permalink to this headline"></a></h2>
-<p>Python API for docker interface in maple</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.container.commit">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.container.</span></span><span class="sig-name descname"><span class="pre">commit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.container.commit" title="Permalink to this definition"></a></dt>
-<dd><p>Commit changes from local container to local image</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.container.execute">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.container.</span></span><span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.container.execute" title="Permalink to this definition"></a></dt>
-<dd><p>Run local image in a container</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>command</strong> (<em>string of command to execute</em>) – </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.container.list">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.container.</span></span><span class="sig-name descname"><span class="pre">list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.container.list" title="Permalink to this definition"></a></dt>
-<dd><p>List all containers on system</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.container.notebook">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.container.</span></span><span class="sig-name descname"><span class="pre">notebook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'4321'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.container.notebook" title="Permalink to this definition"></a></dt>
-<dd><p>Launch ipython notebook inside the container</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>image</strong> (<em>image name</em>) – </p></li>
-<li><p><strong>port</strong> (<em>port id</em><em> (</em><em>'4321'</em><em>)</em>) – </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.container.pour">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.container.</span></span><span class="sig-name descname"><span class="pre">pour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.container.pour" title="Permalink to this definition"></a></dt>
-<dd><p>Pour local image in a container, opposite of maple rinse</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>options</strong> (<em>string of options</em>) – </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.container.publish">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.container.</span></span><span class="sig-name descname"><span class="pre">publish</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.container.publish" title="Permalink to this definition"></a></dt>
-<dd><p>Publish container to an image</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>cmd_list</strong> (<em>list of commands to publish</em>) – </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.container.rinse">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.container.</span></span><span class="sig-name descname"><span class="pre">rinse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rinse_all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.container.rinse" title="Permalink to this definition"></a></dt>
-<dd><p>Stop and remove the local container, opposite of maple pour</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>rinse_all</strong> (<em>(</em><em>True/False</em><em>) </em><em>flag to rinse all container</em>) – </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.container.run">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.container.</span></span><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.container.run" title="Permalink to this definition"></a></dt>
-<dd><p>Run and rinse the local container</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>command</strong> (<em>command string</em>) – </p></li>
-<li><p><strong>options</strong> (<em>run options</em>) – </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.container.shell">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.container.</span></span><span class="sig-name descname"><span class="pre">shell</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.container.shell" title="Permalink to this definition"></a></dt>
-<dd><p>Get shell access to the local container</p>
-</dd></dl>
-
-</div>
-<div class="section" id="module-maple.backend.docker.image">
-<span id="maple-backend-docker-image-module"></span><h2>maple.backend.docker.image module<a class="headerlink" href="#module-maple.backend.docker.image" title="Permalink to this headline"></a></h2>
-<p>Python API for docker interface in maple</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.image.build">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.image.</span></span><span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">as_root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmd_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.image.build" title="Permalink to this definition"></a></dt>
-<dd><p>Builds a local image from remote image</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>as_root</strong> (<em>Build image as root</em><em> (</em><em>True/False</em><em>)</em>) – </p></li>
-<li><p><strong>cmd_list</strong> (<em>Command list for build</em>) – </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.image.delete">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.image.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.image.delete" title="Permalink to this definition"></a></dt>
-<dd><p>Delete an image</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.image.list">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.image.</span></span><span class="sig-name descname"><span class="pre">list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.image.list" title="Permalink to this definition"></a></dt>
-<dd><p>List all images on system</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.image.pull">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.image.</span></span><span class="sig-name descname"><span class="pre">pull</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.image.pull" title="Permalink to this definition"></a></dt>
-<dd><p>Pull remote image</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>target</strong> (<em>target image to pull into</em>) – </p></li>
-<li><p><strong>base</strong> (<em>base image in remote registry</em>) – </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.image.push">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.image.</span></span><span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.image.push" title="Permalink to this definition"></a></dt>
-<dd><p>Push local image to remote tag/image</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>base</strong> (<em>base image</em>) – </p></li>
-<li><p><strong>target</strong> (<em>target image to push</em>) – </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.image.scan">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.image.</span></span><span class="sig-name descname"><span class="pre">scan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.image.scan" title="Permalink to this definition"></a></dt>
-<dd><p>Scan an image</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>image name</em>) – </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.image.squash">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.image.</span></span><span class="sig-name descname"><span class="pre">squash</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.image.squash" title="Permalink to this definition"></a></dt>
-<dd><p>Squash an image and remove layers</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.image.tag">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.image.</span></span><span class="sig-name descname"><span class="pre">tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.image.tag" title="Permalink to this definition"></a></dt>
-<dd><p>Tag a target image from base image</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>base</strong> (<em>base image</em>) – </p></li>
-<li><p><strong>target</strong> (<em>target image to push</em>) – </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-maple.backend.docker.system">
-<span id="maple-backend-docker-system-module"></span><h2>maple.backend.docker.system module<a class="headerlink" href="#module-maple.backend.docker.system" title="Permalink to this headline"></a></h2>
-<p>Python API for docker interface in maple</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.system.login">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.system.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.system.login" title="Permalink to this definition"></a></dt>
-<dd><p>Login to docker account</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="maple.backend.docker.system.prune">
-<span class="sig-prename descclassname"><span class="pre">maple.backend.docker.system.</span></span><span class="sig-name descname"><span class="pre">prune</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#maple.backend.docker.system.prune" title="Permalink to this definition"></a></dt>
-<dd><p>Prune system</p>
-</dd></dl>
-
-</div>
-<div class="section" id="module-maple.backend.docker">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-maple.backend.docker" title="Permalink to this headline"></a></h2>
 </div>
 </div>
 
@@ -294,7 +99,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="maple.backend.html" class="btn btn-neutral float-left" title="maple.backend package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="maple.backend.singularity.html" class="btn btn-neutral float-right" title="maple.backend.singularity package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="maple.backend.docker.container.html" class="btn btn-neutral float-right" title="maple.backend.docker.container module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
