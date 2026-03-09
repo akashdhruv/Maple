@@ -29,34 +29,19 @@ The link below provides an overiew of Maple within the context of Flash-X (https
 Installation
 ============
 
-Stable releases of Maple are hosted on Python Package Index website (`<https://pypi.org/project/PyMaple/>`_) and can be installed by executing,
+Stable releases of Maple can be installed directly from the ``main`` branch on GitHub by executing,
 
 ::
 
-   pip install PyMaple
-   
-Note that ``pip`` should point to ``python3+`` installation package ``pip3``. 
+   pip3 install git+https://github.com/akashdhruv/Maple.git
 
-Upgrading and uninstallation is easily managed through this interface using,
+For development mode $\\textemdash$ to design new features, debug, or customize options/commands $\\textemdash$ clone the repository and execute,
 
 ::
 
-   pip install --upgrade PyMaple
-   pip uninstall PyMaple
+   pip install -e .
 
-There maybe situations where users may want to install Maple in development mode $\\textemdash$ to design new features, debug, or customize options/commands to their needs. This can be easily accomplished using the ``setup`` script located in the project root directory and executing,
-
-::
-
-   ./setup develop
-
-Development mode enables testing of features/updates directly from the source code and is an effective method for debugging. Note that the ``setup`` script relies on ``click``, which can be installed using,
-
-::
-
-  pip install click
-
-The ``maple`` script is installed in ``$HOME/.local/bin`` directory and therfore the environment variable, ``PATH``, should be updated to include this location for command line use.
+Development mode enables testing of features/updates directly from the source code and is an effective method for debugging.
 
 Dependencies
 ============
