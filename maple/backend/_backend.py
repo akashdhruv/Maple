@@ -2,9 +2,9 @@
 
 import os
 
-from . import docker
-from . import singularity
-from . import podman
+import maple.backend.docker as docker
+import maple.backend.singularity as singularity
+import maple.backend.podman as podman
 
 
 def Backend():

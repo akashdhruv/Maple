@@ -4,7 +4,7 @@ import os
 import subprocess
 import random
 
-from . import image
+from maple.backend.podman import image
 
 
 def commit():
