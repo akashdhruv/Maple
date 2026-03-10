@@ -1,16 +1,14 @@
 # Name of the composite action
 name: maple
- 
+
 runs:
   using: "composite"
   steps:
     - run: cd ~/ && git clone https://github.com/akashdhruv/Maple.git
       shell: bash
-    - run: pip3 install click
-      shell: bash
     - run: mkdir -p $HOME/.local/bin && export PATH="PATH:$HOME/.local/bin"
       shell: bash
-    - run: cd ~/Maple && ./setup install
+    - run: cd ~/Maple && pip3 install .
       shell: bash
     - run: rm -rf ~/Maple
       shell: bash
