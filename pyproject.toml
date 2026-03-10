@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "PyMaple"
+dynamic = ["version"]
+description = "Maple Container Utility"
+authors = [{ name = "Akash Dhruv" }]
+license = { text = "Apache License" }
+readme = { file = "README.rst", content-type = "text/x-rst" }
+requires-python = ">=3.6"
+dependencies = ["click", "toml"]
+
+[project.scripts]
+maple = "maple.cli:maple"
+
+[tool.setuptools.dynamic]
+version = { attr = "maple.__meta__.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.setuptools.package-data]
+maple = ["resources/*"]

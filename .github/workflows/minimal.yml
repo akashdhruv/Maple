@@ -16,7 +16,7 @@ jobs:
     name: "CLI"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - uses: eWaterCycle/setup-singularity@v7
       with:
         singularity-version: 3.8.3 
@@ -34,7 +34,7 @@ jobs:
     name: "API"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - uses: ./.github/actions/install
     - name: Run examples/minimal
       run: |
