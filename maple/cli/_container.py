@@ -6,8 +6,8 @@ import os
 import click
 import toml
 
-from ..backend import Backend
-from . import maple
+from maple.backend import Backend
+from maple.cli import maple
 
 
 # CLI group

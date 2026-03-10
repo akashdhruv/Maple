@@ -3,7 +3,7 @@
 import os
 import subprocess
 
-from . import container
+from maple.backend.podman import container
 
 
 def build(as_root=False, options="", cmd_list=None, env_list=None, create_tar=False):

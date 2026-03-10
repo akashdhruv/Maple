@@ -3,8 +3,8 @@
 import os
 import pwd
 
-from . import Maple
-from ..backend import Backend
+from maple.api import Maple
+from maple.backend import Backend
 
 
 class Image(Maple):
